@@ -6,12 +6,13 @@ AC_CONFIG_HEADER([config.h])
 # Checks for programs.
 AC_PROG_AWK
 AC_PROG_SED
-# see if we can use GNU SOURCE, this is called high so that CPP flags are mangled in the correct order
-AC_GNU_SOURCE
 AC_PROG_CC
 AC_PROG_CC_C99
 AC_PROG_CPP
 AC_PROG_CXX
+# see if we can use GNU SOURCE, this is called high so that CFLAGS flags are mangled in the correct order
+AC_GNU_SOURCE
+LT_INIT()
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
@@ -64,6 +65,7 @@ AC_TYPE_PID_T
 # Checks for library functions.
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset])
+
 
 # Adds in versioning for libraries
 # According to http://sources.redhat.com/autobook/autobook/autobook_91.html#SEC91
