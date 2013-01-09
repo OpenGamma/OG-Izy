@@ -7,6 +7,7 @@ AC_CONFIG_HEADER([config.h])
 AC_PROG_AWK
 AC_PROG_SED
 AC_PROG_CC
+AC_PROG_CC_C99
 AC_PROG_CPP
 AC_PROG_CXX
 AC_PROG_INSTALL
@@ -16,6 +17,12 @@ AC_PROG_RANLIB
 AC_PROG_LIBTOOL
 AM_PROG_CC_C_O
 AC_PROG_FC
+
+AS_IF([test "x$CC" != "gcc"],[
+# guess at flags for architectural tuning
+AX_GCC_ARCHFLAG
+],[])
+
 
 # check for f77
 AC_PROG_F77([fl32 f77 fort77 xlf g77 f90 xlf90 gfortran])
