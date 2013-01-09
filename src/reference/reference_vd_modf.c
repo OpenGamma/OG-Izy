@@ -9,7 +9,7 @@ void vd_reference_modf(double * arg0, const int * offsetarg0, double * out0, con
         out0ref = &out0[*offsetout0];
         out1ref = &out1[*offsetout1];
         arg0ref = &arg0[*offsetarg0];
-        for(i=0;i<count;i++)\
+        for(i=0;i<*count;i++)\
         {
                 out0ref[i]= modf(arg0ref[i], &out1ref[i]);
         }

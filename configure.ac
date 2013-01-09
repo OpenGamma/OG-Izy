@@ -6,6 +6,8 @@ AC_CONFIG_HEADER([config.h])
 # Checks for programs.
 AC_PROG_AWK
 AC_PROG_SED
+# see if we can use GNU SOURCE, this is called high so that CPP flags are mangled in the correct order
+AC_GNU_SOURCE
 AC_PROG_CC
 AC_PROG_CC_C99
 AC_PROG_CPP
@@ -22,6 +24,7 @@ AS_IF([test "x$CC" != "gcc"],[
 # guess at flags for architectural tuning
 AX_GCC_ARCHFLAG
 ],[])
+
 
 
 # check for f77
