@@ -2,8 +2,15 @@
 #include "izy.h"
 #include "izyreference.h"
 
+#ifdef HAVE_MKL
+#define IZY_REFERENCE_ONEARGONERESULT(_NAME) \
+vd##_NAME()
+#else
+// we can replace libm calls with AMCL libm calls in the actual functions
+// don't think amd has a full blown vector lib
 #define IZY_REFERENCE_ONEARGONERESULT(_NAME) \
 vd_reference_##_NAME(arg0, offsetarg0, out0, offsetout0, count);
+#endif
 
 #define IZY_REFERENCE_ONEARGTWORESULT(_NAME)
 #define IZY_REFERENCE_TWOARGONERESULT(_NAME)
