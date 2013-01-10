@@ -1,8 +1,16 @@
-TESTS = check_vdcos check_vdsin check_vdtan check_vdacos check_vdasin check_vdatan check_vdatan2 check_vdsincos
+# TEST EXECS
+DEF_TRIG = check_vdcos check_vdsin check_vdtan check_vdacos check_vdasin check_vdatan check_vdatan2  check_vdsincos
+DEF_ARITH = check_vdadd
 
-check_PROGRAMS = check_vdcos check_vdsin check_vdtan check_vdacos check_vdasin check_vdatan check_vdatan2  check_vdsincos
+TESTS=$(DEF_TRIG) $(DEF_ARITH)
+
+# PROGRAMS
+
+check_PROGRAMS = $(DEF_TRIG) $(DEF_ARITH)
+
 INCLUDES = -I $(top_builddir)/include/
 
+# TRIG
 check_vdcos_SOURCES = check_vdcos.c 
 check_vdcos_LDADD = $(top_builddir)/src/libizy.la
 
@@ -26,3 +34,7 @@ check_vdatan2_LDADD = $(top_builddir)/src/libizy.la
 
 check_vdsincos_SOURCES = check_vdsincos.c 
 check_vdsincos_LDADD = $(top_builddir)/src/libizy.la
+
+# ARITH
+check_vdadd_SOURCES = check_vdadd.c 
+check_vdadd_LDADD = $(top_builddir)/src/libizy.la
