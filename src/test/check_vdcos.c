@@ -116,6 +116,7 @@ int main()
         const int offsetin_used0 = (int)0.2*offsetin0;
         const int offsetout_used0 = (int)0.4*offsetin0;;
         const int count_used = count - offsetout_used0;
+        memset(results_data,0x0,count*sizeof(double));        
         
         /* make izy call */       
         vd_cos(in_data,&offsetin_used0,results_data,&offsetout_used0,&count_used);
