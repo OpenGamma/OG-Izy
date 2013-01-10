@@ -147,14 +147,14 @@ int main()
         }
 
           /* stage calls to saturation */
-        double IVAL0 = 0;
-        double IVAL1 = 0;        
-        double RVAL = 0;
+        double IVAL0 =  0.e0;
+        double IVAL1 =  0.e0;        
+        double RVAL =  0.e0;
         const int one = 1;
                
         /* test NaN arg0 */
         IVAL0 = NAN;
-        IVAL1 = 0;                
+        IVAL1 =  0.e0;                
         vd_subx(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
         if(!isnan(RVAL))
         {
@@ -187,7 +187,7 @@ int main()
               
         /* test +INF */
         IVAL0 = INFINITY;
-        IVAL1 = 0;        
+        IVAL1 =  0.e0;        
         vd_subx(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
         if(!(isinf(RVAL)&&!signbit(RVAL)))
         {
@@ -220,7 +220,7 @@ int main()
         
         /* test -INF */
         IVAL0 = -INFINITY;        
-        IVAL1 = 0;
+        IVAL1 =  0.e0;
         vd_subx(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
         if(!(isinf(RVAL)&&signbit(RVAL)))
         {
