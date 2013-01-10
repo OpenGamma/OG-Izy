@@ -39,7 +39,7 @@ _VECTORTWOARGONEISCONSTONERESULTFUNCTION(divx)
 void linearfrac(double * arg0, const int * offset0, double * arg1, const int * offset1, const double * scale0, const double * scale1, const double * shift0, const double * shift1, double * out0, const int * offsetout0);
 _VECTORTWOARGONERESULTFUNCTION(mul)
 _VECTORTWOARGONEISCONSTONERESULTFUNCTION(mulx)
-_VECTORTWOARGONERESULTFUNCTION(sqr)
+_VECTORONEARGONERESULTFUNCTION(sqr)
 _VECTORTWOARGONERESULTFUNCTION(sub)
 _VECTORTWOARGONEISCONSTONERESULTFUNCTION(subx)
 _VECTORONEARGONERESULTFUNCTION(ceil)
