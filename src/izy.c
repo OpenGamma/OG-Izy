@@ -22,7 +22,10 @@ vd_reference_##_NAME(arg0, offsetarg0, arg1, offsetarg1, out0, offsetout0, count
 
 
 
-#define IZY_REFERENCE_TWOARGONEISCONSTONERESULT(_NAME)
+#define IZY_REFERENCE_TWOARGONEISCONSTONERESULT(_NAME)\
+vd_reference_##_NAME(arg0, offsetarg0, arg1, offsetarg1, out0, offsetout0, count);
+
+
 
 void vd_acos(double * arg0, const int * offsetarg0, double * out0, const int * offsetout0, const int * count)
 {
