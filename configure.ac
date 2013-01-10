@@ -6,13 +6,11 @@ AC_CONFIG_HEADER([config.h])
 # Checks for programs.
 AC_PROG_AWK
 AC_PROG_SED
+LT_INIT()
 AC_PROG_CC
 AC_PROG_CC_C99
 AC_PROG_CPP
 AC_PROG_CXX
-# see if we can use GNU SOURCE, this is called high so that CFLAGS flags are mangled in the correct order
-AC_GNU_SOURCE
-LT_INIT()
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
@@ -65,6 +63,9 @@ AC_TYPE_PID_T
 # Checks for library functions.
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset])
+AC_CHECK_FUNCS([modf])
+AC_CHECK_FUNCS([sincos])
+
 
 
 # Adds in versioning for libraries
@@ -92,8 +93,9 @@ AC_SUBST(OMP_CFLAGS,$OPENMP_CFLAGS)
 AC_CONFIG_FILES([Makefile
                 src/Makefile
                 src/reference/Makefile
+                src/test/Makefile
                 ])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([parallel-tests color-tests])
 AC_OUTPUT
 
 echo "

@@ -1,6 +1,6 @@
-SUBDIRS = reference/
-lib_LTLIBRARIES =  libizy.la 
+SUBDIRS = reference/ test/
 
+lib_LTLIBRARIES =  libizy.la 
 
 libizy_la_CPPFLAGS = -I ../include/
 libizy_la_LIBADD = reference/libizyreference.la

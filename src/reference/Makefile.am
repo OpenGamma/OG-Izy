@@ -1,7 +1,7 @@
 lib_LTLIBRARIES = libizyreference.la
 
 
-libizyreference_la_CPPFLAGS = -I ../../include/ -Werror
+libizyreference_la_CPPFLAGS = -I ../../include/ -I ../../ -Werror
 libizyreference_la_LIBADD = 
 libizyreference_la_LDFLAGS = -version-info $(LIBIZY_VERSION)
 libizyreference_la_SOURCES = \
