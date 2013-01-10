@@ -1,6 +1,6 @@
 # TEST EXECS
 DEF_TRIG = check_vdcos check_vdsin check_vdtan check_vdacos check_vdasin check_vdatan check_vdatan2  check_vdsincos
-DEF_ARITH = check_vdadd check_vdaddx check_vdsub check_vdsubx
+DEF_ARITH = check_vdadd check_vdaddx check_vdsub check_vdsubx check_vdmul
 
 TESTS=$(DEF_TRIG) $(DEF_ARITH)
 
@@ -47,5 +47,9 @@ check_vdsub_LDADD = $(top_builddir)/src/libizy.la
 
 check_vdsubx_SOURCES = check_vdsubx.c 
 check_vdsubx_LDADD = $(top_builddir)/src/libizy.la
+
+check_vdmul_SOURCES = check_vdmul.c 
+check_vdmul_LDADD = $(top_builddir)/src/libizy.la
+
 
 
