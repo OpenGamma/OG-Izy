@@ -1,6 +1,6 @@
 # TEST EXECS
 DEF_TRIG = check_vdcos check_vdsin check_vdtan check_vdacos check_vdasin check_vdatan check_vdatan2  check_vdsincos
-DEF_ARITH = check_vdadd check_vdaddx check_vdsub check_vdsubx check_vdmul check_vdmulx check_vddiv check_vddivx check_vdsqr
+DEF_ARITH = check_vdabs check_vdadd check_vdaddx check_vdsub check_vdsubx check_vdmul check_vdmulx check_vddiv check_vddivx check_vdsqr
 
 TESTS=$(DEF_TRIG) $(DEF_ARITH)
 
@@ -29,6 +29,8 @@ check_vdatan2_SOURCES = check_vdatan2.c
 check_vdsincos_SOURCES = check_vdsincos.c 
 
 # ARITH
+check_vdadd_SOURCES = check_vdabs.c 
+
 check_vdadd_SOURCES = check_vdadd.c 
 
 check_vdaddx_SOURCES = check_vdaddx.c 
