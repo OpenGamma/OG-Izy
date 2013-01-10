@@ -21,7 +21,26 @@ if(nargin==2)
         dlmwrite(["count_",fnname,".txt"], [1;outvals]*length(arg0), "delimiter", "\\n", "newline", "\\n")
         dlmwrite(["input_",fnname,".txt"], arg0, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
 elseif(nargin==3)        
-        feval(fnname,arg0,arg1);
+        out1=[];
+        try
+        [out0,out1]=feval(fnname,arg0,arg1);
+        end
+        if(~isempty(out1))
+                tmp=zeros(1,2*length(out0));
+                tmp(1:2:end)=out0;
+                tmp(2:2:end)=out1;
+                dlmwrite(["expected_",fnname,".txt"], tmp, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
+                outvals=2;
+        else
+                dlmwrite(["expected_",fnname,".txt"], out0, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
+                outvals=1;
+        end
+        dlmwrite(["count_",fnname,".txt"], [2;outvals]*length(arg0), "delimiter", "\\n", "newline", "\\n")
+        tmp=zeros(1,2*length(arg0));
+        tmp(1:2:end)=arg0;
+        tmp(2:2:end)=arg1;
+        dlmwrite(["input_",fnname,".txt"], tmp, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
+        
 else
         error("Too many args")
 end
@@ -111,8 +130,13 @@ fnlist_specfun={
 };
 
 
+%% main code
+
+rand('state',0);
+
 trig_range=linspace(-1.99*pi,1.99*pi,10);
 invtrig_range=linspace(-0.99,0.99,10);
+perm_invtrig_range=invtrig_range(randperm(length(invtrig_range)));
 
 hyp_range=linspace(-10,10,10);
 invhyp_range=linspace(-0.99,0.99,10);
@@ -121,7 +145,7 @@ invhyp_range=linspace(-0.99,0.99,10);
 gendata('acos',invtrig_range);
 gendata('asin',invtrig_range);
 gendata('atan',invtrig_range);
-gendata('atan2',invtrig_range, fliplr(invtrig_range));
+gendata('atan2',invtrig_range, perm_invtrig_range);
 gendata('cos',trig_range);
 gendata('sin',trig_range);
 gendata('sincos',trig_range);
