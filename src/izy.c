@@ -7,7 +7,12 @@
 vd_reference_##_NAME(arg0, offsetarg0, out0, offsetout0, count);
 
 
-#define IZY_REFERENCE_ONEARGTWORESULT(_NAME)
+
+
+#define IZY_REFERENCE_ONEARGTWORESULT(_NAME) \
+vd_reference_##_NAME(arg0, offsetarg0, out0, offsetout0, out1, offsetout1, count);
+
+
 
 
 

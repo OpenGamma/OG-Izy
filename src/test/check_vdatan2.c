@@ -109,6 +109,7 @@ int main()
         const int offsetin1 = 0;        
         const int offsetout0 = 0;
         const int count = n_in>>1;
+        memset(results_data,0x0,count*sizeof(double));        
         
         /* make izy call */
         vd_atan2(in_data0,&offsetin0,in_data1,&offsetin1,results_data,&offsetout0,&count);
