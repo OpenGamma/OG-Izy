@@ -149,6 +149,8 @@ std_range_small = 0.01+(-10:0.5:10); %% shift for things like div so theres no 0
 std_range_large = 7*std_range_small;
 std_const = 10;
 
+log_range_small = 0.01+(0:0.5:10); %% shift to avoid 0
+
 % trig
 gendata('acos','acos',invtrig_range);
 gendata('asin','asin',invtrig_range);
@@ -171,3 +173,10 @@ gendata('times','mulx',std_range_small,std_const);
 gendata('power','sqr',std_range_small,2);
 gendata('minus','sub',std_range_small,std_range_large);
 gendata('minus','subx',std_range_small,std_const);
+
+%pwr
+gendata('exp','exp',log_range_small);
+gendata('expm1','expm1',log_range_small);
+gendata('log','ln',log_range_small);
+gendata('log10','log10',log_range_small);
+gendata('log1p','log1p',log_range_small);
