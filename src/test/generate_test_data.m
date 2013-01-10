@@ -1,9 +1,9 @@
 clear all; close all; clc;
 
 
-function ret = gendata(fnname, arg0, arg1)
-disp(["Calling function: ",fnname]);
-if(nargin==2)
+function ret = gendata(fnname, uname, arg0, arg1)
+disp(["Calling function: ",fnname," for IZY ",uname]);
+if(nargin==3)
         out1=[];
         try
         [out0,out1]=feval(fnname,arg0);
@@ -12,15 +12,15 @@ if(nargin==2)
                 tmp=zeros(1,2*length(out0));
                 tmp(1:2:end)=out0;
                 tmp(2:2:end)=out1;
-                dlmwrite(["expected_",fnname,".txt"], tmp, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
+                dlmwrite(["expected_",uname,".txt"], tmp, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
                 outvals=2;
         else
-                dlmwrite(["expected_",fnname,".txt"], out0, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
+                dlmwrite(["expected_",uname,".txt"], out0, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
                 outvals=1;
         end
-        dlmwrite(["count_",fnname,".txt"], [1;outvals]*length(arg0), "delimiter", "\\n", "newline", "\\n")
-        dlmwrite(["input_",fnname,".txt"], arg0, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
-elseif(nargin==3)        
+        dlmwrite(["count_",uname,".txt"], [1;outvals]*length(arg0), "delimiter", "\\n", "newline", "\\n")
+        dlmwrite(["input_",uname,".txt"], arg0, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
+elseif(nargin==4)        
         out1=[];
         try
         [out0,out1]=feval(fnname,arg0,arg1);
@@ -29,17 +29,17 @@ elseif(nargin==3)
                 tmp=zeros(1,2*length(out0));
                 tmp(1:2:end)=out0;
                 tmp(2:2:end)=out1;
-                dlmwrite(["expected_",fnname,".txt"], tmp, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
+                dlmwrite(["expected_",uname,".txt"], tmp, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
                 outvals=2;
         else
-                dlmwrite(["expected_",fnname,".txt"], out0, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
+                dlmwrite(["expected_",uname,".txt"], out0, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
                 outvals=1;
         end
-        dlmwrite(["count_",fnname,".txt"], [2;outvals]*length(arg0), "delimiter", "\\n", "newline", "\\n")
+        dlmwrite(["count_",uname,".txt"], [2;outvals]*length(arg0), "delimiter", "\\n", "newline", "\\n")
         tmp=zeros(1,2*length(arg0));
         tmp(1:2:end)=arg0;
         tmp(2:2:end)=arg1;
-        dlmwrite(["input_",fnname,".txt"], tmp, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
+        dlmwrite(["input_",uname,".txt"], tmp, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
         
 else
         error("Too many args")
@@ -101,11 +101,15 @@ fnlist_el={
 fnlist_arith={
 'abs',
 'add',
+'addx',
 'div',
+'divx',
 'linearfrac',
 'mul',
+'mulx',
 'sqr',
-'sub'
+'sub',
+'subx'
 };
 
 fnlist_round={
@@ -141,12 +145,29 @@ perm_invtrig_range=invtrig_range(randperm(length(invtrig_range)));
 hyp_range=linspace(-10,10,10);
 invhyp_range=linspace(-0.99,0.99,10);
 
+std_range_small = 0.01+(-10:0.5:10); %% shift for things like div so theres no 0/0
+std_range_large = 7*std_range_small;
+std_const = 10;
+
 % trig
-gendata('acos',invtrig_range);
-gendata('asin',invtrig_range);
-gendata('atan',invtrig_range);
-gendata('atan2',invtrig_range, perm_invtrig_range);
-gendata('cos',trig_range);
-gendata('sin',trig_range);
-gendata('sincos',trig_range);
-gendata('tan',trig_range);
+gendata('acos','acos',invtrig_range);
+gendata('asin','asin',invtrig_range);
+gendata('atan','atan',invtrig_range);
+gendata('atan2','atan2',invtrig_range, perm_invtrig_range);
+gendata('cos','cos',trig_range);
+gendata('sin','sin',trig_range);
+gendata('sincos','sincos',trig_range);
+gendata('tan','tan',trig_range);
+
+%  arith
+gendata('abs','abs',std_range_small);
+gendata('plus','add',std_range_small,std_range_large);
+gendata('plus','addx',std_range_small,std_const);
+gendata('rdivide','div',std_range_small,std_range_large);
+gendata('rdivide','divx',std_range_small,std_const);
+%  gendata(''); % RESERVED for linearfrac, not sure whether it's worth impl
+gendata('times','mul',std_range_small,std_range_large);
+gendata('times','mulx',std_range_small,std_const);
+gendata('power','sqr',std_range_small,2);
+gendata('minus','sub',std_range_small,std_range_large);
+gendata('minus','subx',std_range_small,std_const);
