@@ -1,6 +1,6 @@
 # TEST EXECS
 DEF_TRIG = check_vdcos check_vdsin check_vdtan check_vdacos check_vdasin check_vdatan check_vdatan2  check_vdsincos
-DEF_ARITH = check_vdadd check_vdaddx check_vdsub check_vdsubx check_vdmul check_vdmulx check_vddiv
+DEF_ARITH = check_vdadd check_vdaddx check_vdsub check_vdsubx check_vdmul check_vdmulx check_vddiv check_vddivx
 
 TESTS=$(DEF_TRIG) $(DEF_ARITH)
 
@@ -41,6 +41,9 @@ check_vdmul_SOURCES = check_vdmul.c
 
 check_vdmulx_SOURCES = check_vdmulx.c 
 
-check_vdmul_SOURCES = check_vddiv.c 
+check_vddiv_SOURCES = check_vddiv.c 
+
+check_vddivx_SOURCES = check_vddiv.c 
+
 
 
