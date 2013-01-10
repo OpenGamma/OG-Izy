@@ -133,8 +133,8 @@ int main()
         }
 
         /* stage calls to saturation */
-        double IVAL = 0;
-        double RVAL = 0;
+        double IVAL =  0.e0;
+        double RVAL =  0.e0;
         const int one = 1;
         
         /* test NaN */
