@@ -11,7 +11,7 @@ void vd_reference_sincos(double * arg0, const int * offsetarg0, double * out0, c
         arg0ref = &arg0[*offsetarg0];
         for(i=0;i<*count;i++)\
         {
-#ifdef _GNU_SOURCE
+#ifdef HAVE_MKL
                 sincos(arg0ref[i], &out0ref[i], &out1ref[i]);
 #else
                 out0ref[i] = sin(arg0ref[i]);
