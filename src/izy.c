@@ -207,7 +207,7 @@ void vd_mulx(double * arg0, const int * offsetarg0, const double * arg1, const i
  IZY_REFERENCE_TWOARGONEISCONSTONERESULT(mulx)
 };
 
-void vd_sqr(double * arg0, const int * offsetarg0, double * arg1, const int * offsetarg1, double * out0, const int * offsetout0, const int * count)
+void vd_sqr(double * arg0, const int * offsetarg0, double * out0, const int * offsetout0, const int * count)
 {
  IZY_REFERENCE_ONEARGONERESULT(sqr)
 };
