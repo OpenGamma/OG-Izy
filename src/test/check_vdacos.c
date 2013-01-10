@@ -1,10 +1,10 @@
 #ifdef HAVE_CONFIG
 #include "config.h"
 #endif
-#include <stdio.h>=
-#include <stdlib.h>=
-#include <math.h>=
-#include <float.h>=
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <float.h>
 #include "izy.h"
 #include "izymakecheck.h"
 
@@ -184,7 +184,7 @@ int main()
         
         IVAL = -1;
         vd_acos(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if((abs(RVAL)-M_PI)>=DBL_EPSILON)
+        if(abs(RVAL-M_PI)>=DBL_EPSILON)
         {               
                return _INCORRECTRESULT;
         }        
