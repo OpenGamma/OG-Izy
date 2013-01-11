@@ -3,12 +3,13 @@ DEF_TRIG = check_vdcos check_vdsin check_vdtan check_vdacos check_vdasin check_v
 DEF_ARITH = check_vdabs check_vdadd check_vdaddx check_vddiv check_vddivx check_vdmul check_vdmulx check_vdsqr check_vdsub check_vdsubx 
 DEF_EL = check_vdexp check_vdexpm1 check_vdln check_vdlog10 check_vdlog1p
 DEF_HYP = check_vdacosh check_vdasinh check_vdatanh check_vdcosh check_vdsinh check_vdtanh
+DEF_SPECFUN = check_vdcdfnorm check_vderf check_vderfc check_vdlgamma check_vdtgamma
 
-TESTS=$(DEF_TRIG) $(DEF_ARITH) $(DEF_EL) $(DEF_HYP)
+TESTS=$(DEF_TRIG) $(DEF_ARITH) $(DEF_EL) $(DEF_HYP) $(DEF_SPECFUN)
 
 # PROGRAMS
 
-check_PROGRAMS = $(DEF_TRIG) $(DEF_ARITH) $(DEF_EL) $(DEF_HYP)
+check_PROGRAMS = $(DEF_TRIG) $(DEF_ARITH) $(DEF_EL) $(DEF_HYP) $(DEF_SPECFUN)
 LDADD = $(top_builddir)/src/libizy.la
 INCLUDES = -I $(top_builddir)/include/
 
@@ -48,4 +49,14 @@ check_vdasinh_SOURCES = check_vdasinh.c
 check_vdatanh_SOURCES = check_vdatanh.c
 check_vdcosh_SOURCES = check_vdcosh.c
 check_vdsinh_SOURCES = check_vdsinh.c
-# check_vdtanh_SOURCES = check_vdtanh.c
+check_vdtanh_SOURCES = check_vdtanh.c
+
+#SPECFUN
+check_vdcdfnorm_SOURCES = check_vdcdfnorm.c
+#check_vdcdfnorminv_SOURCES = check_vdcdfnorminv.c
+check_vderf_SOURCES = check_vderf.c
+check_vderfc_SOURCES = check_vderfc.c
+#check_vderfinv_SOURCES = check_vderfinv.c
+#check_vderfcinv_SOURCES = check_vderfcinv.c
+check_vdlgamma_SOURCES = check_vdlgamma.c
+check_vdtgamma_SOURCES = check_vdtgamma.c
