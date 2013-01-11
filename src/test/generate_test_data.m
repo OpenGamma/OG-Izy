@@ -143,7 +143,9 @@ invtrig_range=linspace(-0.99,0.99,10);
 perm_invtrig_range=invtrig_range(randperm(length(invtrig_range)));
 
 hyp_range=linspace(-10,10,10);
-invhyp_range=linspace(-0.99,0.99,10);
+acosh_range=linspace(1.01,10,10);
+asinh_range=linspace(-10,10,10);
+atanh_range=linspace(-0.99,0.99,10);
 
 std_range_small = 0.01+(-10:0.5:10); %% shift for things like div so theres no 0/0
 std_range_large = 7*std_range_small;
@@ -180,3 +182,11 @@ gendata('expm1','expm1',log_range_small);
 gendata('log','ln',log_range_small);
 gendata('log10','log10',log_range_small);
 gendata('log1p','log1p',log_range_small);
+
+%hyp
+gendata('acosh','acosh',acosh_range);
+gendata('asinh','asinh',asinh_range);
+gendata('atanh','atanh',atanh_range);
+gendata('cosh','cosh',hyp_range);
+gendata('sinh','sinh',hyp_range);
+gendata('tanh','tanh',hyp_range);
