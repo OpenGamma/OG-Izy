@@ -98,7 +98,8 @@ int main()
                 }                
         }
         fclose(input);
-        
+
+
         /* stage izy call */
         double * results_data0 = NULL, * results_data1 = NULL;
         results_data0 = (double * ) malloc((n_expected>>1)*sizeof(double));
