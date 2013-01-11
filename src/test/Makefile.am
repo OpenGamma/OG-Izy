@@ -2,13 +2,13 @@
 DEF_TRIG = check_vdcos check_vdsin check_vdtan check_vdacos check_vdasin check_vdatan check_vdatan2  check_vdsincos
 DEF_ARITH = check_vdabs check_vdadd check_vdaddx check_vddiv check_vddivx check_vdmul check_vdmulx check_vdsqr check_vdsub check_vdsubx 
 DEF_EL = check_vdexp check_vdexpm1 check_vdln check_vdlog10 check_vdlog1p
- 
+DEF_HYP = check_vdacosh check_vdasinh check_vdatanh
 
-TESTS=$(DEF_TRIG) $(DEF_ARITH) $(DEF_EL)
+TESTS=$(DEF_TRIG) $(DEF_ARITH) $(DEF_EL) $(DEF_HYP)
 
 # PROGRAMS
 
-check_PROGRAMS = $(DEF_TRIG) $(DEF_ARITH) $(DEF_EL)
+check_PROGRAMS = $(DEF_TRIG) $(DEF_ARITH) $(DEF_EL) $(DEF_HYP)
 LDADD = $(top_builddir)/src/libizy.la
 INCLUDES = -I $(top_builddir)/include/
 
@@ -35,10 +35,15 @@ check_vdsqr_SOURCES = check_vdsqr.c
 check_vdsub_SOURCES = check_vdsub.c 
 check_vdsubx_SOURCES = check_vdsubx.c 
 
-# Exp+log
+# EXP+LOG
 check_vdexp_SOURCES = check_vdexp.c 
-check_vdxpm1_SOURCES = check_vdexpm1.c
+check_vdexpm1_SOURCES = check_vdexpm1.c
 check_vdln_SOURCES = check_vdln.c
 check_vdlog10_SOURCES = check_vdlog10.c
 check_vdlog1p_SOURCES = check_vdlog1p.c
+
+# HYPERBOLIC
+check_vdacosh_SOURCES = check_vdacosh.c
+check_vdasinh_SOURCES = check_vdasinh.c
+check_vdatanh_SOURCES = check_vdatanh.c
 
