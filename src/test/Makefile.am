@@ -2,7 +2,7 @@
 DEF_TRIG = check_vdcos check_vdsin check_vdtan check_vdacos check_vdasin check_vdatan check_vdatan2  check_vdsincos
 DEF_ARITH = check_vdabs check_vdadd check_vdaddx check_vddiv check_vddivx check_vdmul check_vdmulx check_vdsqr check_vdsub check_vdsubx 
 DEF_EL = check_vdexp check_vdexpm1 check_vdln check_vdlog10 check_vdlog1p
-DEF_HYP = check_vdacosh check_vdasinh check_vdatanh
+DEF_HYP = check_vdacosh check_vdasinh check_vdatanh check_vdcosh check_vdsinh check_vdtanh
 
 TESTS=$(DEF_TRIG) $(DEF_ARITH) $(DEF_EL) $(DEF_HYP)
 
@@ -46,4 +46,6 @@ check_vdlog1p_SOURCES = check_vdlog1p.c
 check_vdacosh_SOURCES = check_vdacosh.c
 check_vdasinh_SOURCES = check_vdasinh.c
 check_vdatanh_SOURCES = check_vdatanh.c
-
+check_vdcosh_SOURCES = check_vdcosh.c
+check_vdsinh_SOURCES = check_vdsinh.c
+# check_vdtanh_SOURCES = check_vdtanh.c
