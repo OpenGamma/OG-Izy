@@ -8,6 +8,8 @@ if(nargin==3)
         try
         [out0,out1]=feval(fnname,arg0);
         end
+        out0=real(out0);
+        out1=real(out1);
         if(~isempty(out1))
                 tmp=zeros(1,2*length(out0));
                 tmp(1:2:end)=out0;
@@ -23,8 +25,10 @@ if(nargin==3)
 elseif(nargin==4)        
         out1=[];
         try
-        [out0,out1]=feval(fnname,arg0,arg1);
+                [out0,out1]=feval(fnname,arg0,arg1);
         end
+        out0=real(out0);
+        out1=real(out1);
         if(~isempty(out1))
                 tmp=zeros(1,2*length(out0));
                 tmp(1:2:end)=out0;
@@ -153,6 +157,8 @@ std_const = 10;
 
 log_range_small = 0.01+(0:0.5:10); %% shift to avoid 0
 
+bounded_one_one = linspace(-1,1,20);
+
 % trig
 gendata('acos','acos',invtrig_range);
 gendata('asin','asin',invtrig_range);
@@ -176,7 +182,7 @@ gendata('power','sqr',std_range_small,2);
 gendata('minus','sub',std_range_small,std_range_large);
 gendata('minus','subx',std_range_small,std_const);
 
-%pwr
+%exp+log
 gendata('exp','exp',log_range_small);
 gendata('expm1','expm1',log_range_small);
 gendata('log','ln',log_range_small);
@@ -190,3 +196,13 @@ gendata('atanh','atanh',atanh_range);
 gendata('cosh','cosh',hyp_range);
 gendata('sinh','sinh',hyp_range);
 gendata('tanh','tanh',hyp_range);
+
+%specfun
+gendata('normcdf','cdfnorm',bounded_one_one);
+%  gendata(''); % RESERVED for cdfnorminv, not sure whether it's worth impl ATM
+gendata('erf','erf',bounded_one_one);
+gendata('erfc','erfc',bounded_one_one);
+%  gendata(''); % RESERVED for erfinv, not sure whether it's worth impl ATM
+%  gendata(''); % RESERVED for erfcinv, not sure whether it's worth impl ATM
+gendata('lgamma','lgamma',std_range_small);
+gendata('gamma','tgamma',std_range_small);
