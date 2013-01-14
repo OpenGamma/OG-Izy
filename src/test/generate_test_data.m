@@ -6,7 +6,9 @@ disp(["Calling function: ",fnname," for IZY ",uname]);
 if(nargin==3)
         out1=[];
         try
-        [out0,out1]=feval(fnname,arg0);
+                [out0,out1]=arrayfun(fnname,arg0);
+        catch 
+                [out0]=arrayfun(fnname,arg0);
         end
         out0=real(out0);
         out1=real(out1);
@@ -24,8 +26,11 @@ if(nargin==3)
         dlmwrite(["input_",uname,".txt"], arg0, "delimiter", "\\n", "newline", "\\n","precision","%24.15f")
 elseif(nargin==4)        
         out1=[];
+        out0=[];
         try
-                [out0,out1]=feval(fnname,arg0,arg1);
+                [out0,out1]=arrayfun(fnname,arg0,arg1);
+        catch
+                [out0]=arrayfun(fnname,arg0,arg1);
         end
         out0=real(out0);
         out1=real(out1);
@@ -48,15 +53,6 @@ elseif(nargin==4)
 else
         error("Too many args")
 end
-
-end
-
-function [a,b]=sincos(data)
-        a=sin(data);
-        b=cos(data);
-end
-
-function write_ascii(var)
 
 end
 
@@ -137,6 +133,31 @@ fnlist_specfun={
 'tgamma'
 };
 
+% functions for which there is no impl
+function ret = invcbrt(arg0)
+        ret = 1./cbrt(arg0);
+end
+
+function ret = invsqrt(arg0)
+        ret = 1./sqrt(arg0);
+end
+
+function ret = invsingle(arg0)
+        ret = 1./arg0;
+end
+
+function [a,b]=sincos(data)
+        a=sin(data);
+        b=cos(data);
+end
+
+function ret = pow2o3(arg0)
+        ret = power(arg0,2/3);
+end
+
+function ret = pow3o2(arg0)
+        ret = power(arg0,1.5);
+end
 
 %% main code
 
@@ -206,3 +227,17 @@ gendata('erfc','erfc',bounded_one_one);
 %  gendata(''); % RESERVED for erfcinv, not sure whether it's worth impl ATM
 gendata('lgamma','lgamma',std_range_small);
 gendata('gamma','tgamma',std_range_small);
+
+
+%  %PWR
+gendata('cbrt','cbrt',std_range_small);
+gendata('hypot','hypot',std_range_small, std_range_large);
+gendata('invsingle','inv',std_range_small); % we use our own fn as inv returns 2 args, one is the rcond no
+gendata('invcbrt','invcbrt',std_range_small);
+gendata('invsqrt','invsqrt',std_range_small);
+gendata('power','pow', std_range_small, std_range_small);
+gendata('power','powx', std_range_small, std_const);
+gendata('pow2o3','pow2o3', log_range_small);
+gendata('pow3o2','pow3o2', log_range_small);
+gendata('sqrt','sqrt',log_range_small);
+
