@@ -163,7 +163,7 @@ end
 
 rand('state',0);
 
-trig_range=linspace(-1.99*pi,1.99*pi,10);
+trig_range=linspace(-6.25,6.25,11);
 invtrig_range=linspace(-0.99,0.99,10);
 perm_invtrig_range=invtrig_range(randperm(length(invtrig_range)));
 
@@ -172,11 +172,11 @@ acosh_range=linspace(1.01,10,10);
 asinh_range=linspace(-10,10,10);
 atanh_range=linspace(-0.99,0.99,10);
 
-std_range_small = 0.01+(-10:0.5:10); %% shift for things like div so theres no 0/0
-std_range_large = 7*std_range_small;
+std_range_small = 0.5+(-10:0.5:10); %% shift for things like div so theres no 0/0
+std_range_large = 10*std_range_small;
 std_const = 10;
 
-log_range_small = 0.01+(0:0.5:10); %% shift to avoid 0
+log_range_small = 0.5+(0:0.5:10); %% shift to avoid 0
 
 bounded_one_one = linspace(-1,1,20);
 
