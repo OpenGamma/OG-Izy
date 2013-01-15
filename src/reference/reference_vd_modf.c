@@ -11,6 +11,6 @@ void vd_reference_modf(double * arg0, const int * offsetarg0, double * out0, con
         arg0ref = &arg0[*offsetarg0];
         for(i=0;i<*count;i++)\
         {
-                out0ref[i]= modf(arg0ref[i], &out1ref[i]);
+                out1ref[i]= modf(arg0ref[i], &out0ref[i]);
         }
 };
