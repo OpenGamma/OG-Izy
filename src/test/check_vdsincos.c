@@ -125,11 +125,11 @@ int main()
         /* check */
         for(i=0; i<n_expected>>1;i++)
         {
-                if(abs(results_data0[i]-expected_data0[i])>=DBL_EPSILON)
+                if(fabs(results_data0[i]-expected_data0[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
-                if(abs(results_data1[i]-expected_data1[i])>=DBL_EPSILON)
+                if(fabs(results_data1[i]-expected_data1[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }                        
@@ -149,11 +149,11 @@ int main()
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
         {
-                if(abs(results_data0[i]-expected_data0[i])>=DBL_EPSILON)
+                if(fabs(results_data0[i]-expected_data0[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
-                if(abs(results_data1[i]-expected_data1[i])>=DBL_EPSILON)
+                if(fabs(results_data1[i]-expected_data1[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }                           

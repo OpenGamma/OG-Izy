@@ -9,6 +9,11 @@
 #include "izy.h"
 #include "izymakecheck.h"
 
+/* local change in tolerance, this is because -O2 or any sort of fast-math optimisation will turn x^(3/2) into x*sqrt(x) which gives slightly different answers */
+#ifdef IZY_DBL_EPSILON
+#undef IZY_DBL_EPSILON
+#define IZY_DBL_EPSILON (20*DBL_EPSILON)
+#endif
 
 int main()
 {       
@@ -108,7 +113,7 @@ int main()
         /* check */
         for(i=0; i<n_expected;i++)
         {
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
@@ -127,7 +132,7 @@ int main()
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
         {
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
