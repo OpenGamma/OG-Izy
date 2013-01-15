@@ -159,6 +159,25 @@ function ret = pow3o2(arg0)
         ret = power(arg0,1.5);
 end
 
+function [integral,fraction]=modf(arg0)
+        integral = fix(arg0);
+        fraction = arg0 - integral;
+end
+
+% botch
+function ret = nearbyint(arg0)
+        ret = zeros(size(arg0));
+        for(i=1:length(arg0))
+                v = abs(arg0(i));
+                if(v-fix(v)>0.50)
+                        rv = fix(v) + 1;
+                else
+                        rv = fix(v);
+                end
+                ret(i)=sign(arg0(i))*rv;
+        end
+end
+
 %% main code
 
 rand('state',0);
@@ -172,7 +191,7 @@ acosh_range=linspace(1.01,10,10);
 asinh_range=linspace(-10,10,10);
 atanh_range=linspace(-0.99,0.99,10);
 
-std_range_small = 0.5+(-10:0.5:10); %% shift for things like div so theres no 0/0
+std_range_small = [-10:0.5:-0.5,0.5:0.5:10]; %% shift for things like div so theres no 0/0
 std_range_large = 10*std_range_small;
 std_const = 10;
 
@@ -240,4 +259,14 @@ gendata('power','powx', std_range_small, std_const);
 gendata('pow2o3','pow2o3', log_range_small);
 gendata('pow3o2','pow3o2', log_range_small);
 gendata('sqrt','sqrt',log_range_small);
+
+% ROUNDING
+gendata('ceil','ceil',trig_range);
+gendata('floor','floor',trig_range);
+gendata('modf','modf',trig_range);
+gendata('nearbyint','nearbyint',trig_range);
+gendata('nearbyint','rint',trig_range);
+gendata('round','round',trig_range);
+gendata('round','trunc',trig_range);
+
 
