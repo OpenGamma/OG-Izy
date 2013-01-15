@@ -12,9 +12,9 @@
 
 int main()
 {       
-        const char * countfilename = "count_pow3o2.txt";
-        const char * inputfilename = "input_pow3o2.txt";        
-        const char * expectedfilename = "expected_pow3o2.txt";        
+        const char * countfilename = "count_sqrt.txt";
+        const char * inputfilename = "input_sqrt.txt";        
+        const char * expectedfilename = "expected_sqrt.txt";        
         FILE * input = NULL;
         int i, ret;
         
@@ -103,12 +103,13 @@ int main()
         const int count = n_in;
         
         /* make izy call */
-        vd_pow3o2(in_data,&offsetin0,results_data,&offsetout0,&count);
+        vd_sqrt(in_data,&offsetin0,results_data,&offsetout0,&count);
 
         /* check */
         for(i=0; i<n_expected;i++)
         {
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                printf("C1: %25.16lf, %25.16lf, %25.16lf, %25.16lf\n ",in_data[i],results_data[i],expected_data[i],fabs(results_data[i]-expected_data[i]));
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
@@ -122,12 +123,12 @@ int main()
         memset(results_data,0x0,count*sizeof(double));        
         
         /* make izy call */       
-        vd_pow3o2(in_data,&offsetin_used0,results_data,&offsetout_used0,&count_used);
+        vd_sqrt(in_data,&offsetin_used0,results_data,&offsetout_used0,&count_used);
 
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
         {
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }

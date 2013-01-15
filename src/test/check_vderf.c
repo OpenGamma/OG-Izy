@@ -108,7 +108,7 @@ int main()
         /* check */
         for(i=0; i<n_expected;i++)
         {
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
@@ -127,7 +127,7 @@ int main()
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
         {
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
@@ -166,7 +166,7 @@ int main()
         /* test subnormal */
         IVAL =  1.e-309;
         vd_erf(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if(abs(RVAL-(IVAL*M_2_PI))>=DBL_EPSILON)
+        if(fabs(RVAL-(IVAL*M_2_PI))>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
         }
