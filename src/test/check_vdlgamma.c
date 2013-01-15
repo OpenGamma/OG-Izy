@@ -108,7 +108,6 @@ int main()
         /* check */
         for(i=0; i<n_expected;i++)
         {
-                printf("%24.16lf %24.16lf\n",results_data[i],expected_data[i]);
                 if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
