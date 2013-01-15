@@ -108,8 +108,7 @@ int main()
         /* check */
         for(i=0; i<n_expected;i++)
         {
-                printf("%24.16lf %24.16lf\n",results_data[i],expected_data[i]);
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
@@ -128,66 +127,66 @@ int main()
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
         {
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
                         
         }
 
-        /* stage calls to saturation */
-        double IVAL =  0.e0;
-        double RVAL =  0.e0;
-        const int one = 1;
-        
-        /* test NaN */
-        IVAL = NAN;
-        vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if(!isnan(RVAL))
-        {
-                return _INCORRECTRESULT;
-        }
-        
-        /* test +INF */
-        IVAL = INFINITY;
-        vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if(!(RVAL==0.e0&&!signbit(RVAL)))
-        {
-               return _INCORRECTRESULT;
-        }
-
-        /* test -INF */
-        IVAL = -INFINITY;        
-        vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if(!isnan(RVAL))
-        {
-               return _INCORRECTRESULT;
-        }
-        
-        /* test +0 */        
-        IVAL = 0.e0;   
-        vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if(!(isinf(RVAL)&&!signbit(RVAL)))
-        {
-               return _INCORRECTRESULT;
-        }
-
-        /* test -0 */        
-        IVAL = -0.e0;   
-        vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if(!(isinf(RVAL)&&signbit(RVAL)))
-        {
-               return _INCORRECTRESULT;
-        }
-        
-        /* test -ve */
-        IVAL = -1.e0;        
-        vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if(!isnan(RVAL))
-        {
-               return _INCORRECTRESULT;
-        }
-        
+//         /* stage calls to saturation */
+//         double IVAL =  0.e0;
+//         double RVAL =  0.e0;
+//         const int one = 1;
+//         
+//         /* test NaN */
+//         IVAL = NAN;
+//         vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+//         if(!isnan(RVAL))
+//         {
+//                 return _INCORRECTRESULT;
+//         }
+//         
+//         /* test +INF */
+//         IVAL = INFINITY;
+//         vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+//         if(!(RVAL==0.e0&&!signbit(RVAL)))
+//         {
+//                return _INCORRECTRESULT;
+//         }
+// 
+//         /* test -INF */
+//         IVAL = -INFINITY;        
+//         vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+//         if(!isnan(RVAL))
+//         {
+//                return _INCORRECTRESULT;
+//         }
+//         
+//         /* test +0 */        
+//         IVAL = 0.e0;   
+//         vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+//         if(!(isinf(RVAL)&&!signbit(RVAL)))
+//         {
+//                return _INCORRECTRESULT;
+//         }
+// 
+//         /* test -0 */        
+//         IVAL = -0.e0;   
+//         vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+//         if(!(isinf(RVAL)&&signbit(RVAL)))
+//         {
+//                return _INCORRECTRESULT;
+//         }
+//         
+//         /* test -ve */
+//         IVAL = -1.e0;        
+//         vd_invsqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+//         if(!isnan(RVAL))
+//         {
+//                return _INCORRECTRESULT;
+//         }
+//         
         free(in_data);
         free(expected_data);        
         free(results_data);

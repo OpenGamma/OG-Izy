@@ -120,7 +120,7 @@ int main()
         /* check */
         for(i=0; i<n_expected;i++)
         {
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
@@ -139,7 +139,7 @@ int main()
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
         {
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
@@ -189,7 +189,7 @@ int main()
         IVAL0 = INFINITY;
         IVAL1 =  0.e0;        
         vd_atan2(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
-        if(abs(RVAL-M_PI_2)>=DBL_EPSILON)
+        if(fabs(RVAL-M_PI_2)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
         }
@@ -197,7 +197,7 @@ int main()
         IVAL0 = INFINITY;
         IVAL1 = INFINITY;        
         vd_atan2(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
-        if(abs(RVAL-M_PI_4)>=DBL_EPSILON)
+        if(fabs(RVAL-M_PI_4)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
         }        
@@ -205,7 +205,7 @@ int main()
         IVAL0 = INFINITY;
         IVAL1 = -INFINITY;        
         vd_atan2(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
-        if(abs(RVAL-3*M_PI_4)>=DBL_EPSILON)
+        if(fabs(RVAL-3*M_PI_4)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
         }        
@@ -222,7 +222,7 @@ int main()
         IVAL0 = -INFINITY;        
         IVAL1 =  0.e0;
         vd_atan2(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
-        if(abs(RVAL+M_PI_2)>=DBL_EPSILON)
+        if(fabs(RVAL+M_PI_2)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
         }
@@ -230,7 +230,7 @@ int main()
         IVAL0 = -INFINITY;        
         IVAL1 = INFINITY;
         vd_atan2(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
-        if(abs(RVAL+M_PI_4)>=DBL_EPSILON)
+        if(fabs(RVAL+M_PI_4)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
         }
@@ -238,7 +238,7 @@ int main()
         IVAL0 = -INFINITY;        
         IVAL1 = -INFINITY;
         vd_atan2(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
-        if(abs(RVAL+3*M_PI_4)>=DBL_EPSILON)
+        if(fabs(RVAL+3*M_PI_4)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
         }        

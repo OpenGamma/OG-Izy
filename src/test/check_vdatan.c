@@ -108,7 +108,7 @@ int main()
         /* check */
         for(i=0; i<n_expected;i++)
         {
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
@@ -127,7 +127,7 @@ int main()
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
         {
-                if(abs(results_data[i]-expected_data[i])>=DBL_EPSILON)
+                if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
                 {
                         return _INCORRECTRESULT;
                 }
@@ -150,7 +150,7 @@ int main()
         /* test +INF */
         IVAL = INFINITY;
         vd_atan(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if(abs(RVAL-M_PI_2)>=DBL_EPSILON)
+        if(fabs(RVAL-M_PI_2)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
         }
@@ -158,7 +158,7 @@ int main()
         /* test -INF */
         IVAL = -INFINITY;        
         vd_atan(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if(abs(RVAL+M_PI_2)>=DBL_EPSILON)
+        if(fabs(RVAL+M_PI_2)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
         }
@@ -166,14 +166,14 @@ int main()
         /* stage calls at poles, should ret 0 */
         IVAL = DBL_MAX;        
         vd_atan(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if(abs(RVAL-M_PI_2)>=DBL_EPSILON)
+        if(fabs(RVAL-M_PI_2)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
         }
         
         IVAL = -DBL_MAX;
         vd_atan(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
-        if(abs(RVAL+M_PI_2)>=DBL_EPSILON)
+        if(fabs(RVAL+M_PI_2)>=IZY_DBL_EPSILON)
         {               
                return _INCORRECTRESULT;
         }        
