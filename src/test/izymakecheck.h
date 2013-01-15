@@ -5,4 +5,8 @@
 #define _MALLOCERROR 0x04
 #define _BADCOUNT 0x05
 #define _INCORRECTRESULT 0x06
+
+
+#define IZY_DBL_EPSILON (10 * DBL_EPSILON)
 #endif
+
