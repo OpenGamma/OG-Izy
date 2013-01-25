@@ -113,7 +113,7 @@ int main()
         memset(results_data,0x0,count*sizeof(double));        
         
         /* make izy call */
-        vd_sqr(in_data0,&offsetin0,results_data,&offsetout0,&count);
+        vd_sqr(&count,in_data0,&offsetin0,results_data,&offsetout0);
         
         /* check */
         for(i=0; i<n_expected;i++)
@@ -132,7 +132,7 @@ int main()
         const int count_used = count - offsetout_used0;
         
         /* make izy call */       
-        vd_sqr(in_data0,&offsetin_used0,results_data,&offsetout_used0,&count_used);
+        vd_sqr(&count_used,in_data0,&offsetin_used0,results_data,&offsetout_used0);
 
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
@@ -151,7 +151,7 @@ int main()
         
         /* test NaN */
         IVAL = NAN;
-        vd_sqr(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_sqr(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -159,7 +159,7 @@ int main()
         
         /* test +INF */
         IVAL = INFINITY;
-        vd_sqr(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_sqr(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!(isinf(RVAL)&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -167,7 +167,7 @@ int main()
 
         /* test -INF */
         IVAL = -INFINITY;        
-        vd_sqr(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_sqr(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!(isinf(RVAL)&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;

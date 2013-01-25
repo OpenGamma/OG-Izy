@@ -120,7 +120,7 @@ int main()
         const int count = n_in;
         
         /* make izy call */
-        vd_modf(in_data,&offsetin0,results_data0,&offsetout0,results_data1,&offsetout1,&count);
+        vd_modf(&count,in_data,&offsetin0,results_data0,&offsetout0,results_data1,&offsetout1);
         
         /* check */
         for(i=0; i<n_expected>>1;i++)
@@ -144,7 +144,7 @@ int main()
         memset(results_data1,0x0,count*sizeof(double));
         
         /* make izy call */       
-        vd_modf(in_data,&offsetin_used0,results_data0,&offsetout_used0,results_data1,&offsetout_used1,&count);
+        vd_modf(&count,in_data,&offsetin_used0,results_data0,&offsetout_used0,results_data1,&offsetout_used1);
 
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
@@ -167,7 +167,7 @@ int main()
                
         /* test NaN arg0 */
         IVAL = NAN;
-        vd_modf(&IVAL,&offsetin0,&RVAL0,&offsetout0,&RVAL1,&offsetout1,&one);
+        vd_modf(&one,&IVAL,&offsetin0,&RVAL0,&offsetout0,&RVAL1,&offsetout1);
         if(!isnan(RVAL0)||!isnan(RVAL1))
         {
                 return _INCORRECTRESULT;
@@ -175,7 +175,7 @@ int main()
         
         /* test +INF */
         IVAL = INFINITY;
-        vd_modf(&IVAL,&offsetin0,&RVAL0,&offsetout0,&RVAL1,&offsetout1,&one);
+        vd_modf(&one,&IVAL,&offsetin0,&RVAL0,&offsetout0,&RVAL1,&offsetout1);
         if(!(isinf(RVAL0)&&!signbit(RVAL0))||!(RVAL1==0))
         {
                return _INCORRECTRESULT;
@@ -183,7 +183,7 @@ int main()
 
         /* test -INF */
         IVAL = -INFINITY;        
-        vd_modf(&IVAL,&offsetin0,&RVAL0,&offsetout0,&RVAL1,&offsetout1,&one);
+        vd_modf(&one,&IVAL,&offsetin0,&RVAL0,&offsetout0,&RVAL1,&offsetout1);
         if(!(isinf(RVAL0)&&signbit(RVAL0))||!(RVAL1==0))
         {
                return _INCORRECTRESULT;

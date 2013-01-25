@@ -117,7 +117,7 @@ int main()
         memset(results_data,0x0,count*sizeof(double));        
         
         /* make izy call */
-        vd_powx(in_data0,&offsetin0,in_data1,&offsetin1,results_data,&offsetout0,&count);
+        vd_powx(&count,in_data0,&offsetin0,in_data1,&offsetin1,results_data,&offsetout0);
         
         /* check */
         for(i=0; i<n_expected;i++)
@@ -136,7 +136,7 @@ int main()
         const int count_used = count - offsetout_used0;
         
         /* make izy call */       
-        vd_powx(in_data0,&offsetin_used0,in_data1,&offsetin_used1,results_data,&offsetout_used0,&count_used);
+        vd_powx(&count_used,in_data0,&offsetin_used0,in_data1,&offsetin_used1,results_data,&offsetout_used0);
 
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
@@ -157,7 +157,7 @@ int main()
         /* test NaN arg0 */
         IVAL0 = NAN;
         IVAL1 =  0.e0;                
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(RVAL==1.e0))
         {
                 return _INCORRECTRESULT;
@@ -165,7 +165,7 @@ int main()
         
         IVAL0 = NAN;
         IVAL1 = INFINITY;         
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -173,7 +173,7 @@ int main()
        
         IVAL0 = NAN;
         IVAL1 = -INFINITY;        
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -181,7 +181,7 @@ int main()
         
         IVAL0 = NAN;
         IVAL1 = NAN;        
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -190,7 +190,7 @@ int main()
         /* test +INF */
         IVAL0 = INFINITY;
         IVAL1 =  0.e0;        
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(RVAL==1.e0))
         {
                return _INCORRECTRESULT;
@@ -198,7 +198,7 @@ int main()
         
         IVAL0 = INFINITY;
         IVAL1 =  2.e0;        
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);       
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);       
         if(!(isinf(RVAL)&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -207,7 +207,7 @@ int main()
         
         IVAL0 = INFINITY;
         IVAL1 =  -12.e0;        
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(RVAL==0.e0)&&!signbit(RVAL))
         {
                return _INCORRECTRESULT;
@@ -216,7 +216,7 @@ int main()
 
         IVAL0 = INFINITY;
         IVAL1 = INFINITY;        
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(isinf(RVAL)&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -224,7 +224,7 @@ int main()
          
         IVAL0 = INFINITY;
         IVAL1 = -INFINITY;        
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(RVAL==0.e0)&&!signbit(RVAL))
         {
                return _INCORRECTRESULT;
@@ -232,7 +232,7 @@ int main()
         
         IVAL0 = INFINITY;
         IVAL1 = NAN;        
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                return _INCORRECTRESULT;
@@ -241,7 +241,7 @@ int main()
         /* test -INF */
         IVAL0 = -INFINITY;        
         IVAL1 =  -3.e0;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!((RVAL==0.e0)&&signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -249,7 +249,7 @@ int main()
 
         IVAL0 = -INFINITY;        
         IVAL1 =  -4.e0;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!((RVAL==0.e0)&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -257,7 +257,7 @@ int main()
         
         IVAL0 = -INFINITY;        
         IVAL1 =  3.e0;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(isinf(RVAL)&&signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -265,7 +265,7 @@ int main()
         
         IVAL0 = -INFINITY;        
         IVAL1 =  4.e0;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(isinf(RVAL)&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -274,7 +274,7 @@ int main()
         
         IVAL0 = -INFINITY;        
         IVAL1 =  0.e0;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(RVAL==1.e0))
         {
                return _INCORRECTRESULT;
@@ -282,7 +282,7 @@ int main()
         
         IVAL0 = -INFINITY;        
         IVAL1 = INFINITY;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(isinf(RVAL)&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -290,7 +290,7 @@ int main()
          
         IVAL0 = -INFINITY;        
         IVAL1 = -INFINITY;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!((RVAL==0.e0)&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -298,7 +298,7 @@ int main()
         
         IVAL0 = -INFINITY;        
         IVAL1 = NAN;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(isnan(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -307,7 +307,7 @@ int main()
         /* overflow */
         IVAL0 = 1.e308;        
         IVAL1 = 1.e308;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isinf(RVAL))
         {
                return _INCORRECTRESULT;
@@ -316,7 +316,7 @@ int main()
         /* more exceptions */
         IVAL0 = -2.e0;        
         IVAL1 = 1.2e0;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(isnan(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -324,7 +324,7 @@ int main()
         
         IVAL0 = 1.e0;        
         IVAL1 = NAN;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(RVAL==1.e0))
         {
                return _INCORRECTRESULT;
@@ -332,7 +332,7 @@ int main()
         
         IVAL0 = +0.e0;        
         IVAL1 = 3.e0;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(RVAL==0.e0&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -340,7 +340,7 @@ int main()
         
         IVAL0 = -0.e0;        
         IVAL1 = 3.e0;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(RVAL==0.e0&&signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -348,7 +348,7 @@ int main()
         
         IVAL0 = 0.e0;        
         IVAL1 = 4.e0;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(RVAL==0.e0&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -356,7 +356,7 @@ int main()
         
         IVAL0 = -1.e0;        
         IVAL1 = INFINITY;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(RVAL==1.e0))
         {
                return _INCORRECTRESULT;
@@ -364,7 +364,7 @@ int main()
         
         IVAL0 = -1.e0;        
         IVAL1 = -INFINITY;
-        vd_pow(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(RVAL==1.e0))
         {
                return _INCORRECTRESULT;

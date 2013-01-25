@@ -103,7 +103,7 @@ int main()
         const int count = n_in;
         
         /* make izy call */
-        vd_erf(in_data,&offsetin0,results_data,&offsetout0,&count);
+        vd_erf(&count,in_data,&offsetin0,results_data,&offsetout0);
 
         /* check */
         for(i=0; i<n_expected;i++)
@@ -122,7 +122,7 @@ int main()
         memset(results_data,0x0,count*sizeof(double));        
         
         /* make izy call */       
-        vd_erf(in_data,&offsetin_used0,results_data,&offsetout_used0,&count_used);
+        vd_erf(&count_used,in_data,&offsetin_used0,results_data,&offsetout_used0);
 
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
@@ -141,7 +141,7 @@ int main()
         
         /* test NaN */
         IVAL = NAN;
-        vd_erf(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_erf(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -149,7 +149,7 @@ int main()
         
         /* test +INF */
         IVAL = INFINITY;
-        vd_erf(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_erf(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!(RVAL==1.e0))
         {
                return _INCORRECTRESULT;
@@ -157,7 +157,7 @@ int main()
 
         /* test -INF */
         IVAL = -INFINITY;        
-        vd_erf(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_erf(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!(RVAL==-1.e0))
         {
                return _INCORRECTRESULT;
@@ -165,7 +165,7 @@ int main()
               
         /* test subnormal */
         IVAL =  1.e-309;
-        vd_erf(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_erf(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(fabs(RVAL-(IVAL*M_2_PI))>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
