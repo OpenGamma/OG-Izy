@@ -2,10 +2,11 @@
 #include <math.h>
 #include "libizy/izyreference.h"
 #include "libizy/izymathsmacros.h"
-void vd_reference_modf(double * arg0, const int * offsetarg0, double * out0, const int * offsetout0, double * out1, const int * offsetout1, const int * count)
+void vd_reference_modf(const int * count, const double * arg0, const int * offsetarg0, double * out0, const int * offsetout0, double * out1, const int * offsetout1)
 {
         int i;
-        double * out0ref, * out1ref, * arg0ref;
+        double * out0ref, * out1ref;
+        const double * arg0ref;
         out0ref = &out0[*offsetout0];
         out1ref = &out1[*offsetout1];
         arg0ref = &arg0[*offsetarg0];
