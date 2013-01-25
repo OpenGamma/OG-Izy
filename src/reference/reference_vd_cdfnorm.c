@@ -2,10 +2,11 @@
 #include <math.h>
 #include "libizy/izyreference.h"
 #include "libizy/izymathsmacros.h"
-void vd_reference_cdfnorm(double * arg0, const int * offsetarg0, double * out0, const int * offsetout0, const int * count)
+void vd_reference_cdfnorm(const int * count, const double * arg0, const int * offsetarg0, double * out0, const int * offsetout0)
 {
         int i;
-        double * out0ref, * arg0ref;
+        double * out0ref;
+        const double * arg0ref;
         out0ref = &out0[*offsetout0];
         arg0ref = &arg0[*offsetarg0];
         for(i=0;i<*count;i++)
