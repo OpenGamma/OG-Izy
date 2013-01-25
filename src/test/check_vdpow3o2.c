@@ -1,12 +1,12 @@
 #ifdef HAVE_CONFIG
-#include "config.h"
+#include "libizy/config.h"
 #endif
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
-#include "izy.h"
+#include "libizy/izy.h"
 #include "izymakecheck.h"
 
 /* local change in tolerance, this is because -O2 or any sort of fast-math optimisation will turn x^(3/2) into x*sqrt(x) which gives slightly different answers */

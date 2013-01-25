@@ -1,6 +1,6 @@
 // libizy
-#include "izy.h"
-#include "izyreference.h"
+#include "libizy/izy.h"
+#include "libizy/izyreference.h"
 
 
 #define IZY_REFERENCE_ONEARGONERESULT(_NAME) \

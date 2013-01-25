@@ -1,6 +1,6 @@
 #ifndef IZY_H 
 #define IZY_H 1
-#include "izymacros.h"
+#include "libizy/izymacros.h"
 
 _VECTORONEARGONERESULTFUNCTION(acos)
 _VECTORONEARGONERESULTFUNCTION(asin)
