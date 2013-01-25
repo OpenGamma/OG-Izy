@@ -103,7 +103,7 @@ int main()
         const int count = n_in;
         
         /* make izy call */
-        vd_atan(in_data,&offsetin0,results_data,&offsetout0,&count);
+        vd_atan(&count,in_data,&offsetin0,results_data,&offsetout0);
 
         /* check */
         for(i=0; i<n_expected;i++)
@@ -122,7 +122,7 @@ int main()
         memset(results_data,0x0,count*sizeof(double));        
         
         /* make izy call */       
-        vd_atan(in_data,&offsetin_used0,results_data,&offsetout_used0,&count_used);
+        vd_atan(&count_used,in_data,&offsetin_used0,results_data,&offsetout_used0);
 
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
@@ -141,7 +141,7 @@ int main()
         
         /* test NaN */
         IVAL = NAN;
-        vd_atan(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_atan(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -149,7 +149,7 @@ int main()
         
         /* test +INF */
         IVAL = INFINITY;
-        vd_atan(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_atan(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(fabs(RVAL-M_PI_2)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
@@ -157,7 +157,7 @@ int main()
 
         /* test -INF */
         IVAL = -INFINITY;        
-        vd_atan(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_atan(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(fabs(RVAL+M_PI_2)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
@@ -165,14 +165,14 @@ int main()
         
         /* stage calls at poles, should ret 0 */
         IVAL = DBL_MAX;        
-        vd_atan(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_atan(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(fabs(RVAL-M_PI_2)>=IZY_DBL_EPSILON)
         {
                return _INCORRECTRESULT;
         }
         
         IVAL = -DBL_MAX;
-        vd_atan(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_atan(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(fabs(RVAL+M_PI_2)>=IZY_DBL_EPSILON)
         {               
                return _INCORRECTRESULT;

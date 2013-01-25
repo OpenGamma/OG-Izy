@@ -103,7 +103,7 @@ int main()
         const int count = n_in;
         
         /* make izy call */
-        vd_sqrt(in_data,&offsetin0,results_data,&offsetout0,&count);
+        vd_sqrt(&count,in_data,&offsetin0,results_data,&offsetout0);
 
         /* check */
         for(i=0; i<n_expected;i++)
@@ -122,7 +122,7 @@ int main()
         memset(results_data,0x0,count*sizeof(double));        
         
         /* make izy call */       
-        vd_sqrt(in_data,&offsetin_used0,results_data,&offsetout_used0,&count_used);
+        vd_sqrt(&count_used,in_data,&offsetin_used0,results_data,&offsetout_used0);
 
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
@@ -141,7 +141,7 @@ int main()
         
         /* test NaN */
         IVAL = NAN;
-        vd_sqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_sqrt(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -149,7 +149,7 @@ int main()
         
         /* test +INF */
         IVAL = INFINITY;
-        vd_sqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_sqrt(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!(isinf(RVAL)&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -157,28 +157,28 @@ int main()
 
         /* test -INF */
         IVAL = -INFINITY;        
-        vd_sqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_sqrt(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                return _INCORRECTRESULT;
         }
 
         IVAL = -1.e0;        
-        vd_sqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_sqrt(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                return _INCORRECTRESULT;
         }
         
         IVAL = 0.e0;
-        vd_sqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_sqrt(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!((RVAL==0.e0)&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
         }
         
         IVAL = -0.e0;
-        vd_sqrt(&IVAL,&offsetin0,&RVAL,&offsetout0,&one);
+        vd_sqrt(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
         if(!((RVAL==0.e0)&&signbit(RVAL)))
         {
                return _INCORRECTRESULT;
