@@ -115,7 +115,7 @@ int main()
         memset(results_data,0x0,count*sizeof(double));        
         
         /* make izy call */
-        vd_div(in_data0,&offsetin0,in_data1,&offsetin1,results_data,&offsetout0,&count);
+        vd_div(&count,in_data0,&offsetin0,in_data1,&offsetin1,results_data,&offsetout0);
         
         /* check */
         for(i=0; i<n_expected;i++)
@@ -134,7 +134,7 @@ int main()
         const int count_used = count - offsetout_used0;
         
         /* make izy call */       
-        vd_div(in_data0,&offsetin_used0,in_data1,&offsetin_used1,results_data,&offsetout_used0,&count_used);
+        vd_div(&count_used,in_data0,&offsetin_used0,in_data1,&offsetin_used1,results_data,&offsetout_used0);
 
         /* check */
         for(i=offsetout_used0; i < offsetout_used0+count_used;i++)
@@ -155,7 +155,7 @@ int main()
         /* test 0/0 */
         IVAL0 = 0.e0;
         IVAL1 = 0.e0;                
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -164,7 +164,7 @@ int main()
         /* test NaN arg0 */
         IVAL0 = NAN;
         IVAL1 = 0.e0;                
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -172,7 +172,7 @@ int main()
         
         IVAL0 = NAN;
         IVAL1 = INFINITY;         
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -180,7 +180,7 @@ int main()
 
         IVAL0 = NAN;
         IVAL1 = -INFINITY;        
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -188,7 +188,7 @@ int main()
         
         IVAL0 = NAN;
         IVAL1 = NAN;        
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                 return _INCORRECTRESULT;
@@ -197,7 +197,7 @@ int main()
         /* test +INF */
         IVAL0 = INFINITY;
         IVAL1 = 0.e0;        
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(isinf(RVAL)&&!signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -205,7 +205,7 @@ int main()
 
         IVAL0 = INFINITY;
         IVAL1 = INFINITY;        
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                return _INCORRECTRESULT;
@@ -213,7 +213,7 @@ int main()
          
         IVAL0 = INFINITY;
         IVAL1 = -INFINITY;        
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                return _INCORRECTRESULT;
@@ -221,7 +221,7 @@ int main()
         
         IVAL0 = INFINITY;
         IVAL1 = NAN;        
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                return _INCORRECTRESULT;
@@ -230,7 +230,7 @@ int main()
         /* test -INF */
         IVAL0 = -INFINITY;        
         IVAL1 =  0.e0;
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!(isinf(RVAL)&&signbit(RVAL)))
         {
                return _INCORRECTRESULT;
@@ -238,7 +238,7 @@ int main()
         
         IVAL0 = -INFINITY;        
         IVAL1 = INFINITY;
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                return _INCORRECTRESULT;
@@ -246,7 +246,7 @@ int main()
          
         IVAL0 = -INFINITY;        
         IVAL1 = -INFINITY;
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                return _INCORRECTRESULT;
@@ -254,7 +254,7 @@ int main()
         
         IVAL0 = -INFINITY;        
         IVAL1 = NAN;
-        vd_div(&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0,&one);
+        vd_div(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
         if(!isnan(RVAL))
         {
                return _INCORRECTRESULT;
