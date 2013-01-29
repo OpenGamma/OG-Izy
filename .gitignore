@@ -22,3 +22,6 @@ configure
 install-sh
 depcomp
 autom4te.cache/
+src/test/expected*.txt
+src/test/count*.txt
+src/test/input*.txt
