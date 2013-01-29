@@ -19,7 +19,7 @@ reference_vd_cbrt.c\
 reference_vd_cdfnorm.c\
 reference_vd_cdfnorminv.c\
 reference_vd_ceil.c\
-reference_vcos.c\
+reference_vd_cos.c\
 reference_vd_cosh.c\
 reference_vd_div.c\
 reference_vd_divx.c\
@@ -59,8 +59,37 @@ reference_vd_subx.c\
 reference_vd_tan.c\
 reference_vd_tanh.c\
 reference_vd_tgamma.c\
-reference_vd_trunc.c
+reference_vd_trunc.c\
+reference_vz_abs.c\
+reference_vz_acos.c\
+reference_vz_acosh.c\
+reference_vz_add.c\
+reference_vz_addx.c\
+reference_vz_arg.c\
+reference_vz_asin.c\
+reference_vz_asinh.c\
+reference_vz_atan.c\
+reference_vz_atanh.c\
+reference_vz_conj.c\
+reference_vz_cos.c\
+reference_vz_cosh.c\
+reference_vz_div.c\
+reference_vz_divx.c\
+reference_vz_exp.c\
+reference_vz_ln.c\
+reference_vz_log10.c\
+reference_vz_mulbyconj.c\
+reference_vz_mul.c\
+reference_vz_mulx.c\
+reference_vz_pow.c\
+reference_vz_powx.c\
+reference_vz_sin.c\
+reference_vz_sinh.c\
+reference_vz_sqrt.c\
+reference_vz_sub.c\
+reference_vz_subx.c\
+reference_vz_tan.c\
+reference_vz_tanh.c
 
 AM_CFLAGS=@CFLAGS@ -fPIC -Wall
 AM_LDFLAGS=-no-undefined
-# reference_vd_cos.c
