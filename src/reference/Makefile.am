@@ -19,7 +19,7 @@ reference_vd_cbrt.c\
 reference_vd_cdfnorm.c\
 reference_vd_cdfnorminv.c\
 reference_vd_ceil.c\
-reference_vd_cos.c\
+reference_vcos.c\
 reference_vd_cosh.c\
 reference_vd_div.c\
 reference_vd_divx.c\
@@ -63,3 +63,4 @@ reference_vd_trunc.c
 
 AM_CFLAGS=@CFLAGS@ -fPIC -Wall
 AM_LDFLAGS=-no-undefined
+# reference_vd_cos.c
