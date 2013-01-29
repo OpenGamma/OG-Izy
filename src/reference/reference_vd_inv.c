@@ -4,5 +4,5 @@
 #include "libizy/izymathsmacros.h"
 void vd_reference_inv(const int * count, const double * arg0, const int * offsetarg0, double * out0, const int * offsetout0)
 {
-        VFUNC(1.e0/)
+        DVFUNC(1.e0/)
 };

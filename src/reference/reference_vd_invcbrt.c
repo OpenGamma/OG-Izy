@@ -5,5 +5,5 @@
 void vd_reference_invcbrt(const int * count, const double * arg0, const int * offsetarg0, double * out0, const int * offsetout0)
 {
         // bad
-        VFUNC(1/cbrt)
+        DVFUNC(1/cbrt)
 };

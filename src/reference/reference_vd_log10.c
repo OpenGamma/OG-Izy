@@ -4,5 +4,5 @@
 #include "libizy/izymathsmacros.h"
 void vd_reference_log10(const int * count, const double * arg0, const int * offsetarg0, double * out0, const int * offsetout0)
 {
-        VFUNC(log10)
+        DVFUNC(log10)
 };

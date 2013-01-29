@@ -4,5 +4,5 @@
 #include "libizy/izymathsmacros.h"
 void vd_reference_pow2o3(const int * count, const double * arg0, const int * offsetarg0, double * out0, const int * offsetout0)
 {
-        VFUNCWCONST(pow, 2.e0/3.e0)
+        DVFUNCWCONST(pow, 2.e0/3.e0)
 };
