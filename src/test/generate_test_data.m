@@ -195,6 +195,8 @@ std_range_small = [-10:0.5:-0.5,0.5:0.5:10]; %% shift for things like div so the
 std_range_large = 10*std_range_small;
 std_const = 10;
 
+gamma_range = [-9.5:1:-0.5,0.5:0.5:10];
+
 log_range_small = 0.5+(0:0.5:10); %% shift to avoid 0
 
 bounded_one_one = linspace(-1,1,20);
@@ -244,8 +246,8 @@ gendata('erf','erf',bounded_one_one);
 gendata('erfc','erfc',bounded_one_one);
 %  gendata(''); % RESERVED for erfinv, not sure whether it's worth impl ATM
 %  gendata(''); % RESERVED for erfcinv, not sure whether it's worth impl ATM
-gendata('lgamma','lgamma',std_range_small);
-gendata('gamma','tgamma',std_range_small);
+gendata('lgamma','lgamma',gamma_range);
+gendata('gamma','tgamma',gamma_range);
 
 
 %  %PWR
@@ -267,6 +269,6 @@ gendata('modf','modf',trig_range);
 gendata('nearbyint','nearbyint',trig_range);
 gendata('nearbyint','rint',trig_range);
 gendata('round','round',trig_range);
-gendata('round','trunc',trig_range);
+gendata('fix','trunc',trig_range);
 
 
