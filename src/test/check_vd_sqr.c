@@ -28,7 +28,7 @@ int main()
   memset(results_data,0x0,count*sizeof(double));
 
   /* make izy call */
-  vd_sqr(&count,in_data0,&offsetin0,results_data,&offsetout0);
+  vd_sqr(&count,in_data,&offsetin0,results_data,&offsetout0);
 
   /* check */
   for(i=0; i<n_expected; i++)
@@ -47,7 +47,7 @@ int main()
   const int count_used = count - offsetout_used0;
 
   /* make izy call */
-  vd_sqr(&count_used,in_data0,&offsetin_used0,results_data,&offsetout_used0);
+  vd_sqr(&count_used,in_data,&offsetin_used0,results_data,&offsetout_used0);
 
   /* check */
   for(i=offsetout_used0; i < offsetout_used0+count_used; i++)

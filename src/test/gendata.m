@@ -39,17 +39,27 @@ function retstr = gendata(fnname, uname, lang, arg0, arg1)
     catch 
             [out0]=arrayfun(fnname,arg0);
     end
-  
-    retstr = [retstr,"double[] y0 = new double[expected0.length];\n"]
-    fprintf(fp,'int n_expected = %d;\n',numel(out0));
+
+    if(any(iscomplex(out0))||any(iscomplex(out1)))
+      scale=2;
+    else
+      scale=1;
+    end
+
+    fprintf(fp,'// for debug:\n int n_expected = %d;\n',numel(out0));
     if(~isempty(out1))
       writeData(fp,out0,'expected_data','0',lang);
       writeData(fp,out1,'expected_data','1',lang);
-      retstr = [retstr,"double[] y1 = new double[expected1.length];\n"]
-      retstr = [retstr,"_izy.",filetag,uname,"(new int[] {n_in}, arg0, zero, y0, zero, y1, zero);"];
+      retstr = [retstr,"double[] y0 = new double[",num2str(scale),"*expected_data0.length];\n"];
+      retstr = [retstr,"double[] y1 = new double[",num2str(scale),"*expected_data1.length];\n"];
+      retstr = [retstr,"_izy.",filetag,uname,"(new int[] {n_in}, in_data, zero, y0, zero, y1, zero);\n"];
+      retstr = [retstr, "assertTrue(FPEquals.fuzzyEqualsDynamicTol(y0, expected_data0));\n"];
+      retstr = [retstr, "assertTrue(FPEquals.fuzzyEqualsDynamicTol(y1, expected_data1));\n"];
     else
       writeData(fp,out0,'expected_data','',lang);
-      retstr = [retstr,"_izy.",filetag,uname,"(new int[] {n_in}, arg0, zero, y0, zero);"];
+      retstr = [retstr,"double[] y0 = new double[expected_data.length];\n"];
+      retstr = [retstr,"_izy.",filetag,uname,"(new int[] {n_in}, in_data, zero, y0, zero);\n"];
+      retstr = [retstr, "assertTrue(FPEquals.fuzzyEqualsDynamicTol(y0, expected_data));\n"];
     end
   elseif(nargin==5)  
     fprintf(fp,'int n_in = %d;\n',numel(arg0));
@@ -64,21 +74,25 @@ function retstr = gendata(fnname, uname, lang, arg0, arg1)
             [out0]=arrayfun(fnname,arg0,arg1);
     end
 
-    retstr = [retstr,"double[] y0 = new double[expected0.length];\n"]
     fprintf(fp,'int n_expected = %d;\n',numel(out0));
     if(~isempty(out1))
       writeData(fp,out0,'expected_data','0',lang);
       writeData(fp,out1,'expected_data','1',lang);
-      retstr = [retstr,"double[] y1 = new double[expected1.length];\n"]
-      retstr = [retstr,"_izy.",filetag,uname,"(new int[] {n_in}, arg0, zero, arg1, zero, y0, zero, y1, zero);"];
+      retstr = [retstr,"double[] y0 = new double[",num2str(scale),"*expected_data0.length];\n"];
+      retstr = [retstr,"double[] y1 = new double[",num2str(scale),"*expected_data1.length];\n"];
+      retstr = [retstr,"_izy.",filetag,uname,"(new int[] {n_in}, in_data0, zero, in_data1, zero, y0, zero, y1, zero);\n"];
+      retstr = [retstr, "assertTrue(FPEquals.fuzzyEqualsDynamicTol(y0, expected_data0));\n"];
+      retstr = [retstr, "assertTrue(FPEquals.fuzzyEqualsDynamicTol(y1, expected_data1));\n"];
     else
       writeData(fp,out0,'expected_data','',lang);
-      retstr = [retstr,"_izy.",filetag,uname,"(new int[] {n_in}, arg0, zero, arg1, zero, y0, zero);"];
+      retstr = [retstr,"double[] y0 = new double[expected_data.length];\n"];
+      retstr = [retstr,"_izy.",filetag,uname,"(new int[] {n_in}, in_data0, zero, in_data1, zero, y0, zero);\n"];
+      retstr = [retstr, "assertTrue(FPEquals.fuzzyEqualsDynamicTol(y0, expected_data));\n"];
     end
   else
           error("Too many args")
   end
-  retstr = [retstr,"\n};"]
+  retstr = [retstr,"\n};\n\n"];
   fclose(fp);
 end % function
 
@@ -89,6 +103,10 @@ end
 
 function ret = invsqrt(arg0)
         ret = 1./sqrt(arg0);
+end
+
+function ret = sqr(arg0)
+        ret = arg0.^2;
 end
 
 function ret = invsingle(arg0)
@@ -111,6 +129,10 @@ end
 function [integral,fraction]=modf(arg0)
         integral = fix(arg0);
         fraction = arg0 - integral;
+end
+
+function ret = mulbyconj(arg0,arg1)
+  ret = arg0.*conj(arg1);
 end
 
 % botch
@@ -153,13 +175,19 @@ function [] = writeData(fp,out,name,val,lang);
     if(~any(iscomplex(out)))
       for k=1:numel(out)-1
         fprintf(fp,fmt,out(k))
-        fprintf(fp,',\n');
+        fprintf(fp,',');
+        if(~mod(k,10))
+          fprintf(fp,'\n');
+        end
       end
       fprintf(fp,fmt,out(end))
     else
       for k=1:numel(out)-1
         fprintf(fp,fmt,[real(out(k)),imag(out(k))])
-        fprintf(fp,',\n');
+        fprintf(fp,',');
+        if(~mod(k,10))
+          fprintf(fp,'\n');
+        end
       end
         fprintf(fp,fmt,[real(out(end)),imag(out(end))])
     end
