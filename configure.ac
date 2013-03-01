@@ -24,6 +24,45 @@ AS_IF([test "x$CC" != "gcc"],[
 AX_GCC_ARCHFLAG
 ],[])
 
+USE_MKL=""
+AC_ARG_WITH(MKL,
+[AS_HELP_STRING([--with-MKL],[Function calls will prefer Intel's MKL])],
+#is requested
+[
+USE_MKL="yes"
+AC_DEFINE([HAVE_MKL], [1], ["/* Define to 1 if you have requested Intel MKL support */"])
+AC_MSG_CHECKING([for mkl.h])
+AC_CHECK_HEADERS([mkl.h],[],
+[
+AC_MSG_ERROR([Intel MKL requested but header file mkl.h not found])
+]
+)
+AC_MSG_CHECKING([for MKL linkage working])
+AC_LANG([C])
+AC_TRY_LINK([
+#ifdef HAVE_MKL
+#include "mkl.h"
+#endif
+],[
+const int n;
+const double * a, * b;
+double * y;
+vdAdd(n,a,b,y);
+],[AC_MSG_RESULT([yes])],
+[
+AC_MSG_RESULT([no])
+AC_MSG_ERROR([MKL requested but cannot successfully link.])
+]
+) # end AC_TRY_LINK
+]
+,
+#is NOT requested
+[
+USE_MKL="no"
+]
+)
+
+
 
 
 # check for f77
