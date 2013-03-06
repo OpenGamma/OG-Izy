@@ -25,6 +25,18 @@
                 out0ref[i]=arg0ref[i] _OP *arg1ref;\
         }
 
+#define DVXOP(_OP) \
+        int i;\
+        double * out0ref;\
+        const double * arg0ref, * arg1ref;\
+        out0ref = &out0[*offsetout0];\
+        arg0ref = &arg0[*offsetarg0];\
+        arg1ref = &arg1[*offsetarg1];\
+        for(i=0;i<*count;i++)\
+        {\
+                out0ref[i]=*arg0ref _OP arg1ref[i];\
+        }
+
 #define DVFUNC(_OP) \
         int i; \
         double * out0ref;\
@@ -82,6 +94,18 @@
         for(i=0;i<*count;i++)\
         {\
                 out0ref[i]=arg0ref[i] _OP *arg1ref;\
+        }
+
+#define ZVXOP(_OP) \
+        int i;\
+        double complex * out0ref;\
+        const double complex * arg0ref, * arg1ref;\
+        out0ref = &out0[*offsetout0];\
+        arg0ref = &arg0[*offsetarg0];\
+        arg1ref = &arg1[*offsetarg1];\
+        for(i=0;i<*count;i++)\
+        {\
+                out0ref[i]= *arg0ref  _OP arg1ref[i];\
         }
 
 #define ZVFUNC(_OP) \
