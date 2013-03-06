@@ -198,6 +198,11 @@ void vd_abs(const int * count, const double * arg0, const int * offsetarg0, doub
  IZY_D_ONEARGONERESULT(abs,Abs)
 };
 
+void vd_negate(const int * count, const double * arg0, const int * offsetarg0, double * out0, const int * offsetout0)
+{
+ vd_reference_negate(count, arg0, offsetarg0, out0, offsetout0);
+};
+
 void vd_add(const int * count, const double * arg0, const int * offsetarg0, const double * arg1, const int * offsetarg1, double * out0, const int * offsetout0)
 {
  IZY_D_TWOARGONERESULT(add,Add)
@@ -216,6 +221,11 @@ void vd_div(const int * count, const double * arg0, const int * offsetarg0, cons
 void vd_divx(const int * count, const double * arg0, const int * offsetarg0, const double * arg1, const int * offsetarg1, double * out0, const int * offsetout0)
 {
 	vd_reference_divx(count,arg0,offsetarg0,arg1,offsetarg1,out0,offsetout0);
+};
+
+void vd_xdiv(const int * count, const double * arg0, const int * offsetarg0, const double * arg1, const int * offsetarg1, double * out0, const int * offsetout0)
+{
+  vd_reference_xdiv(count,arg0,offsetarg0,arg1,offsetarg1,out0,offsetout0);
 };
 
 void vd_mul(const int * count, const double * arg0, const int * offsetarg0, const double * arg1, const int * offsetarg1, double * out0, const int * offsetout0)
@@ -241,6 +251,11 @@ void vd_sub(const int * count, const double * arg0, const int * offsetarg0, cons
 void vd_subx(const int * count, const double * arg0, const int * offsetarg0, const double * arg1, const int * offsetarg1, double * out0, const int * offsetout0)
 {
 	vd_reference_subx(count,arg0,offsetarg0,arg1,offsetarg1,out0,offsetout0);
+};
+
+void vd_xsub(const int * count, const double * arg0, const int * offsetarg0, const double * arg1, const int * offsetarg1, double * out0, const int * offsetout0)
+{
+  vd_reference_xsub(count,arg0,offsetarg0,arg1,offsetarg1,out0,offsetout0);
 };
 
 void vd_ceil(const int * count, const double * arg0, const int * offsetarg0, double * out0, const int * offsetout0)
@@ -368,14 +383,26 @@ void vz_atan(const int * count, const double complex * arg0, const int * offseta
 {
 IZY_Z_ONEARGONERESULT(atan,Atan)
 };
+
 void vz_atanh(const int * count, const double complex * arg0, const int * offsetarg0, double complex * out0, const int * offsetout0)
 {
 IZY_Z_ONEARGONERESULT(atanh,Atanh)
 };
+
 void vz_conj(const int * count, const double complex * arg0, const int * offsetarg0, double complex * out0, const int * offsetout0)
 {
 IZY_Z_ONEARGONERESULT(conj,Conj)
 };
+
+void vz_negatereal(const int * count, const double complex * arg0, const int * offsetarg0, double complex * out0, const int * offsetout0)
+{
+  vz_reference_negatereal(count, arg0, offsetarg0, out0, offsetout0);
+};
+
+void vz_negate(const int * count, const double complex * arg0, const int * offsetarg0, double complex * out0, const int * offsetout0)
+{
+  vz_reference_negate(count, arg0, offsetarg0, out0, offsetout0);
+}
 
 void vz_cos(const int * count, const double complex * arg0, const int * offsetarg0, double complex * out0, const int * offsetout0)
 {
@@ -395,6 +422,11 @@ IZY_Z_TWOARGONERESULT(div,Div)
 void vz_divx(const int * count, const double complex * arg0, const int * offsetarg0, const double complex * arg1, const int * offsetarg1, double complex * out0, const int * offsetout0)
 {
  	vz_reference_divx(count,arg0,offsetarg0,arg1,offsetarg1,out0,offsetout0);
+};
+
+void vz_xdiv(const int * count, const double complex * arg0, const int * offsetarg0, const double complex * arg1, const int * offsetarg1, double complex * out0, const int * offsetout0)
+{
+  vz_reference_xdiv(count,arg0,offsetarg0,arg1,offsetarg1,out0,offsetout0);
 };
 
 void vz_exp(const int * count, const double complex * arg0, const int * offsetarg0, double complex * out0, const int * offsetout0)
@@ -462,6 +494,11 @@ IZY_Z_TWOARGONERESULT(sub,Sub)
 void vz_subx(const int * count, const double complex * arg0, const int * offsetarg0, const double complex * arg1, const int * offsetarg1, double complex * out0, const int * offsetout0)
 {
  	vz_reference_subx(count,arg0,offsetarg0,arg1,offsetarg1,out0,offsetout0);
+};
+
+void vz_xsub(const int * count, const double complex * arg0, const int * offsetarg0, const double complex * arg1, const int * offsetarg1, double complex * out0, const int * offsetout0)
+{
+  vz_reference_xsub(count,arg0,offsetarg0,arg1,offsetarg1,out0,offsetout0);
 };
 
 void vz_tan(const int * count, const double complex * arg0, const int * offsetarg0, double complex * out0, const int * offsetout0)
