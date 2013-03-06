@@ -141,7 +141,7 @@ function ret = mulbyconj(arg0,arg1)
 end
 
 function ret = negatereal(arg0)
-  ret = uminus(real(arg0))+imag(arg0);
+  ret = uminus(real(arg0))+i.*(imag(arg0));
 end
 
 % botch
