@@ -43,6 +43,7 @@ reference_vd_modf.c\
 reference_vd_mul.c\
 reference_vd_mulx.c\
 reference_vd_nearbyint.c\
+reference_vd_negate.c\
 reference_vd_pow2o3.c\
 reference_vd_pow3o2.c\
 reference_vd_pow.c\
@@ -60,6 +61,8 @@ reference_vd_tan.c\
 reference_vd_tanh.c\
 reference_vd_tgamma.c\
 reference_vd_trunc.c\
+reference_vd_xdiv.c\
+reference_vd_xsub.c\
 reference_vz_abs.c\
 reference_vz_acos.c\
 reference_vz_acosh.c\
@@ -75,12 +78,15 @@ reference_vz_cos.c\
 reference_vz_cosh.c\
 reference_vz_div.c\
 reference_vz_divx.c\
+reference_vz_xdiv.c\
 reference_vz_exp.c\
 reference_vz_ln.c\
 reference_vz_log10.c\
 reference_vz_mulbyconj.c\
 reference_vz_mul.c\
 reference_vz_mulx.c\
+reference_vz_negate.c\
+reference_vz_negatereal.c\
 reference_vz_pow.c\
 reference_vz_powx.c\
 reference_vz_sin.c\
@@ -88,6 +94,7 @@ reference_vz_sinh.c\
 reference_vz_sqrt.c\
 reference_vz_sub.c\
 reference_vz_subx.c\
+reference_vz_xsub.c\
 reference_vz_tan.c\
 reference_vz_tanh.c
 
