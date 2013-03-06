@@ -47,12 +47,15 @@ clear all; close all; clc;
   str=[str,gendata('plus','addx',lang,std_range_small,std_const)];
   str=[str,gendata('rdivide','div',lang,std_range_small,std_range_large)];
   str=[str,gendata('rdivide','divx',lang,std_range_small,std_const)];
+  str=[str,gendata('rdivide','xdiv',lang,std_const,std_range_small)];
   %  str=[str,gendata('')]; % RESERVED for linearfrac, not sure whether it's worth impl
   str=[str,gendata('times','mul',lang,std_range_small,std_range_large)];
   str=[str,gendata('times','mulx',lang,std_range_small,std_const)];
   str=[str,gendata('sqr','sqr',lang,std_range_small)];
   str=[str,gendata('minus','sub',lang,std_range_small,std_range_large)];
   str=[str,gendata('minus','subx',lang,std_range_small,std_const)];
+  str=[str,gendata('minus','xsub',lang,std_const,std_range_small)];
+  str=[str,gendata('uminus','negate',lang,std_range_small)];
 
   %exp+log
   str=[str,gendata('exp','exp',lang,exp_range_small)];
@@ -133,6 +136,7 @@ clear all; close all; clc;
   str=[str,gendata('plus','addx',lang,complex_data,complex_std_const)];
   str=[str,gendata('rdivide','div',lang,complex_data,complex_data+sqrt(2))];
   str=[str,gendata('rdivide','divx',lang,complex_data,complex_std_const)];
+  str=[str,gendata('rdivide','xdiv',lang,complex_std_const,complex_data(complex_data~=0))];
 
   str=[str,gendata('arg','arg',lang,complex_data)];
   str=[str,gendata('conj','conj',lang,complex_data)];
@@ -142,6 +146,10 @@ clear all; close all; clc;
   str=[str,gendata('mulbyconj','mulbyconj',lang,complex_data,conj(complex_data))]; %conj the second data so that we do a.*conj(conj(b)) = a.*b;
   str=[str,gendata('minus','sub',lang,complex_data,5*complex_data)];
   str=[str,gendata('minus','subx',lang,complex_data,complex_std_const)];
+  str=[str,gendata('minus','xsub',lang,complex_std_const,complex_data)];
+  str=[str,gendata('uminus','negate',lang,complex_data)];
+  str=[str,gendata('negatereal','negatereal',lang,complex_data)];
+
 
 header="\n...
 /**\n...

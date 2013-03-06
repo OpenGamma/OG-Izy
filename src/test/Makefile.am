@@ -1,6 +1,6 @@
 # TEST EXECS
 DEF_TRIG = check_vd_cos check_vd_sin check_vd_tan check_vd_acos check_vd_asin check_vd_atan check_vd_atan2  check_vd_sincos
-DEF_ARITH = check_vd_abs check_vd_add check_vd_addx check_vd_div check_vd_divx check_vd_mul check_vd_mulx check_vd_sqr check_vd_sub check_vd_subx 
+DEF_ARITH = check_vd_abs check_vd_add check_vd_addx check_vd_div check_vd_divx check_vd_mul check_vd_mulx check_vd_sqr check_vd_sub check_vd_subx check_vd_xsub check_vd_xdiv check_vd_negate
 DEF_EL = check_vd_exp check_vd_expm1 check_vd_ln check_vd_log10 check_vd_log1p
 DEF_HYP = check_vd_acosh check_vd_asinh check_vd_atanh check_vd_cosh check_vd_sinh check_vd_tanh
 DEF_SPECFUN = check_vd_cdfnorm check_vd_erf check_vd_erfc check_vd_lgamma check_vd_tgamma
