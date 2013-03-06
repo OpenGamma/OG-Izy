@@ -466,7 +466,7 @@ void vz_powx(const int * count, const double complex * arg0, const int * offseta
 #ifdef HAVE_MKL
 	vzPowx(*count,(MKL_Complex16 *)&arg0[*offsetarg0],*(MKL_Complex16 *)&arg1[*offsetarg1],(MKL_Complex16 *)&out0[*offsetout0]);
 #else
-	vz_reference_powx(count,arg0,offsetarg0,out0,offsetout0);
+	vz_reference_powx(count,arg0,offsetarg0,arg1,offsetarg1,out0,offsetout0);
 #endif
 };
 
