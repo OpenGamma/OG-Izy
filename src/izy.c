@@ -435,7 +435,7 @@ IZY_Z_TWOARGONERESULT(pow,Pow)
 void vz_powx(const int * count, const double complex * arg0, const int * offsetarg0, const double complex * arg1, const int * offsetarg1, double complex * out0, const int * offsetout0)
 {
 
-	vz_reference_powx(count,arg0,offsetarg0,out0,offsetout0);
+	vz_reference_powx(count,arg0,offsetarg0,arg1,offsetarg1,out0,offsetout0);
 
 };
 
