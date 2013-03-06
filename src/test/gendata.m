@@ -30,8 +30,14 @@ function retstr = gendata(fnname, uname, lang, arg0, arg1)
     error("file open failed")
   end
 
-  if(nargin==4)
+  % functions starting x are of form const(OP)array so n_in depends on arg1
+  if(strcmp(upper(uname(1)),'X'))
+    fprintf(fp,'int n_in = %d;\n',numel(arg1));
+  else
     fprintf(fp,'int n_in = %d;\n',numel(arg0));
+  end
+
+  if(nargin==4)
     writeData(fp,arg0,'in_data','',lang);
     out1=[];
     try
@@ -62,7 +68,6 @@ function retstr = gendata(fnname, uname, lang, arg0, arg1)
       retstr = [retstr, "assertTrue(FPEquals.fuzzyEqualsDynamicTol(y0, expected_data));\n"];
     end
   elseif(nargin==5)  
-    fprintf(fp,'int n_in = %d;\n',numel(arg0));
     writeData(fp,arg0,'in_data','0',lang);
     writeData(fp,arg1,'in_data','1',lang);   
 
@@ -133,6 +138,10 @@ end
 
 function ret = mulbyconj(arg0,arg1)
   ret = arg0.*conj(arg1);
+end
+
+function ret = negatereal(arg0)
+  ret = uminus(real(arg0))+imag(arg0);
 end
 
 % botch
