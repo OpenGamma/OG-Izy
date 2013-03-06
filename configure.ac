@@ -30,7 +30,7 @@ AC_ARG_WITH(MKL,
 #is requested
 [
 USE_MKL="yes"
-AC_DEFINE([HAVE_MKL], [1], ["/* Define to 1 if you have requested Intel MKL support */"])
+AC_DEFINE([HAVE_MKL], [1], ["Define to 1 if you have requested Intel MKL support"])
 AC_MSG_CHECKING([for mkl.h])
 AC_CHECK_HEADERS([mkl.h],[],
 [
