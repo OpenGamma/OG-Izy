@@ -118,9 +118,9 @@ AC_CHECK_FUNCS([sincos])
 
 #If the new interface has removed elements with respect to the previous interface, then you have broken backward compatibility and age must be reset to `0'. This release has a new, but backwards incompatible interface. 
 
-LIBIZY_CURRENT=0
-LIBIZY_REVISION=1
-LIBIZY_AGE=0
+LIBIZY_CURRENT=1
+LIBIZY_REVISION=0
+LIBIZY_AGE=1
 LIBIZY_VERSION=$LIBIZY_CURRENT:\
 $LIBIZY_REVISION:$LIBIZY_AGE
 AC_SUBST(LIBIZY_VERSION)
