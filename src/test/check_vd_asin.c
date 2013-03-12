@@ -14,13 +14,7 @@ int main()
 {
 #include "vd_asin_c.inc"
   int i;
-  double * results_data = NULL;
-  results_data = (double * ) malloc(n_expected*sizeof(double));
-  if(!results_data)
-    {
-      return _MALLOCERROR;
-    }
-
+  double results_data[n_expected];
   const int offsetin0 = 0;
   const int offsetout0 = 0;
   const int count = n_in;
@@ -31,11 +25,7 @@ int main()
   /* check */
   for(i=0; i<n_expected; i++)
     {
-      if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
-        {
-          return _INCORRECTRESULT;
-        }
-
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data[i], results_data[i], IZY_DBL_EPSILON, _STANDARD_LOOP_INCORRECT_RESULT)
     }
 
   /* stage offset call */
@@ -50,11 +40,7 @@ int main()
   /* check */
   for(i=offsetout_used0; i < offsetout_used0+count_used; i++)
     {
-      if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
-        {
-          return _INCORRECTRESULT;
-        }
-
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data[i], results_data[i], IZY_DBL_EPSILON, _OFFSET_LOOP_INCORRECT_RESULT)
     }
 
   /* stage calls to saturation */
@@ -65,59 +51,38 @@ int main()
   /* test NaN */
   IVAL = NAN;
   vd_asin(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
-  if(!isnan(RVAL))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* test +INF */
   IVAL = INFINITY;
   vd_asin(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
-  if(!isnan(RVAL))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* test -INF */
   IVAL = -INFINITY;
   vd_asin(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
-  if(!isnan(RVAL))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* stage calls to out of bounds */
   IVAL = 2;
   vd_asin(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
-  if(!isnan(RVAL))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL = -2;
   vd_asin(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
-  if(!isnan(RVAL))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* stage calls at poles, should ret 0 */
   IVAL = 1;
   vd_asin(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
-  if(fabs(RVAL-M_PI_2)>=IZY_DBL_EPSILON)
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(M_PI_2, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL = -1;
   vd_asin(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
-  if(fabs(RVAL+M_PI_2)>=IZY_DBL_EPSILON)
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(-M_PI_2, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
 
 
-  free(results_data);
+
   return 0;
 }

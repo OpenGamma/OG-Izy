@@ -3,7 +3,6 @@
 #endif
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 #include <math.h>
 #include <float.h>
 #include "libizy/izy.h"
@@ -14,12 +13,7 @@ int main()
 {
 #include "vd_acos_c.inc"
   int i;
-  double * results_data = NULL;
-  results_data = (double * ) malloc(n_expected*sizeof(double));
-  if(!results_data)
-    {
-      return _MALLOCERROR;
-    }
+  double results_data[n_expected];
 
   const int offsetin0 = 0;
   const int offsetout0 = 0;
@@ -31,11 +25,7 @@ int main()
   /* check */
   for(i=0; i<n_expected; i++)
     {
-      if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
-        {
-          return _INCORRECTRESULT;
-        }
-
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data[i], results_data[i], IZY_DBL_EPSILON, _STANDARD_LOOP_INCORRECT_RESULT)
     }
 
   /* stage offset call */
@@ -50,11 +40,7 @@ int main()
   /* check */
   for(i=offsetout_used0; i < offsetout_used0+count_used; i++)
     {
-      if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
-        {
-          return _INCORRECTRESULT;
-        }
-
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data[i], results_data[i], IZY_DBL_EPSILON, _OFFSET_LOOP_INCORRECT_RESULT)
     }
 
   /* stage calls to saturation */
@@ -65,59 +51,35 @@ int main()
   /* test NaN */
   IVAL = NAN;
   vd_acos(&one, &IVAL, &offsetin0,&RVAL,&offsetout0);
-  if(!isnan(RVAL))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* test +INF */
   IVAL = INFINITY;
   vd_acos(&one, &IVAL, &offsetin0,&RVAL,&offsetout0);
-  if(!isnan(RVAL))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* test -INF */
   IVAL = -INFINITY;
   vd_acos(&one, &IVAL, &offsetin0,&RVAL,&offsetout0);
-  if(!isnan(RVAL))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* stage calls to out of bounds */
-  IVAL = 2;
+  IVAL = 2.e0;
   vd_acos(&one, &IVAL, &offsetin0,&RVAL,&offsetout0);
-  if(!isnan(RVAL))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
-  IVAL = -2;
+  IVAL = -2.e0;
   vd_acos(&one, &IVAL, &offsetin0,&RVAL,&offsetout0);
-  if(!isnan(RVAL))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* stage calls at poles, should ret 0 */
-  IVAL = 1;
+  IVAL = 1.e0;
   vd_acos(&one, &IVAL, &offsetin0,&RVAL,&offsetout0);
-  if(fabs(RVAL)>=IZY_DBL_EPSILON)
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(0., RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
-  IVAL = -1;
+  IVAL = -1.e0;
   vd_acos(&one, &IVAL, &offsetin0,&RVAL,&offsetout0);
-  if(fabs(RVAL-M_PI)>=IZY_DBL_EPSILON)
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(M_PI, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
-
-
-  free(results_data);
   return 0;
 }
