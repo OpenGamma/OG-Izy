@@ -62,21 +62,6 @@ USE_MKL="no"
 ]
 )
 
-
-
-
-# check for f77
-AC_PROG_F77([fl32 f77 fort77 xlf g77 f90 xlf90 gfortran])
-AC_F77_WRAPPERS
-
-#checks for openmp
-AX_OPENMP([  ] , [ echo \
-"------------------------------------------------------------------------
-ERROR: Compiler does not appear to support OpenMP, testing needs this!
-------------------------------------------------------------------------"
-exit]) 
-
-
 # Checks for libraries.
 
 # Checks for functions in libraries, makes sure they do stuff
@@ -142,5 +127,4 @@ echo "
   Prefix.............: $prefix
   C Compiler.........: $CC $CFLAGS $CPPFLAGS
   Linker.............: $LD $LDFLAGS $LIBS
-  OPENMP.............: ${OPENMP_CFLAGS}
 "
