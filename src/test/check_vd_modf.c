@@ -14,18 +14,8 @@ int main()
 {
 #include "vd_modf_c.inc"
   int i;
-  double * results_data0 = NULL, * results_data1 = NULL;
-  results_data0 = (double * ) malloc((n_expected)*sizeof(double));
-  if(!results_data0)
-    {
-      return _MALLOCERROR;
-    }
-
-  results_data1 = (double * ) malloc((n_expected)*sizeof(double));
-  if(!results_data1)
-    {
-      return _MALLOCERROR;
-    }
+  double results_data0[n_expected];
+  double results_data1[n_expected];
 
   const int offsetin0 = 0;
   const int offsetout0 = 0;
@@ -38,14 +28,8 @@ int main()
   /* check */
   for(i=0; i<n_expected; i++)
     {
-      if(fabs(results_data0[i]-expected_data0[i])>=IZY_DBL_EPSILON)
-        {
-          return _INCORRECTRESULT;
-        }
-      if(fabs(results_data1[i]-expected_data1[i])>=IZY_DBL_EPSILON)
-        {
-          return _INCORRECTRESULT;
-        }
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data0[i], results_data0[i], IZY_DBL_EPSILON, _STANDARD_LOOP_INCORRECT_RESULT)
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data1[i], results_data1[i], IZY_DBL_EPSILON, _STANDARD_LOOP_INCORRECT_RESULT)
     }
 
   /* /*stage offset call */
@@ -62,14 +46,8 @@ int main()
   /* check */
   for(i=offsetout_used0; i < offsetout_used0+count_used; i++)
     {
-      if(fabs(results_data0[i]-expected_data0[i])>=IZY_DBL_EPSILON)
-        {
-          return _INCORRECTRESULT;
-        }
-      if(fabs(results_data1[i]-expected_data1[i])>=IZY_DBL_EPSILON)
-        {
-          return _INCORRECTRESULT;
-        }
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data0[i], results_data0[i], IZY_DBL_EPSILON, _OFFSET_LOOP_INCORRECT_RESULT)
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data1[i], results_data1[i], IZY_DBL_EPSILON, _OFFSET_LOOP_INCORRECT_RESULT)
     }
 
   /* stage calls to saturation */
@@ -81,30 +59,20 @@ int main()
   /* test NaN arg0 */
   IVAL = NAN;
   vd_modf(&one,&IVAL,&offsetin0,&RVAL0,&offsetout0,&RVAL1,&offsetout1);
-  if(!isnan(RVAL0)||!isnan(RVAL1))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL0, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL1, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* test +INF */
   IVAL = INFINITY;
   vd_modf(&one,&IVAL,&offsetin0,&RVAL0,&offsetout0,&RVAL1,&offsetout1);
-  if(!(isinf(RVAL0)&&!signbit(RVAL0))||!(RVAL1==0))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(+INFINITY, RVAL0, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(0.e0, RVAL1, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* test -INF */
   IVAL = -INFINITY;
   vd_modf(&one,&IVAL,&offsetin0,&RVAL0,&offsetout0,&RVAL1,&offsetout1);
-  if(!(isinf(RVAL0)&&signbit(RVAL0))||!(RVAL1==0))
-    {
-      return _INCORRECTRESULT;
-    }
-
-
-  free(results_data0);
-  free(results_data1);
+  TEST_DOUBLE_EQUALS_ERROR_CODE(-INFINITY, RVAL0, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(0.e0, RVAL1, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
   return 0;
 }
 

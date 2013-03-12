@@ -14,13 +14,7 @@ int main()
 {
 #include "vd_inv_c.inc"
   int i;
-  double * results_data = NULL;
-  results_data = (double * ) malloc(n_expected*sizeof(double));
-  if(!results_data)
-    {
-      return _MALLOCERROR;
-    }
-
+  double results_data[n_expected];
   const int offsetin0 = 0;
   const int offsetout0 = 0;
   const int count = n_in;
@@ -31,11 +25,7 @@ int main()
   /* check */
   for(i=0; i<n_expected; i++)
     {
-      if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
-        {
-          return _INCORRECTRESULT;
-        }
-
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data[i], results_data[i], IZY_DBL_EPSILON, _STANDARD_LOOP_INCORRECT_RESULT)
     }
 
   /* stage offset call */
@@ -50,11 +40,7 @@ int main()
   /* check */
   for(i=offsetout_used0; i < offsetout_used0+count_used; i++)
     {
-      if(fabs(results_data[i]-expected_data[i])>=IZY_DBL_EPSILON)
-        {
-          return _INCORRECTRESULT;
-        }
-
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data[i], results_data[i], IZY_DBL_EPSILON, _OFFSET_LOOP_INCORRECT_RESULT)
     }
 
   /* stage calls to saturation */
@@ -65,10 +51,7 @@ int main()
   /* test NaN */
   IVAL = NAN;
   vd_inv(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
-  if(!isnan(RVAL))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* test +INF */
   IVAL = INFINITY;
@@ -89,22 +72,16 @@ int main()
   /* div by +0 */
   IVAL = 0e0;
   vd_inv(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
-  if(!(isinf(RVAL)&&!signbit(RVAL)))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(+INFINITY, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
   /* div by -0 */
   IVAL = -0e0;
   vd_inv(&one,&IVAL,&offsetin0,&RVAL,&offsetout0);
-  if(!(isinf(RVAL)&&signbit(RVAL)))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(-INFINITY, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
 
 
 
 
-  free(results_data);
+
   return 0;
 }
