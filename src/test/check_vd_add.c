@@ -27,13 +27,13 @@ int main()
   /* check */
   for(i=0; i<n_expected; i++)
     {
-      TEST_DOUBLE_EQUALS_FULL(i, expected_data[i], results_data[i], IZY_DBL_EPSILON, _STANDARD_LOOP_INCORRECT_RESULT)
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data[i], results_data[i], IZY_MAX_ULPS, _STANDARD_LOOP_INCORRECT_RESULT)
     }
 
   /* stage offset call */
-  const int offsetin_used0 = (int)0.2*count;
-  const int offsetin_used1 = (int)0.2*count;
-  const int offsetout_used0 = (int)0.4*count;
+  const int offsetin_used0 = (int)(0.2*count);
+  const int offsetin_used1 = (int)(0.2*count);
+  const int offsetout_used0 = (int)(0.4*count);
   const int count_used = count - offsetout_used0;
   memset(results_data,0x0,count*sizeof(double));
 
@@ -41,9 +41,9 @@ int main()
   vd_add(&count_used,in_data0,&offsetin_used0,in_data1,&offsetin_used1,results_data,&offsetout_used0);
 
   /* check */
-  for(i=offsetout_used0; i < offsetout_used0+count_used; i++)
+  for(i=0; i < count_used; i++)
     {
-      TEST_DOUBLE_EQUALS_FULL(i, expected_data[i], results_data[i], IZY_DBL_EPSILON, _OFFSET_LOOP_INCORRECT_RESULT)
+      TEST_DOUBLE_EQUALS_FULL(i, expected_data[i+offsetin_used0], results_data[i+offsetout_used0], IZY_MAX_ULPS, _OFFSET_LOOP_INCORRECT_RESULT)
     }
 
   /* stage calls to saturation */
@@ -56,64 +56,64 @@ int main()
   IVAL0 = NAN;
   IVAL1 =  0.e0;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL0 = NAN;
   IVAL1 = INFINITY;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL0 = NAN;
   IVAL1 = -INFINITY;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL0 = NAN;
   IVAL1 = NAN;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   /* test +INF */
   IVAL0 = INFINITY;
   IVAL1 =  0.e0;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(+INFINITY, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(+INFINITY, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL0 = INFINITY;
   IVAL1 = INFINITY;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(+INFINITY, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(+INFINITY, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL0 = INFINITY;
   IVAL1 = -INFINITY;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL0 = INFINITY;
   IVAL1 = NAN;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   /* test -INF */
   IVAL0 = -INFINITY;
   IVAL1 =  0.e0;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(-INFINITY, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(-INFINITY, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL0 = -INFINITY;
   IVAL1 = INFINITY;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL0 = -INFINITY;
   IVAL1 = -INFINITY;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(-INFINITY, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(-INFINITY, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL0 = -INFINITY;
   IVAL1 = NAN;
   vd_add(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_DBL_EPSILON, _EXTREMITY_INCORRECT_RESULT)
+  TEST_DOUBLE_EQUALS_ERROR_CODE(NAN, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   return 0;
 }
