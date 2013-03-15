@@ -56,10 +56,7 @@ int main()
   IVAL0 = NAN;
   IVAL1 =  0.e0;
   vd_pow(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
-  if(!(RVAL==1.e0))
-    {
-      return _INCORRECTRESULT;
-    }
+  TEST_DOUBLE_EQUALS_ERROR_CODE(1.e0, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   IVAL0 = NAN;
   IVAL1 = INFINITY;
