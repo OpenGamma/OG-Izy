@@ -10,7 +10,7 @@
 
 int main()
 {
-#include "vz_sqrt_c.inc"
+#include "vz_conj_c.inc"
   int i;
   complex double results_data[n_expected];
 
@@ -20,7 +20,7 @@ int main()
   memset(results_data,0x0,count*sizeof(complex double));
 
   /* make izy call */
-  vz_sqrt(&count,in_data,&offsetin0,results_data,&offsetout0);
+  vz_conj(&count,in_data,&offsetin0,results_data,&offsetout0);
 
   /* check */
   for(i=0; i<n_expected; i++)
@@ -35,7 +35,7 @@ int main()
   memset(results_data,0x0,count*sizeof(complex double));
 
   /* make izy call */
-  vz_sqrt(&count_used,in_data,&offsetin_used0,results_data,&offsetout_used0);
+  vz_conj(&count_used,in_data,&offsetin_used0,results_data,&offsetout_used0);
 
   /* check */
   for(i=0; i < count_used; i++)
