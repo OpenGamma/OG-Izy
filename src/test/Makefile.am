@@ -9,14 +9,15 @@ DEF_DOUBLE_ROUND = check_vd_ceil check_vd_floor check_vd_modf check_vd_nearbyint
 
 DEF_COMPLEX_TRIG = check_vz_sin check_vz_cos check_vz_tan check_vz_asin check_vz_acos check_vz_atan
 DEF_COMPLEX_HYP = check_vz_sinh check_vz_cosh check_vz_tanh check_vz_asinh check_vz_acosh check_vz_atanh
-DEF_COMPLEX_PWR = check_vz_sqrt
+DEF_COMPLEX_ARITH = check_vz_add check_vz_sub check_vz_mul check_vz_div check_vz_addx check_vz_subx check_vz_mulx check_vz_divx check_vz_xsub check_vz_xdiv check_vz_abs check_vz_arg check_vz_negate check_vz_negatereal check_vz_conj check_vz_mulbyconj
+DEF_COMPLEX_EL = check_vz_exp check_vz_ln check_vz_log10 
+DEF_COMPLEX_PWR = check_vz_sqrt check_vz_pow check_vz_powx
 
-
-TESTS=$(DEF_DOUBLE_TRIG) $(DEF_DOUBLE_ARITH) $(DEF_DOUBLE_EL) $(DEF_DOUBLE_HYP) $(DEF_DOUBLE_SPECFUN) $(DEF_DOUBLE_PWR) $(DEF_DOUBLE_ROUND) $(DEF_COMPLEX_TRIG) $(DEF_COMPLEX_HYP) $(DEF_COMPLEX_PWR)
+TESTS=$(DEF_DOUBLE_TRIG) $(DEF_DOUBLE_ARITH) $(DEF_DOUBLE_EL) $(DEF_DOUBLE_HYP) $(DEF_DOUBLE_SPECFUN) $(DEF_DOUBLE_PWR) $(DEF_DOUBLE_ROUND) $(DEF_COMPLEX_TRIG) $(DEF_COMPLEX_HYP) $(DEF_COMPLEX_PWR) $(DEF_COMPLEX_ARITH)
 
 
 # PROGRAMS
 
-check_PROGRAMS = $(DEF_DOUBLE_TRIG) $(DEF_DOUBLE_ARITH) $(DEF_DOUBLE_EL) $(DEF_DOUBLE_HYP) $(DEF_DOUBLE_SPECFUN) $(DEF_DOUBLE_PWR) $(DEF_DOUBLE_ROUND) $(DEF_COMPLEX_TRIG) $(DEF_COMPLEX_HYP) $(DEF_COMPLEX_PWR)
+check_PROGRAMS = $(DEF_DOUBLE_TRIG) $(DEF_DOUBLE_ARITH) $(DEF_DOUBLE_EL) $(DEF_DOUBLE_HYP) $(DEF_DOUBLE_SPECFUN) $(DEF_DOUBLE_PWR) $(DEF_DOUBLE_ROUND) $(DEF_COMPLEX_TRIG) $(DEF_COMPLEX_HYP) $(DEF_COMPLEX_PWR) $(DEF_COMPLEX_ARITH)
 LDADD = $(top_builddir)/src/libizy.la
 INCLUDES = -I $(top_builddir)/include/

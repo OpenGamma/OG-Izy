@@ -10,17 +10,17 @@
 
 int main()
 {
-#include "vz_sqrt_c.inc"
+#include "vz_abs_c.inc"
   int i;
-  complex double results_data[n_expected];
+  double results_data[n_expected];
 
   const int offsetin0 = 0;
   const int offsetout0 = 0;
   const int count = n_in;
-  memset(results_data,0x0,count*sizeof(complex double));
+  memset(results_data,0x0,count*sizeof(double));
 
   /* make izy call */
-  vz_sqrt(&count,in_data,&offsetin0,results_data,&offsetout0);
+  vz_abs(&count,in_data,&offsetin0,results_data,&offsetout0);
 
   /* check */
   for(i=0; i<n_expected; i++)
@@ -32,10 +32,10 @@ int main()
   const int offsetin_used0 = (int)(0.2*count);
   const int offsetout_used0 = (int)(0.4*count);;
   const int count_used = count - offsetout_used0;
-  memset(results_data,0x0,count*sizeof(complex double));
+  memset(results_data,0x0,count*sizeof(double));
 
   /* make izy call */
-  vz_sqrt(&count_used,in_data,&offsetin_used0,results_data,&offsetout_used0);
+  vz_abs(&count_used,in_data,&offsetin_used0,results_data,&offsetout_used0);
 
   /* check */
   for(i=0; i < count_used; i++)
