@@ -13,7 +13,7 @@ function[] = gen_per_lang(lang)
   std_range_large = 10*std_range_small;
   std_const = 10;
 
-  lgamma_range = [-9.5:2:-0.5,0.5:0.5:10];
+  lgamma_range = [0.5:0.5:10];
   tgamma_range = [-9.5:2:-0.5,0.5:0.5:4];
 
   log_range_small = 0.5+(0:0.5:10); %% shift to avoid 0
@@ -27,6 +27,7 @@ function[] = gen_per_lang(lang)
   [x,y]=meshgrid([-10:10],[-10:10]);
   complex_data=x+i*y;
   complex_std_const = 10+5i;
+  complex_std_const_small = 1+2i;
 
   %% REAL Functions
   % trig 
@@ -42,17 +43,17 @@ function[] = gen_per_lang(lang)
   %  arith
   gendata('abs','abs',lang,std_range_small);
   gendata('plus','add',lang,std_range_small,std_range_large);
-  gendata('plus','addx',lang,std_range_small,std_const);
+  gendata('plus','addx',lang,std_range_small,std_const*ones(size(std_range_small)));
   gendata('rdivide','div',lang,std_range_small,std_range_large);
-  gendata('rdivide','divx',lang,std_range_small,std_const);
-  gendata('rdivide','xdiv',lang,std_const,std_range_small);
+  gendata('rdivide','divx',lang,std_range_small,std_const*ones(size(std_range_small)));
+  gendata('rdivide','xdiv',lang,std_const*ones(size(std_range_small)),std_range_small);
   %  gendata(''); % RESERVED for linearfrac, not sure whether it's worth impl
   gendata('times','mul',lang,std_range_small,std_range_large);
-  gendata('times','mulx',lang,std_range_small,std_const);
+  gendata('times','mulx',lang,std_range_small,std_const*ones(size(std_range_small)));
   gendata('sqr','sqr',lang,std_range_small);
   gendata('minus','sub',lang,std_range_small,std_range_large);
-  gendata('minus','subx',lang,std_range_small,std_const);
-  gendata('minus','xsub',lang,std_const,std_range_small);
+  gendata('minus','subx',lang,std_range_small,std_const*ones(size(std_range_small)));
+  gendata('minus','xsub',lang,std_const*ones(size(std_range_small)),std_range_small);
   gendata('uminus','negate',lang,std_range_small);
 
   %exp+log
@@ -78,7 +79,7 @@ function[] = gen_per_lang(lang)
   gendata('erfc','erfc',lang,bounded_one_one);
   %  gendata(''); % RESERVED for erfinv, not sure whether it's worth impl ATM
   %  gendata(''); % RESERVED for erfcinv, not sure whether it's worth impl ATM
-  gendata('lgamma','lgamma',lang,lgamma_range);
+  gendata('gammaln','lgamma',lang,lgamma_range);
   gendata('gamma','tgamma',lang,tgamma_range);
 
 
@@ -89,7 +90,7 @@ function[] = gen_per_lang(lang)
   gendata('invcbrt','invcbrt',lang,std_range_small);
   gendata('invsqrt','invsqrt',lang,log_range_small);
   gendata('power','pow',lang, pow_range_small, pow_range_small);
-  gendata('power','powx',lang, pow_range_small, std_pow_const);
+  gendata('power','powx',lang, pow_range_small, std_pow_const*ones(size(pow_range_small)));
   gendata('pow2o3','pow2o3',lang, log_range_small);
   gendata('pow3o2','pow3o2',lang, log_range_small);
   gendata('sqrt','sqrt',lang,log_range_small);
@@ -108,7 +109,7 @@ function[] = gen_per_lang(lang)
   % trig
   gendata('acos','acos',lang,complex_data);
   gendata('asin','asin',lang,complex_data);
-  gendata('atan','atan',lang,complex_data)+sqrt(2);
+  gendata('atan','atan',lang,complex_data+sqrt(2));
   gendata('cos','cos',lang,complex_data);
   gendata('sin','sin',lang,complex_data);
   gendata('tan','tan',lang,complex_data);
@@ -123,7 +124,7 @@ function[] = gen_per_lang(lang)
 
   % pwr
   gendata('power','pow',lang,complex_data,complex_data);
-  gendata('power','powx',lang,complex_data, complex_std_const);
+  gendata('power','powx',lang,complex_data, complex_std_const_small*ones(size(complex_data)));
   gendata('sqrt','sqrt',lang,complex_data);
   gendata('exp','exp',lang,complex_data);
   gendata('log','ln',lang,complex_data+sqrt(2));
@@ -131,20 +132,20 @@ function[] = gen_per_lang(lang)
 
   gendata('abs','abs',lang,complex_data);
   gendata('plus','add',lang,complex_data,complex_data);
-  gendata('plus','addx',lang,complex_data,complex_std_const);
+  gendata('plus','addx',lang,complex_data,complex_std_const*ones(size(complex_data)));
   gendata('rdivide','div',lang,complex_data,complex_data+sqrt(2));
-  gendata('rdivide','divx',lang,complex_data,complex_std_const);
-  gendata('rdivide','xdiv',lang,complex_std_const,complex_data(complex_data~=0));
+  gendata('rdivide','divx',lang,complex_data,complex_std_const*ones(size(complex_data)));
+  gendata('rdivide','xdiv',lang,complex_std_const*ones(size(complex_data(complex_data~=0))),complex_data(complex_data~=0));
 
   gendata('arg','arg',lang,complex_data);
   gendata('conj','conj',lang,complex_data);
     
   gendata('times','mul',lang,complex_data,complex_data);
-  gendata('times','mulx',lang,complex_data,complex_std_const);
+  gendata('times','mulx',lang,complex_data,complex_std_const*ones(size(complex_data)));
   gendata('mulbyconj','mulbyconj',lang,complex_data,conj(complex_data)); %conj the second data so that we do a.*conj(conj(b)) = a.*b;
   gendata('minus','sub',lang,complex_data,5*complex_data);
-  gendata('minus','subx',lang,complex_data,complex_std_const);
-  gendata('minus','xsub',lang,complex_std_const,complex_data);
+  gendata('minus','subx',lang,complex_data,complex_std_const*ones(size(complex_data)));
+  gendata('minus','xsub',lang,complex_std_const*ones(size(complex_data)),complex_data);
 
   gendata('uminus','negate',lang,complex_data);
 
