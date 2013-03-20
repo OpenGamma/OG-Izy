@@ -1,0 +1,88 @@
+.TH vz_FNAME 3  "DATE" "version 0.1"
+.SH NAME
+vz_FNAME - vectorised version of the operation, out0 := OPERATION, for complex arguments.
+.SH SYNOPSIS
+.B #include <libizy/izy.h>
+.sp
+.BI "void vz_FNAME(const int * "count
+.BI ", const complex double * "arg0
+.BI ", const int * "offsetarg0
+.BI ", const complex double * "arg1
+.BI ", const int * "offsetarg1
+.BI ", double "out0
+.BI ", const int * "offsetout0
+.B ");"
+
+
+Link with \fI\-lizy\fP.
+.SH DESCRIPTION
+The 
+.BR vz_FNAME ()
+function provides a vectorised version of the operation 
+.B out0 := OPERATION
+for complex arguments.
+ 
+.HP
+.B Input:
+
+.B "const int * count"
+is the number of elements to process
+
+.B "const complex double * arg0"
+is the first operand, a constant
+
+.B "const int * offsetarg0"
+is the offset into arg0 at which values should be taken
+
+.B "const complex double * arg1"
+is the second operand
+
+.B "const int * offsetarg1"
+is the offset into arg1 at which values should be taken
+
+.B "const int * offsetout0"
+is the offset into out0 at which values should be placed
+
+.HP
+.BR Output:
+
+.B "complex double * out0"
+contains the result of performing element wise OPERATION
+
+.PP
+.SH EXAMPLE
+.nf
+/* Link with "\-lizy \-lm" */
+#include <libizy/izy.h>
+#include <stdio.h>
+#include <complex.h>
+#include <math.h>
+int main()
+{
+  int i;
+  int n = 4;
+  static complex double in_data0[] = {0.2 + 0.3*I};
+  static complex double in_data1[] = {0.1 + 0.2*I, 0.2+0.3*I, 0.3+0.4*I, 0.4+0.5*I };
+  complex double results_data[n];
+
+  const int offsetin0 = 0;
+  const int offsetin1 = 0;  
+  const int offsetout0 = 0;
+  const int count = n;
+
+  /* make izy call */
+  vz_FNAME(&count, in_data0, &offsetin0, in_data1, &offsetin1, results_data, &offsetout0);
+
+  /* check */
+  printf("vz_FNAME():\\n");
+  printf(" Input 0          |Input 1           |Output            |Calling CEVAL \\n");
+  for(i=0; i<n; i++)
+    {
+      printf("%6.3f+%6.3fi   %6.3f+%6.3fi     %6.3f+%6.3fi     %6.3f+%6.3fi\\n", creal(in_data0[0]), cimag(in_data0[0]), creal(in_data1[i]), cimag(in_data1[i]), creal(results_data[i]), cimag(results_data[i]), creal(CEVAL), cimag(CEVAL));
+    }    
+}
+.fi
+.SH AUTHOR
+Stuart Archibald (stuart (at) opengamma.com)
+.SH "SEE ALSO"
+.B SEE_ALSO

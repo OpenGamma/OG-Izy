@@ -1,0 +1,77 @@
+.TH vd_FNAME 3  "DATE" "version 0.1"
+.SH NAME
+vd_FNAME - vectorised version of the operation, out0 := OPERATION .
+.SH SYNOPSIS
+.B #include <libizy/izy.h>
+.sp
+.BI "void vd_FNAME(const int * "count
+.BI ", const double * "arg0
+.BI ", const int * "offsetarg0
+.BI ", double * "out0
+.BI ", const int * "offsetout0
+.B ");"
+
+
+Link with \fI\-lizy\fP.
+.SH DESCRIPTION
+The 
+.BR vd_FNAME ()
+function provides a vectorised version of the operation 
+.B out0 := OPERATION
+
+.HP
+.B Input:
+
+.B "const int * count"
+is the number of elements to process
+
+.B "const double * arg0"
+is the argument to be presented element wise to FNAME()
+
+.B "const int * offsetarg0"
+is the offset into arg0 at which values should be taken
+
+.B "const int * offsetout0"
+is the offset into out0 at which values should be placed
+
+.HP
+.BR Output:
+
+.B "double * out0"
+contains the result of performing element wise OPERATION
+
+.PP
+.SH EXAMPLE
+.nf
+/* Link with "\-lizy \-lm" */
+#include <libizy/izy.h>
+#include <stdio.h>
+#include <complex.h>
+#include <math.h>
+int main()
+{
+  int i;
+  int n = 4;
+  static double in_data[] = {0.1, 0.2, 0.3, 0.4 };
+  double results_data[n];
+
+  const int offsetin0 = 0;
+  const int offsetout0 = 0;
+  const int count = n;
+
+  /* make izy call */
+  vd_FNAME(&count, in_data, &offsetin0, results_data, &offsetout0);
+
+  /* check */
+  printf("vd_FNAME():\\n");
+  printf(" Input  | Output | Calling CEVAL\\n");
+  for(i=0; i<n; i++)
+    {
+      printf("%6.3f   %6.3f   %6.3f\\n", in_data[i], results_data[i], CEVAL);
+    }
+}
+.fi
+.SH AUTHOR
+Stuart Archibald (stuart (at) opengamma.com)
+.SH "SEE ALSO"
+.B SEE_ALSO
