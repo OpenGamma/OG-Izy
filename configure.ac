@@ -118,6 +118,7 @@ AC_CONFIG_FILES([Makefile
                 src/Makefile
                 src/reference/Makefile
                 src/test/Makefile
+                man/Makefile
                 ])
 AM_INIT_AUTOMAKE([parallel-tests color-tests])
 AC_OUTPUT
