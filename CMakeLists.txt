@@ -29,3 +29,14 @@ add_subdirectory (reference)
 add_subdirectory (test)
 add_subdirectory (include)
 add_subdirectory (man)
+
+message("
+  Package " ${CMAKE_PROJECT_NAME} " version " ${IZY_VERSION} "
+  Prefix.............: " ${CMAKE_INSTALL_PREFIX} "
+  C Compiler.........: " ${CMAKE_C_COMPILER} "
+  C Flags............: " ${CMAKE_C_FLAGS} "
+  C++ Compiler.......: " ${CMAKE_CXX_COMPILER} "
+  C++ Flags..........: " ${CMAKE_CXX_FLAGS} "
+  Linker.............: " ${CMAKE_LINKER} "
+  Linker Flags.......: " ${CMAKE_LINKER_FLAGS} "
+")
