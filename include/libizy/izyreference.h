@@ -1,3 +1,9 @@
+//
+// Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+//
+// Please see distribution for license.
+//
+
 #include <complex.h>
 #ifndef _IZYREFERENCE_H
 #define _IZYREFERENCE_H 1
