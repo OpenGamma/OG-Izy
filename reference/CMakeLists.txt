@@ -5,3 +5,4 @@ set(REFSRC reference_vd_abs.c reference_vd_acos.c reference_vd_acosh.c reference
 add_library(izyreference SHARED ${REFSRC})
 add_library(izyreference_static STATIC ${REFSRC})
 target_link_libraries(izyreference m)
+set_target_properties(izyreference PROPERTIES SOVERSION ${IZY_VERSION_MAJOR} VERSION ${IZY_VERSION})

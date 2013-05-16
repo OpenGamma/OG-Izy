@@ -4,6 +4,12 @@
 cmake_minimum_required (VERSION 2.6)
 project (IZY)
 
+set(IZY_VERSION_MAJOR 0)
+set(IZY_VERSION_MINOR 0)
+set(IZY_VERSION_PATCH 1)
+set(IZY_VERSION
+  ${IZY_VERSION_MAJOR}.${IZY_VERSION_MINOR}.${IZY_VERSION_PATCH})
+
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the
 # directories of additional CMake modules (ie. MacroOutOfSourceBuild.cmake):
 set(CMAKE_MODULE_PATH ${IZY_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
