@@ -24,4 +24,5 @@ set(TESTS ${DEF_DOUBLE_TRIG} ${DEF_DOUBLE_ARITH} ${DEF_DOUBLE_EL} ${DEF_DOUBLE_H
 foreach(TEST ${TESTS})
   add_executable(${TEST} ${TEST}.c)
   target_link_libraries(${TEST} izy izyreference)
+  add_test(${TEST} ${TEST})
 endforeach()

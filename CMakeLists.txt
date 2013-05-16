@@ -18,6 +18,9 @@ set(CMAKE_MODULE_PATH ${IZY_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 include(MacroOutOfSourceBuild)
 macro_ensure_out_of_source_build("${PROJECT_NAME} requires an out of source build.")
 
+# Enable testing with CTest
+enable_testing()
+
 # Recurse into the "izy", "reference", and "test" subdirectories. This does not
 # actually cause another cmake executable to run. The same process will walk
 # through the project's entire directory structure.
