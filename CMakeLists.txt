@@ -4,6 +4,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (IZY)
 
+# Set version number
 set(IZY_VERSION_MAJOR 0)
 set(IZY_VERSION_MINOR 0)
 set(IZY_VERSION_PATCH 1)
@@ -17,6 +18,13 @@ set(CMAKE_MODULE_PATH ${IZY_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 # The macro below forces the build directory to be different from source directory:
 include(MacroOutOfSourceBuild)
 macro_ensure_out_of_source_build("${PROJECT_NAME} requires an out of source build.")
+
+# Check for OpenMP
+find_package(OpenMP)
+if (OPENMP_FOUND)
+  set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+endif()
 
 # Enable testing with CTest
 enable_testing()
@@ -37,6 +45,4 @@ message("
   C Flags............: " ${CMAKE_C_FLAGS} "
   C++ Compiler.......: " ${CMAKE_CXX_COMPILER} "
   C++ Flags..........: " ${CMAKE_CXX_FLAGS} "
-  Linker.............: " ${CMAKE_LINKER} "
-  Linker Flags.......: " ${CMAKE_LINKER_FLAGS} "
 ")
