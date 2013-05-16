@@ -1,0 +1,12 @@
+LibIZY
+------
+
+To build:
+
+  mkdir build
+  cd build
+  cmake ..
+  make
+
+This does an out-of-source build in the build subdirectory. To clean all build
+files, delete the build folder. 
