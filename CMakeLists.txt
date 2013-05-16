@@ -9,4 +9,4 @@ project (IZY)
 # through the project's entire directory structure.
 add_subdirectory (izy)
 add_subdirectory (reference)
-#add_subdirectory (test)
+add_subdirectory (test)
