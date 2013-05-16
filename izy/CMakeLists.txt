@@ -1,5 +1,6 @@
 include_directories (${IZY_SOURCE_DIR}/include)
 # Create a library called "IZY" which includes the source file "izy.c".
 # The extension is already found. Any number of sources could be listed here.
-add_library (izy izy.c)
+add_library (izy SHARED izy.c)
+add_library (izy_static STATIC izy.c)
 target_link_libraries(izy m)
