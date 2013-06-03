@@ -2,6 +2,16 @@
 # refer to the root source directory of the project as ${IZY_SOURCE_DIR} and
 # to the root binary directory of the project as ${IZY_BINARY_DIR}.
 cmake_minimum_required (VERSION 2.6)
+
+include(CMakeForceCompiler)
+
+if(APPLE)
+  # The apple default compiler, Clang, doesn't support OpenMP so we can't use it.
+  # Force both C and C++ so that the OpenMP test doesn't show a bunch of errors.
+  CMAKE_FORCE_C_COMPILER(gcc GNU)
+  CMAKE_FORCE_CXX_COMPILER(g++ GNU)
+endif(APPLE)
+
 project (IZY)
 
 # Set version number
@@ -29,6 +39,11 @@ endif()
 # Enable testing with CTest
 enable_testing()
 
+if(APPLE)
+  set(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS} -flat_namespace -undefined suppress")
+  set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -flat_namespace -undefined suppress")
+endif(APPLE)
+
 # Recurse into the "izy", "reference", and "test" subdirectories. This does not
 # actually cause another cmake executable to run. The same process will walk
 # through the project's entire directory structure.
@@ -45,4 +60,5 @@ message("
   C Flags............: " ${CMAKE_C_FLAGS} "
   C++ Compiler.......: " ${CMAKE_CXX_COMPILER} "
   C++ Flags..........: " ${CMAKE_CXX_FLAGS} "
+  Shared link flags..: " ${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS} "
 ")
