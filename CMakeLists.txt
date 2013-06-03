@@ -25,10 +25,6 @@ set(IZY_VERSION
 # directories of additional CMake modules (ie. MacroOutOfSourceBuild.cmake):
 set(CMAKE_MODULE_PATH ${IZY_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
-# The macro below forces the build directory to be different from source directory:
-include(MacroOutOfSourceBuild)
-macro_ensure_out_of_source_build("${PROJECT_NAME} requires an out of source build.")
-
 # Check for OpenMP
 find_package(OpenMP)
 if (OPENMP_FOUND)
@@ -46,8 +42,10 @@ if(APPLE)
 endif(APPLE)
 
 # Copy platform-dependent expected test failure files.
+include(GlibcDetect)
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   message("Lee-nooks!")
+  glibc_detect(GLIBC_VERSION)
   configure_file(test/CTestCustom.linux CTestCustom.ctest)
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 

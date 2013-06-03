@@ -27,7 +27,7 @@ MACRO (GLIBC_DETECT _VERSION)
 #include <stdio.h>
 int main()
 {
-  printf(\"%d%d\",__GLIBC__, __GLIBC_MINOR__);
+  printf(\"%d.%d\",__GLIBC__, __GLIBC_MINOR__);
   return 0;
 }
 ")
@@ -41,10 +41,10 @@ try_run(POST26_GLIBC_DETECTED
         RUN_OUTPUT_VARIABLE GLIBC_VERSION )
 
 if (GLIBC_VERSION AND POST26_GLIBC_COMPILE )
-        dprint("GLIBC_VERSION=${GLIBC_VERSION}")
+        message(STATUS "Detected glibc version ${GLIBC_VERSION}")
         set(${_VERSION} ${GLIBC_VERSION})
 else()
-        message(STATUS "NOTE: Could not detect GLIBC_VERSION from copiler")
+        message(STATUS "NOTE: Could not detect GLIBC_VERSION from compiler")
 endif()
 
 
