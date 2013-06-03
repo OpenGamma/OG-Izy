@@ -39,10 +39,17 @@ endif()
 # Enable testing with CTest
 enable_testing()
 
+# Apple linker doesn't like undefined symbols in shared libraries by default.
 if(APPLE)
   set(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS} -flat_namespace -undefined suppress")
   set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -flat_namespace -undefined suppress")
 endif(APPLE)
+
+# Copy platform-dependent expected test failure files.
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  message("Lee-nooks!")
+  configure_file(test/CTestCustom.linux CTestCustom.ctest)
+endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 # Recurse into the "izy", "reference", and "test" subdirectories. This does not
 # actually cause another cmake executable to run. The same process will walk
