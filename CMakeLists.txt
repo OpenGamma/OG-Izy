@@ -44,9 +44,16 @@ endif(APPLE)
 # Copy platform-dependent expected test failure files.
 include(GlibcDetect)
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-  message("Lee-nooks!")
   glibc_detect(GLIBC_VERSION)
-  configure_file(test/CTestCustom.linux CTestCustom.ctest)
+  set(KNOWN_GLIBC_VERSIONS 2.12 2.13 2.14)
+  list(FIND KNOWN_GLIBC_VERSIONS ${GLIBC_VERSION} KNOWN_GLIBC)
+  if(KNOWN_GLIBC MATCHES -1)
+    message(STATUS "Unrecognised glibc version ${GLIBC_VERSION}. Not copying test suppressions file.")
+    message(STATUS "You may experience test failures. These may or may not be unexpected.")
+  else(KNOWN_GLIBC MATCHES -1)
+    message(STATUS "Known glibc version. Copying test suppressions file.")
+    configure_file(test/CTestCustom.glibc-${GLIBC_VERSION} CTestCustom.ctest)
+  endif(KNOWN_GLIBC MATCHES -1)
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 # Recurse into the "izy", "reference", and "test" subdirectories. This does not
