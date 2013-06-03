@@ -57,6 +57,11 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   endif(KNOWN_GLIBC MATCHES -1)
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
+if(APPLE)
+  message(STATUS "Copying Apple test suppressions file.")
+  configure_file(test/CTestCustom.apple CTestCustom.ctest)
+endif(APPLE)
+
 # Recurse into the "izy", "reference", and "test" subdirectories. This does not
 # actually cause another cmake executable to run. The same process will walk
 # through the project's entire directory structure.
