@@ -66,10 +66,10 @@ add_subdirectory (include)
 add_subdirectory (man)
 
 message("
-  Package " ${CMAKE_PROJECT_NAME} " version " ${IZY_VERSION} "
+  Package " ${CMAKE_PROJECT_NAME} " version " ${IZY_VERSION} " build type: " ${CMAKE_BUILD_TYPE} "
   Prefix.............: " ${CMAKE_INSTALL_PREFIX} "
   C Compiler.........: " ${CMAKE_C_COMPILER} "
   C Flags............: " ${CMAKE_C_FLAGS} "
-  C++ Compiler.......: " ${CMAKE_CXX_COMPILER} "
-  C++ Flags..........: " ${CMAKE_CXX_FLAGS} "
+  C Flags (debug)....: " ${CMAKE_C_FLAGS_DEBUG} "
+  C Flags (release)..: " ${CMAKE_C_FLAGS_RELEASE} "
 ")

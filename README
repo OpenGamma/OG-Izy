@@ -1,12 +1,48 @@
 LibIZY
-------
+======
 
-To build:
+Linux/Apple build
+-----------------
+
+This assumes you have CMake 2.8 and the GNU toolchain installed:
 
   mkdir build
   cd build
-  cmake ..
+  cmake .. [options]
   make
 
 This does an out-of-source build in the build subdirectory. To clean all build
 files, delete the build folder. 
+
+Windows build
+-------------
+
+Requires Cmake 2.8, Mingw32, Git bash and Gnuwin32 Make:
+
+  mkdir build
+  cd build
+  ../cmake.windows .. [options]
+  make
+
+This does an out-of-source build in the build subdirectory. To clean all build
+files, delete the build folder. 
+
+Build options
+-------------
+
+  -DCMAKE_BUILD_TYPE=<type>
+
+    Either Debug or Release. Debug adds the -g flag for debugging. Release adds
+    compiler optimisation flags. Not specifying the build type will result in
+    none of these flags being applied.
+
+
+Testing
+-------
+
+Run:
+
+  make test
+
+Test logs are stored in build/Testing/Temporary/LastTest.log. If you are running
+on Linux, valgrind will also be run on all the tests.
