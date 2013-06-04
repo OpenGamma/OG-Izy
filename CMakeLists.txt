@@ -37,10 +37,10 @@ endif()
 enable_testing()
 
 # Apple linker doesn't like undefined symbols in shared libraries by default.
-if(APPLE)
-  set(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS} -flat_namespace -undefined suppress")
-  set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -flat_namespace -undefined suppress")
-endif(APPLE)
+#if(APPLE)
+#  set(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS} -flat_namespace -undefined suppress")
+#  set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -flat_namespace -undefined suppress")
+#endif(APPLE)
 
 # Copy platform-dependent expected test failure files.
 include(GlibcDetect)
@@ -78,5 +78,4 @@ message("
   C Flags............: " ${CMAKE_C_FLAGS} "
   C++ Compiler.......: " ${CMAKE_CXX_COMPILER} "
   C++ Flags..........: " ${CMAKE_CXX_FLAGS} "
-  Shared link flags..: " ${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS} "
 ")
