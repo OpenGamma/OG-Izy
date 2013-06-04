@@ -1,1 +1,3 @@
-set(CTEST_CUSTOM_TESTS_IGNORE check_vz_pow check_vz_powx check_vz_acosh check_vz_atanh check_vd_pow3o2)
+set(CTEST_CUSTOM_TESTS_IGNORE check_vz_pow check_vz_powx check_vz_acosh check_vz_atanh check_vd_pow3o2
+      check_vz_pow_valgrind check_vz_powx_valgrind check_vz_acosh_valgrind check_vz_atanh_valgrind
+      check_vd_pow3o2_valgrind)
