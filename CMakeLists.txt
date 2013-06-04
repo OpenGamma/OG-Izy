@@ -62,9 +62,9 @@ endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 # through the project's entire directory structure.
 add_subdirectory (reference)
 add_subdirectory (izy)
-#add_subdirectory (test)
-#add_subdirectory (include)
-#add_subdirectory (man)
+add_subdirectory (test)
+add_subdirectory (include)
+add_subdirectory (man)
 
 message("
   Package " ${CMAKE_PROJECT_NAME} " version " ${IZY_VERSION} "
