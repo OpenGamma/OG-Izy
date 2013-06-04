@@ -5,12 +5,13 @@ cmake_minimum_required (VERSION 2.6)
 
 include(CMakeForceCompiler)
 
-if(APPLE)
+if(APPLE OR WIN32)
   # The apple default compiler, Clang, doesn't support OpenMP so we can't use it.
+  # On Windows, we don't want to end up building with Visual Studio.
   # Force both C and C++ so that the OpenMP test doesn't show a bunch of errors.
   CMAKE_FORCE_C_COMPILER(gcc GNU)
   CMAKE_FORCE_CXX_COMPILER(g++ GNU)
-endif(APPLE)
+endif(APPLE OR WIN32)
 
 project (IZY)
 
@@ -59,11 +60,11 @@ endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 # Recurse into the "izy", "reference", and "test" subdirectories. This does not
 # actually cause another cmake executable to run. The same process will walk
 # through the project's entire directory structure.
-add_subdirectory (izy)
 add_subdirectory (reference)
-add_subdirectory (test)
-add_subdirectory (include)
-add_subdirectory (man)
+add_subdirectory (izy)
+#add_subdirectory (test)
+#add_subdirectory (include)
+#add_subdirectory (man)
 
 message("
   Package " ${CMAKE_PROJECT_NAME} " version " ${IZY_VERSION} "
