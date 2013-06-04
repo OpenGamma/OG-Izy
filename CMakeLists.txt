@@ -36,12 +36,6 @@ endif()
 # Enable testing with CTest
 enable_testing()
 
-# Apple linker doesn't like undefined symbols in shared libraries by default.
-#if(APPLE)
-#  set(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS} -flat_namespace -undefined suppress")
-#  set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -flat_namespace -undefined suppress")
-#endif(APPLE)
-
 # Copy platform-dependent expected test failure files.
 include(GlibcDetect)
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
