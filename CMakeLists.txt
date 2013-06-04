@@ -56,6 +56,11 @@ if(APPLE)
   configure_file(test/CTestCustom.apple CTestCustom.ctest)
 endif(APPLE)
 
+if(WIN32)
+  message(STATUS "Copying Windows test suppressions file.")
+  configure_file(test/CTestCustom.windows CTestCustom.ctest)
+endif(WIN32)
+
 # Recurse into the "izy", "reference", and "test" subdirectories. This does not
 # actually cause another cmake executable to run. The same process will walk
 # through the project's entire directory structure.
