@@ -54,6 +54,13 @@ if(WIN32)
   configure_file(test/CTestCustom.windows CTestCustom.ctest)
 endif(WIN32)
 
+set(CPACK_GENERATOR "DEB")
+set(CPACK_PACKAGE_VERSION_MAJOR ${IZY_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${IZY_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${IZY_VERSION_PATCH})
+set(CPACK_PACKAGE_CONTACT "Graham Markall <graham@opengamma.com>")
+include(CPack)
+
 # Subdirectories
 add_subdirectory (reference)
 add_subdirectory (izy)
