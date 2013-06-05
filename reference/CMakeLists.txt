@@ -22,8 +22,8 @@ install(TARGETS izyreference_static ARCHIVE DESTINATION lib)
 if(WIN32)
   # Copy DLL to test folder because otherwise Windows won't find
   # it for the invocation of the tests.
-  add_custom_command(TARGET izy POST_BUILD
+  add_custom_command(TARGET izyreference POST_BUILD
                      COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                             ${CMAKE_BINARY_DIR}/izy/libizyreference.dll
+                             ${CMAKE_BINARY_DIR}/reference/libizyreference.dll
                              ${CMAKE_BINARY_DIR}/test/libizyreference.dll)
 endif(WIN32)
