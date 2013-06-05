@@ -1,4 +1,10 @@
-# Checks for MKL headers and linkge
+#
+# Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+#
+# Please see distribution for license.
+#
+
+# Checks for MKL headers and linkage
 
 INCLUDE(CheckIncludeFiles)
 INCLUDE(CheckLibraryExists)
