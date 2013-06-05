@@ -49,3 +49,14 @@ Run:
 
 Test logs are stored in build/Testing/Temporary/LastTest.log. If you are running
 on Linux, valgrind will also be run on all the tests.
+
+Build queues
+------------
+
+The following queues run each time a commit is pushed to master:
+
+  http://10.0.2.48:8010/builders/izy-master
+  http://10.0.2.48:8010/builders/izy-master-release
+  http://10.0.2.48:8010/builders/izy-master-debug
+
+These check the None, Release, and Debug builds.
