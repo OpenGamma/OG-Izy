@@ -1,6 +1,9 @@
-# The name of our project is "IZY". CMakeLists files in this project can
-# refer to the root source directory of the project as ${IZY_SOURCE_DIR} and
-# to the root binary directory of the project as ${IZY_BINARY_DIR}.
+#
+# Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+#
+# Please see distribution for license.
+#
+
 cmake_minimum_required (VERSION 2.6)
 
 include(CMakeForceCompiler)
@@ -22,8 +25,7 @@ set(IZY_VERSION_PATCH 1)
 set(IZY_VERSION
   ${IZY_VERSION_MAJOR}.${IZY_VERSION_MINOR}.${IZY_VERSION_PATCH})
 
-# Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the
-# directories of additional CMake modules (ie. MacroOutOfSourceBuild.cmake):
+# Our modules are in cmake/modules
 set(CMAKE_MODULE_PATH ${IZY_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
 # Check for OpenMP
@@ -61,15 +63,14 @@ if(WIN32)
   configure_file(test/CTestCustom.windows CTestCustom.ctest)
 endif(WIN32)
 
-# Recurse into the "izy", "reference", and "test" subdirectories. This does not
-# actually cause another cmake executable to run. The same process will walk
-# through the project's entire directory structure.
+# Subdirectories
 add_subdirectory (reference)
 add_subdirectory (izy)
 add_subdirectory (test)
 add_subdirectory (include)
 add_subdirectory (man)
 
+# Show user general info about build
 message("
   Package " ${CMAKE_PROJECT_NAME} " version " ${IZY_VERSION} " build type: " ${CMAKE_BUILD_TYPE} "
   Prefix.............: " ${CMAKE_INSTALL_PREFIX} "

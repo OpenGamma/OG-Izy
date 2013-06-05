@@ -1,7 +1,13 @@
-# Make sure the compiler can find include files from our Hello library.
+#
+# Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+#
+# Please see distribution for license.
+#
+
+# Include folder
 include_directories (${IZY_SOURCE_DIR}/include)
 
-# Make sure the linker can find the Hello library once it is built.
+# Linker path needs izy folder for izy library
 link_directories (${IZY_BINARY_DIR}/izy)
 
 # Set test names
@@ -20,7 +26,7 @@ set(DEF_COMPLEX_PWR check_vz_sqrt check_vz_pow check_vz_powx)
 
 set(TESTS ${DEF_DOUBLE_TRIG} ${DEF_DOUBLE_ARITH} ${DEF_DOUBLE_EL} ${DEF_DOUBLE_HYP} ${DEF_DOUBLE_SPECFUN} ${DEF_DOUBLE_PWR} ${DEF_DOUBLE_ROUND} ${DEF_COMPLEX_TRIG} ${DEF_COMPLEX_HYP} ${DEF_COMPLEX_PWR} ${DEF_COMPLEX_ARITH})
 
-# Compile and link each test
+# Compile and link each test, and add to the list of tests.
 foreach(TEST ${TESTS})
   add_executable(${TEST} ${TEST}.c)
   target_link_libraries(${TEST} izy izyreference)

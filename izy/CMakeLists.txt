@@ -1,6 +1,14 @@
+#
+# Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+#
+# Please see distribution for license.
+#
+
+# Include folder
 include_directories (${IZY_SOURCE_DIR}/include)
-# Create a library called "IZY" which includes the source file "izy.c".
-# The extension is already found. Any number of sources could be listed here.
+
+# We build the static library with a different name since this is recommended on Windows.
+# We keep this behaviour on Linux/Apple for consistency across platforms,
 add_library (izy SHARED izy.c)
 add_library (izy_static STATIC izy.c)
 add_dependencies(izy izyreference)
