@@ -54,16 +54,30 @@ if(WIN32)
   configure_file(test/CTestCustom.windows CTestCustom.ctest)
 endif(WIN32)
 
-set(CPACK_GENERATOR "DEB" "RPM")
+set(CPACK_GENERATOR "DEB" "RPM" "NSIS")
 set(CPACK_PACKAGE_NAME "libizy")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "The IZY vector maths library")
 set(CPACK_PACKAGE_VERSION_MAJOR ${IZY_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${IZY_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${IZY_VERSION_PATCH})
 set(CPACK_PACKAGE_CONTACT "Graham Markall <graham@opengamma.com>")
+
 set(CPACK_DEBIAN_PACKAGE_NAME "libizy0")
 set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>= 2.3)")
+
+# Backslashes in names required due to some weird bug in NSIS. See: 
+# http://www.cmake.org/pipermail/cmake/2008-June/022085.html
+set(ICON "${CMAKE_SOURCE_DIR}/installer/\\\\OpenGamma.ico")
+set(BANNER "${CMAKE_SOURCE_DIR}/installer/\\\\opengamma-banner.bmp")
+
+set(CPACK_NSIS_MUI_ICON ${ICON})
+set(CPACK_NSIS_MUI_UNIICON ${ICON})
+set(CPACK_NSIS_INSTALLED_ICON_NAME ${ICON})
+set(CPACK_PACKAGE_ICON ${BANNER})
+set(CPACK_NSIS_MODIFY_PATH ON)
+set(CPACK_NSIS_DISPLAY_NAME "OpenGamma LibIZY")
+
 include(CPack)
 
 # Subdirectories
