@@ -55,12 +55,15 @@ if(WIN32)
 endif(WIN32)
 
 set(CPACK_GENERATOR "DEB" "RPM")
+set(CPACK_PACKAGE_NAME "libizy")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "The IZY vector maths library")
 set(CPACK_PACKAGE_VERSION_MAJOR ${IZY_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${IZY_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${IZY_VERSION_PATCH})
 set(CPACK_PACKAGE_CONTACT "Graham Markall <graham@opengamma.com>")
 set(CPACK_DEBIAN_PACKAGE_NAME "libizy0")
-
+set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>= 2.3)")
 include(CPack)
 
 # Subdirectories
@@ -78,4 +81,5 @@ message("
   C Flags............: " ${CMAKE_C_FLAGS} "
   C Flags (debug)....: " ${CMAKE_C_FLAGS_DEBUG} "
   C Flags (release)..: " ${CMAKE_C_FLAGS_RELEASE} "
+  C Flags (relwdbg)..: " ${CMAKE_C_FLAGS_RELWITHDEBINFO} "
 ")
