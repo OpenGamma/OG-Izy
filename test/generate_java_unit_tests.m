@@ -1,3 +1,9 @@
+%
+% Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+%
+% Please see distribution for license.
+%
+
 clear all; close all; clc;
   trig_range=linspace(-6.25,6.25,11);
   invtrig_range=-0.9:0.1:0.9;

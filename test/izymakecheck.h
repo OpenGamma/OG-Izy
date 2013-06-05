@@ -1,3 +1,9 @@
+//
+// Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+//
+// Please see distribution for license.
+//
+
 #ifndef IZYMAKECHECK_H
 #define IZYMAKECHECK_H
 #define _IOERROR 0x02

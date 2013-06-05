@@ -1,3 +1,9 @@
+%
+% Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+%
+% Please see distribution for license.
+%
+
 function retstr = gendata(fnname, uname, lang, arg0, arg1)
   complexD=false;
   if(any(iscomplex(arg0)))
