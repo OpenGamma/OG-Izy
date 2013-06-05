@@ -1,3 +1,9 @@
+//
+// Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+//
+// Please see distribution for license.
+//
+
 int n_in = 10;
 static double in_data[] = {
   -1.000000000000000e+01,  -7.777777777777778e+00,  -5.555555555555555e+00,  -3.333333333333333e+00,  -1.111111111111111e+00,   1.111111111111111e+00,   3.333333333333334e+00,   5.555555555555557e+00,   7.777777777777779e+00,   1.000000000000000e+01

@@ -1,3 +1,9 @@
+//
+// Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+//
+// Please see distribution for license.
+//
+
 //log1p
 #include <math.h>
 #include "libizy/izyreference.h"
