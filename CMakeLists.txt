@@ -11,9 +11,7 @@ include(CMakeForceCompiler)
 if(APPLE OR WIN32)
   # The apple default compiler, Clang, doesn't support OpenMP so we can't use it.
   # On Windows, we don't want to end up building with Visual Studio.
-  # Force both C and C++ so that the OpenMP test doesn't show a bunch of errors.
   CMAKE_FORCE_C_COMPILER(gcc GNU)
-  CMAKE_FORCE_CXX_COMPILER(g++ GNU)
 endif(APPLE OR WIN32)
 
 project (IZY)
@@ -27,13 +25,6 @@ set(IZY_VERSION
 
 # Our modules are in cmake/modules
 set(CMAKE_MODULE_PATH ${IZY_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
-
-# Check for OpenMP
-find_package(OpenMP)
-if (OPENMP_FOUND)
-  set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-endif()
 
 # Enable testing with CTest
 enable_testing()
