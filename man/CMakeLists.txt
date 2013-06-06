@@ -9,5 +9,5 @@ set(MANS vd_abs vd_acos vd_acosh vd_add vd_addx vd_asin vd_asinh vd_atan2 vd_ata
 
 # Set location to install each man page
 foreach(MAN ${MANS})
-  install(FILES ${MAN}.3 DESTINATION share/man3 COMPONENT doc)
+  install(FILES ${MAN}.3 DESTINATION share/man/man3 COMPONENT doc)
 endforeach()
