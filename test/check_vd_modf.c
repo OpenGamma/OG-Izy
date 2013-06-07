@@ -47,7 +47,7 @@ int main()
   memset(results_data1,0x0,count*sizeof(double));
 
   /* make izy call */
-  vd_modf(&count,in_data,&offsetin_used0,results_data0,&offsetout_used0,results_data1,&offsetout_used1);
+  vd_modf(&count_used,in_data,&offsetin_used0,results_data0,&offsetout_used0,results_data1,&offsetout_used1);
 
   /* check */
   for(i=0; i < count_used; i++)
