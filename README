@@ -55,8 +55,16 @@ Build queues
 
 The following queues run each time a commit is pushed to master:
 
-  http://10.0.2.48:8010/builders/izy-master
-  http://10.0.2.48:8010/builders/izy-master-release
-  http://10.0.2.48:8010/builders/izy-master-debug
+  http://10.0.2.48:8010/builders/izy-master-lnx-none
+  http://10.0.2.48:8010/builders/izy-master-lnx-release
+  http://10.0.2.48:8010/builders/izy-master-lnx-debug
+  http://10.0.2.48:8010/builders/izy-master-win-none
+  http://10.0.2.48:8010/builders/izy-master-win-release
+  http://10.0.2.48:8010/builders/izy-master-win-debug
+  http://10.0.2.48:8010/builders/izy-master-osx-none
+  http://10.0.2.48:8010/builders/izy-master-osx-release
+  http://10.0.2.48:8010/builders/izy-master-osx-debug
 
-These check the None, Release, and Debug builds.
+These check the None, Release, and Debug builds on Linux, Windows, and OS X,
+presuming requisite build slaves are available. (The OS X and Windows slaves
+are running on Graham's laptops at the moment).
