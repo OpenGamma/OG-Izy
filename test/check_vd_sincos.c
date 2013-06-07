@@ -46,7 +46,7 @@ int main()
   memset(results_data0,0x0,count*sizeof(double));
 
   /* make izy call */
-  vd_sincos(&count,in_data,&offsetin_used0,results_data0,&offsetout_used0,results_data1,&offsetout_used1);
+  vd_sincos(&count_used,in_data,&offsetin_used0,results_data0,&offsetout_used0,results_data1,&offsetout_used1);
 
   /* check */
   for(i=0; i < count_used; i++)
