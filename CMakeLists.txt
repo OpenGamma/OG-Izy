@@ -54,7 +54,7 @@ if(WIN32)
   configure_file(test/CTestCustom.windows CTestCustom.ctest)
 endif(WIN32)
 
-set(CPACK_GENERATOR "DEB" "RPM" "NSIS")
+set(CPACK_GENERATOR "DEB" "RPM" "NSIS" "WIX")
 set(CPACK_PACKAGE_NAME "libizy")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "The IZY vector maths library")
 set(CPACK_PACKAGE_VERSION_MAJOR ${IZY_VERSION_MAJOR})
@@ -75,8 +75,25 @@ set(CPACK_NSIS_MUI_ICON ${ICON})
 set(CPACK_NSIS_MUI_UNIICON ${ICON})
 set(CPACK_NSIS_INSTALLED_ICON_NAME ${ICON})
 set(CPACK_PACKAGE_ICON ${BANNER})
-set(CPACK_NSIS_MODIFY_PATH ON)
+#set(CPACK_NSIS_MODIFY_PATH ON)
 set(CPACK_NSIS_DISPLAY_NAME "OpenGamma LibIZY")
+
+# Hack suggested in:
+# http://www.cmake.org/pipermail/cmake/2009-December/034055.html
+set(tmp_nsis_inst_dir "\\\${INST_DIR}")
+set(tmp_nsis_izydll "\\\${izydll}")
+set(tmp_nsis_izyreferencedll "\\\${izyreferencedll}")
+set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
+  !include Library.nsh
+  !define izydll \\\"${tmp_nsis_inst_dir}\\\\lib\\\\libizy.dll\\\"
+  !define izyreferencedll \\\"${tmp_nsis_inst_dir}\\\\lib\\\\libizyreference.dll\\\"
+  !insertmacro InstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"${tmp_nsis_izydll}\\\" \\\"$SYSDIR\\\\libizy.dll\\\" \\\"$SYSDIR\\\"
+  !insertmacro InstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"${tmp_nsis_izyreferencedll}\\\" \\\"$SYSDIR\\\\libizyreference.dll\\\" \\\"$SYSDIR\\\"
+  !undef izydll
+  !undef izyreferencedll
+")
+
+set(CPACK_WIX_XSL ${CMAKE_SOURCE_DIR}/installer/win.xsl)
 
 include(CPack)
 
