@@ -92,7 +92,11 @@ set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
   !undef izydll
   !undef izyreferencedll
 ")
-
+set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
+  !insertmacro UninstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"$SYSDIR\\\\libizy.dll\\\"
+  !insertmacro UninstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"$SYSDIR\\\\libizyreference.dll\\\"
+")
+  
 set(CPACK_WIX_XSL ${CMAKE_SOURCE_DIR}/installer/win.xsl)
 
 include(CPack)
