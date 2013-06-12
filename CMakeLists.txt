@@ -54,7 +54,7 @@ if(WIN32)
   configure_file(test/CTestCustom.windows CTestCustom.ctest)
 endif(WIN32)
 
-set(CPACK_GENERATOR "DEB" "RPM" "NSIS" "WIX")
+set(CPACK_GENERATOR "DEB" "RPM" "NSIS")
 set(CPACK_PACKAGE_NAME "libizy")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "The IZY vector maths library")
 set(CPACK_PACKAGE_VERSION_MAJOR ${IZY_VERSION_MAJOR})
@@ -98,8 +98,6 @@ set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
   !insertmacro UninstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"$SYSDIR\\\\libizyreference.dll\\\"
 ")
   
-set(CPACK_WIX_XSL ${CMAKE_SOURCE_DIR}/installer/win.xsl)
-
 include(CPack)
 
 # Subdirectories
