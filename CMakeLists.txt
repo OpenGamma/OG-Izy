@@ -54,7 +54,7 @@ if(WIN32)
   configure_file(test/CTestCustom.windows CTestCustom.ctest)
 endif(WIN32)
 
-set(CPACK_GENERATOR "DEB" "RPM" "NSIS")
+set(CPACK_GENERATOR "DEB" "RPM" "NSIS" "PackageMaker")
 set(CPACK_PACKAGE_NAME "libizy")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "The IZY vector maths library")
 set(CPACK_PACKAGE_VERSION_MAJOR ${IZY_VERSION_MAJOR})
@@ -78,6 +78,15 @@ set(CPACK_PACKAGE_ICON ${BANNER})
 set(CPACK_NSIS_MODIFY_PATH ON)
 set(CPACK_NSIS_DISPLAY_NAME "OpenGamma LibIZY")
 set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_SOURCE_DIR}/LICENSE.txt)
+
+if(APPLE)
+  # Install in our own folder in /opt because there's no easy uninstall.
+  if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(CMAKE_INSTALL_PREFIX "/opt/OpenGamma/libizy" CACHE PATH "Install path prefix, prepended onto install directories." FORCE)
+  endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CPACK_PACKAGING_INSTALL_PREFIX "/")
+  set(CPACK_SET_DESTDIR TRUE)
+endif(APPLE)
 
 include(CPack)
 
