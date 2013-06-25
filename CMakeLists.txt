@@ -54,7 +54,7 @@ if(WIN32)
   configure_file(test/CTestCustom.windows CTestCustom.ctest)
 endif(WIN32)
 
-set(CPACK_GENERATOR "DEB" "RPM" "NSIS" "PackageMaker")
+set(CPACK_GENERATOR "TGZ" "DEB" "RPM" "NSIS" "PackageMaker")
 set(CPACK_PACKAGE_NAME "libizy")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "The IZY vector maths library")
 set(CPACK_PACKAGE_VERSION_MAJOR ${IZY_VERSION_MAJOR})
