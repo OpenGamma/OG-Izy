@@ -13,11 +13,8 @@ set(REFSRC reference_vd_abs.c reference_vd_acos.c reference_vd_acosh.c reference
 # We build the static library with a different name since this is recommended on Windows.
 # We keep this behaviour on Linux/Apple for consistency across platforms,
 add_library(izyreference SHARED ${REFSRC})
-add_library(izyreference_static STATIC ${REFSRC})
 target_link_libraries(izyreference m)
-set_target_properties(izyreference PROPERTIES SOVERSION ${IZY_VERSION_MAJOR} VERSION ${IZY_VERSION})
 install(TARGETS izyreference DESTINATION lib)
-install(TARGETS izyreference_static ARCHIVE DESTINATION lib)
 
 if(WIN32)
   # Copy DLL to test folder because otherwise Windows won't find
