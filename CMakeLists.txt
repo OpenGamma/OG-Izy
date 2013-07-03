@@ -81,22 +81,22 @@ set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_SOURCE_DIR}/LICENSE.txt)
 
 # Hack suggested in:
 # http://www.cmake.org/pipermail/cmake/2009-December/034055.html
-set(tmp_nsis_inst_dir "\\\${INST_DIR}")
-set(tmp_nsis_izydll "\\\${izydll}")
-set(tmp_nsis_izyreferencedll "\\\${izyreferencedll}")
-set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-  !include Library.nsh
-  !define izydll \\\"${tmp_nsis_inst_dir}\\\\lib\\\\libizy.dll\\\"
-  !define izyreferencedll \\\"${tmp_nsis_inst_dir}\\\\lib\\\\libizyreference.dll\\\"
-  !insertmacro InstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"${tmp_nsis_izydll}\\\" \\\"$SYSDIR\\\\libizy.dll\\\" \\\"$SYSDIR\\\"
-  !insertmacro InstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"${tmp_nsis_izyreferencedll}\\\" \\\"$SYSDIR\\\\libizyreference.dll\\\" \\\"$SYSDIR\\\"
-  !undef izydll
-  !undef izyreferencedll
-")
-set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-  !insertmacro UninstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"$SYSDIR\\\\libizy.dll\\\"
-  !insertmacro UninstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"$SYSDIR\\\\libizyreference.dll\\\"
-")
+#set(tmp_nsis_inst_dir "\\\${INST_DIR}")
+#set(tmp_nsis_izydll "\\\${izydll}")
+#set(tmp_nsis_izyreferencedll "\\\${izyreferencedll}")
+#set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
+#  !include Library.nsh
+#  !define izydll \\\"${tmp_nsis_inst_dir}\\\\lib\\\\libizy.dll\\\"
+#  !define izyreferencedll \\\"${tmp_nsis_inst_dir}\\\\lib\\\\libizyreference.dll\\\"
+#  !insertmacro InstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"${tmp_nsis_izydll}\\\" \\\"$SYSDIR\\\\libizy.dll\\\" \\\"$SYSDIR\\\"
+#  !insertmacro InstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"${tmp_nsis_izyreferencedll}\\\" \\\"$SYSDIR\\\\libizyreference.dll\\\" \\\"$SYSDIR\\\"
+#  !undef izydll
+#  !undef izyreferencedll
+#")
+#set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
+#  !insertmacro UninstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"$SYSDIR\\\\libizy.dll\\\"
+#  !insertmacro UninstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"$SYSDIR\\\\libizyreference.dll\\\"
+#")
 
 include(CPack)
 
