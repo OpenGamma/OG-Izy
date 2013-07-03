@@ -14,13 +14,5 @@ set(REFSRC reference_vd_abs.c reference_vd_acos.c reference_vd_acosh.c reference
 # We keep this behaviour on Linux/Apple for consistency across platforms,
 add_library(izyreference SHARED ${REFSRC})
 target_link_libraries(izyreference m)
+set_target_properties(izyreference PROPERTIES SOVERSION ${IZY_VERSION_MAJOR} VERSION ${IZY_VERSION})
 install(TARGETS izyreference DESTINATION lib)
-
-if(WIN32)
-  # Copy DLL to test folder because otherwise Windows won't find
-  # it for the invocation of the tests.
-  add_custom_command(TARGET izyreference POST_BUILD
-                     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                             ${CMAKE_BINARY_DIR}/reference/libizyreference.dll
-                             ${CMAKE_BINARY_DIR}/test/libizyreference.dll)
-endif(WIN32)
