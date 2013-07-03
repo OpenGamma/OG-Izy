@@ -98,15 +98,6 @@ set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
   !insertmacro UninstallLib DLL NOTSHARED NOREBOOT_NOTPROTECTED \\\"$SYSDIR\\\\libizyreference.dll\\\"
 ")
 
-if(APPLE)
-  # Install in our own folder in /opt because there's no easy uninstall.
-  if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set(CMAKE_INSTALL_PREFIX "/opt/OpenGamma/libizy" CACHE PATH "Install path prefix, prepended onto install directories." FORCE)
-  endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CPACK_PACKAGING_INSTALL_PREFIX "/")
-  set(CPACK_SET_DESTDIR TRUE)
-endif(APPLE)
-
 include(CPack)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${IZY_BINARY_DIR}/bin)
