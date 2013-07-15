@@ -19,6 +19,8 @@
 #if SLACK_TESTS == 0
 #undef IZY_MAX_ULPS
 #define IZY_MAX_ULPS  100
+#else
+// The tolerance when SLACK_TESTS == 1 is higher than the above we don't want to lower it
 #endif
 
 int main()
