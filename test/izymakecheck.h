@@ -15,9 +15,17 @@
 #define _OFFSET_LOOP_INCORRECT_RESULT 0x08
 #define _EXTREMITY_INCORRECT_RESULT 0x09
 
-#define IZY_MAX_ULPS 10
-
 #define IZY_MIN_VAL 1e-15
+
+#ifdef SLACK_TESTS
+#define IZY_MAX_ULPS 1000
+#else
+#define IZY_MAX_ULPS 10
+#endif
+
+#ifndef SLACK_TESTS
+#define SLACK_TESTS 0
+#endif
 
 #define DYN_TOL(EXPECTED, ULP_MUL) ((ULP_MUL*(nextafter(EXPECTED, EXPECTED+1.e0)-EXPECTED)) > IZY_MIN_VAL ? (ULP_MUL*(nextafter(EXPECTED, EXPECTED+1.e0)-EXPECTED)) : IZY_MIN_VAL)
 
@@ -66,20 +74,28 @@
             }\
         break;\
         case FP_ZERO:\
-          if((fpclassify(GOT)!=FP_ZERO)||(signbit(EXPECTED)>0&!(signbit(GOT)>0)))\
+          if(fpclassify(GOT)!=FP_ZERO)\
           {\
-          printf("Error: results mismatch in zeros\n");\
-          printf("Expected: %24.16f . Got: %24.16f. Signbits: %d %d. FP class: %d\n", EXPECTED, GOT, signbit(EXPECTED), signbit(GOT), fpclassify(GOT)==FP_ZERO);\
-          union{double d; long long int i;} _dint;\
-            _dint.d=EXPECTED;\
-          printf("Bits in EXPECTED 0x%llx\n",_dint.i);\
-            _dint.d=GOT;\
-          printf("Bits in GOT 0x%llx\n",_dint.i);\
-          if(signbit(EXPECTED)&!signbit(GOT)) printf("Sign bits differ\n");\
+            printf("Error: results mismatch in zeros\n");\
+            printf("Expected: %24.16f . Got: %24.16f. FP class: %d\n", EXPECTED, GOT, fpclassify(GOT)==FP_ZERO);\
           __PRINT_ERROR(FAIL_CODE, LOOPC)\
           return FAIL_CODE;\
           }\
-        break;\
+          if(!SLACK_TESTS)\
+          {\
+              if(signbit(EXPECTED)>0&!(signbit(GOT)>0))\
+              {\
+                printf("Expected: %24.16f . Got: %24.16f. Signbits: %d %d. FP class: %d\n", EXPECTED, GOT, signbit(EXPECTED), signbit(GOT), fpclassify(GOT)==FP_ZERO);\
+                union{double d; long long int i;} _dint;\
+                  _dint.d=EXPECTED;\
+                printf("Bits in EXPECTED 0x%llx\n",_dint.i);\
+                  _dint.d=GOT;\
+                printf("Bits in GOT 0x%llx\n",_dint.i);\
+              __PRINT_ERROR(FAIL_CODE, LOOPC)\
+              return FAIL_CODE;\
+              }\
+          }\
+          break;\
         default:\
           if(isnan(GOT))\
           {\
