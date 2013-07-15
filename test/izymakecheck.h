@@ -20,7 +20,7 @@
 #define IZY_MIN_VAL 1e-15
 
 #ifdef SLACK_TESTS
-#define IZY_MAX_ULPS 100
+#define IZY_MAX_ULPS 1000
 #endif 
 
 #ifndef SLACK_TESTS
