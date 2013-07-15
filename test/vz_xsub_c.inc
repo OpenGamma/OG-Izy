@@ -3,7 +3,6 @@
 //
 // Please see distribution for license.
 //
-
 int n_in = 441;
 static complex double in_data0[] = {
    1.000000000000000e+01+I*   5.000000000000000e+00

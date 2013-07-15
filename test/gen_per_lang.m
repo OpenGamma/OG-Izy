@@ -129,8 +129,8 @@ function[] = gen_per_lang(lang)
   gendata('tanh','tanh',lang,complex_data);
 
   % pwr
-  gendata('power','pow',lang,complex_data,complex_data);
-  gendata('power','powx',lang,complex_data, complex_std_const_small*ones(size(complex_data)));
+  gendata('power','pow',lang,complex_data(complex_data~=0),complex_data(complex_data~=0)/10);
+  gendata('power','powx',lang,complex_data(complex_data~=0), complex_std_const_small*ones(size(complex_data(complex_data~=0))));
   gendata('sqrt','sqrt',lang,complex_data);
   gendata('exp','exp',lang,complex_data);
   gendata('log','ln',lang,complex_data+sqrt(2));
