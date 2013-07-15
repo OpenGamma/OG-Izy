@@ -30,7 +30,7 @@ set(CMAKE_MODULE_PATH ${IZY_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 enable_testing()
 
 # Copy platform-dependent expected test failure files.
-# include(GlibcDetect)
+include(GlibcDetect)
 # if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 #   glibc_detect(GLIBC_VERSION)
 #   set(KNOWN_GLIBC_VERSIONS 2.12 2.13 2.14)
@@ -49,10 +49,10 @@ enable_testing()
 #   configure_file(test/CTestCustom.apple CTestCustom.ctest)
 # endif(APPLE)
 # 
-# if(WIN32)
-#   message(STATUS "Copying Windows test suppressions file.")
-#   configure_file(test/CTestCustom.windows CTestCustom.ctest)
-# endif(WIN32)
+if(WIN32)
+  message(STATUS "Copying Windows test suppressions file.")
+  configure_file(test/CTestCustom.windows CTestCustom.ctest)
+endif(WIN32)
 
 if(APPLE)
   add_definitions(-DSLACK_TESTS)
