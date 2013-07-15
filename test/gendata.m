@@ -35,6 +35,13 @@ function retstr = gendata(fnname, uname, lang, arg0, arg1)
   if(fp<0)
     error('file open failed')
   end
+  
+  if(strcmp(lower(lang),'c'))
+  fprintf(fp,"//\n// Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies\n//\n// Please see distribution for license.\n//\n");
+  else
+  fprintf(fp,"/*\n Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies\n \n Please see distribution for license.\n */\n");
+  end
+
 
   % functions starting x are of form const(OP)array so n_in depends on arg1
   if(strcmp(upper(uname(1)),'X'))
