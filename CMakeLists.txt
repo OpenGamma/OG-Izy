@@ -54,6 +54,11 @@ enable_testing()
 #   configure_file(test/CTestCustom.windows CTestCustom.ctest)
 # endif(WIN32)
 
+if(APPLE)
+  add_definitions(-DSLACK_TESTS)
+endif(ENDIF)
+
+
 set(CPACK_GENERATOR "TGZ" "DEB" "RPM" "NSIS" "PackageMaker")
 set(CPACK_PACKAGE_NAME "libizy")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "The IZY vector maths library")
