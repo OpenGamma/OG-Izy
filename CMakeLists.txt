@@ -41,6 +41,10 @@ if(WIN32)
   configure_file(test/CTestCustom.windows CTestCustom.ctest)
 endif(WIN32)
 
+if(APPLE)
+  add_definitions(-DSLACK_TESTS)
+endif(ENDIF)
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${IZY_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${IZY_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${IZY_BINARY_DIR}/lib)
