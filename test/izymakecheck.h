@@ -70,6 +70,11 @@
           {\
           printf("Error: results mismatch in zeros\n");\
           printf("Expected: %24.16f . Got: %24.16f. Signbits: %d %d. FP class: %d\n", EXPECTED, GOT, signbit(EXPECTED), signbit(GOT), fpclassify(GOT)==FP_ZERO);\
+          union{double d; long long int i;} _dint;\
+            _dint.d=EXPECTED;\
+          printf("Bits in EXPECTED 0x%llx\n",_dint.i);\
+            _dint.d=GOT;\
+          printf("Bits in GOT 0x%llx\n",_dint.i);\
           if(signbit(EXPECTED)&!signbit(GOT)) printf("Sign bits differ\n");\
           __PRINT_ERROR(FAIL_CODE, LOOPC)\
           return FAIL_CODE;\
@@ -90,12 +95,19 @@
               __PRINT_ERROR(FAIL_CODE, LOOPC)\
               return FAIL_CODE;\
           }\
-          else if(fabs(GOT-EXPECTED)>=DYN_TOL(EXPECTED,ULP_MUL))\
+          else\
           {\
-            printf("Error: results mismatch in value\n");\
-            printf("Expected: %24.16f . Got: %24.16f .\n Magnitude of error: %24.16f.\n Compared using tolerance: %24.16f\n", EXPECTED, GOT, fabs(EXPECTED-GOT), DYN_TOL(EXPECTED,ULP_MUL));\
-            __PRINT_ERROR(FAIL_CODE, LOOPC)\
-            return FAIL_CODE;\
+            if(fabs(GOT-EXPECTED)>=DYN_TOL(EXPECTED,ULP_MUL)) {\
+              printf("Error: results mismatch in value\n");\
+              printf("Expected: %24.16f . Got: %24.16f .\n Magnitude of error: %24.16f.\n Compared using tolerance: %24.16f\n", EXPECTED, GOT, fabs(EXPECTED-GOT), DYN_TOL(EXPECTED,ULP_MUL));\
+              __PRINT_ERROR(FAIL_CODE, LOOPC)\
+              printf("Attempting sign invariant match:");\
+              if(fabs((GOT<0?-GOT:GOT)-(EXPECTED<0?-EXPECTED:EXPECTED))>=DYN_TOL(EXPECTED,ULP_MUL)) {\
+              return FAIL_CODE;\
+             }else{\
+              printf("Passed sign invariant match. Branch cut problem.");\
+             }\
+            }\
           }\
         break;\
       }
