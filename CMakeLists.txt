@@ -30,12 +30,6 @@ set(CMAKE_MODULE_PATH ${IZY_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 enable_testing()
 
 # Copy platform-dependent expected test failure files.
-
-if(APPLE)
-  message(STATUS "Copying Apple test suppressions file.")
-  configure_file(test/CTestCustom.apple CTestCustom.ctest)
-endif(APPLE)
-
 if(WIN32)
   message(STATUS "Copying Windows test suppressions file.")
   configure_file(test/CTestCustom.windows CTestCustom.ctest)
