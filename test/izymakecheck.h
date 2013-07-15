@@ -15,9 +15,11 @@
 #define _OFFSET_LOOP_INCORRECT_RESULT 0x08
 #define _EXTREMITY_INCORRECT_RESULT 0x09
 
-#define IZY_DBL_EPSILON (10 * DBL_EPSILON)
-
 #define IZY_MAX_ULPS 10
+
+#define IZY_MIN_VAL 1e-15
+
+#define DYN_TOL(EXPECTED, ULP_MUL) ((ULP_MUL*(nextafter(EXPECTED, EXPECTED+1.e0)-EXPECTED)) > IZY_MIN_VAL ? (ULP_MUL*(nextafter(EXPECTED, EXPECTED+1.e0)-EXPECTED)) : IZY_MIN_VAL)
 
 #define __PRINT_ERROR(FAIL_CODE, LOOPC)\
           switch(FAIL_CODE)\
@@ -67,7 +69,7 @@
           if((fpclassify(GOT)!=FP_ZERO)||(signbit(EXPECTED)>0&!(signbit(GOT)>0)))\
           {\
           printf("Error: results mismatch in zeros\n");\
-          printf("Expected: %24.16f . Got: %24.16f .\n", EXPECTED, GOT);\
+          printf("Expected: %24.16f . Got: %24.16f. Signbits: %d %d. FP class: %d\n", EXPECTED, GOT, signbit(EXPECTED), signbit(GOT), fpclassify(GOT)==FP_ZERO);\
           if(signbit(EXPECTED)&!signbit(GOT)) printf("Sign bits differ\n");\
           __PRINT_ERROR(FAIL_CODE, LOOPC)\
           return FAIL_CODE;\
@@ -88,10 +90,10 @@
               __PRINT_ERROR(FAIL_CODE, LOOPC)\
               return FAIL_CODE;\
           }\
-          else if(fabs(GOT-EXPECTED)>=(ULP_MUL*(nextafter(EXPECTED, EXPECTED+1.e0)-EXPECTED)))\
+          else if(fabs(GOT-EXPECTED)>=DYN_TOL(EXPECTED,ULP_MUL))\
           {\
             printf("Error: results mismatch in value\n");\
-            printf("Expected: %24.16f . Got: %24.16f .\n Magnitude of error: %24.16f.\n Compared using tolerance: %24.16f\n", EXPECTED, GOT, fabs(EXPECTED-GOT), ULP_MUL*(nextafter(EXPECTED, EXPECTED+1.e0)-EXPECTED));\
+            printf("Expected: %24.16f . Got: %24.16f .\n Magnitude of error: %24.16f.\n Compared using tolerance: %24.16f\n", EXPECTED, GOT, fabs(EXPECTED-GOT), DYN_TOL(EXPECTED,ULP_MUL));\
             __PRINT_ERROR(FAIL_CODE, LOOPC)\
             return FAIL_CODE;\
           }\
