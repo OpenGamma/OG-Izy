@@ -41,7 +41,7 @@ if(APPLE)
 endif(ENDIF)
 
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
-  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--rpath, -Wl,.")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--rpath -Wl,.")
 endif()
 
 set(CPACK_GENERATOR "TGZ" "DEB" "RPM" "NSIS" "PackageMaker")
