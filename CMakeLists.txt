@@ -38,10 +38,10 @@ endif(WIN32)
 
 if(APPLE)
   add_definitions(-DSLACK_TESTS)
-endif(ENDIF)
+endif(APPLE)
 
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
-  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--rpath -Wl,.")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--rpath -Wl,\$ORIGIN")
 endif()
 
 set(CPACK_GENERATOR "TGZ" "DEB" "RPM" "NSIS" "PackageMaker")
