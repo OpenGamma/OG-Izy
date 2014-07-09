@@ -82,3 +82,42 @@ if(${CPUID_FLAG} GREATER 4)
 else()
   message(STATUS "CPU does not support AVX2")
 endif()
+
+
+
+# Executes the target as a test once, and then once again with valgrind
+# Appropriate flags are added so that GTest outputs JUnit XML for later
+# processing. The target is appended to the list of tests that is used in the
+# add_gtest_report macro.
+macro(add_custom_test TESTNAME)
+  get_target_property(TEST_LOC ${TESTNAME} LOCATION)
+  add_test(${TESTNAME} ${TEST_LOC})
+  if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    add_test(${TESTNAME}_valgrind valgrind --leak-check=full --error-exitcode=1 ${TEST_LOC})
+  endif()
+  list(APPEND gtests ${TESTNAME})
+  set(tests ${tests} CACHE INTERNAL "Test tests to run")
+endmacro()
+
+# Builds a test executable from the specified SOURCES and links
+# it to any additional LINK_LIBRARIES. The sources are also
+# compiled with the specified COMPILE_DEFINITIONS. Valgrind is run on each test.
+macro(add_multitarget_test TESTNAME)
+  cmake_parse_arguments(MTGTEST "" ""
+                        "SOURCES;LINK_LIBRARIES;COMPILE_DEFINITIONS;TARGETS"
+                        ${ARGN})
+  foreach(TARGET ${MTGTEST_TARGETS})
+    if(SUPPORT_${TARGET})
+      set(TEST ${TESTNAME}_${TARGET})
+      add_executable(${TEST} ${MTGTEST_SOURCES})
+      set_target_properties(${TEST} PROPERTIES COMPILE_FLAGS ${OPT_FLAGS_${TARGET}} LINK_FLAGS ${OPT_FLAGS_${TARGET}})
+      foreach(LINK_LIBRARY ${MTGTEST_LINK_LIBRARIES})
+        target_link_libraries(${TEST} ${LINK_LIBRARY}_${TARGET})
+      endforeach()
+      foreach(COMPILE_DEFINITION ${MTGTEST_COMPILE_DEFINITIONS})
+        set_target_properties(${TEST} PROPERTIES COMPILE_DEFINITIONS ${COMPILE_DEFINITION})
+      endforeach()
+      add_custom_test(${TEST})
+    endif()
+  endforeach()
+endmacro()
