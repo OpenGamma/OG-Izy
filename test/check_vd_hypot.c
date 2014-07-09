@@ -121,8 +121,8 @@ int main()
   TEST_DOUBLE_EQUALS_ERROR_CODE(+INFINITY, RVAL, IZY_MAX_ULPS, _EXTREMITY_INCORRECT_RESULT)
 
   /* overflow */
-  IVAL0 = 1.e308;
-  IVAL1 = 2.e308;
+  IVAL0 = DBL_MAX;
+  IVAL1 = DBL_MAX;
   vd_hypot(&one,&IVAL0,&offsetin0,&IVAL1,&offsetin1,&RVAL,&offsetout0);
   if(!isinf(RVAL))
     {

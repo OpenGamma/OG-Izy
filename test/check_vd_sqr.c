@@ -22,7 +22,6 @@ int main()
   int i;
   double results_data[n_expected];
   const int offsetin0 = 0;
-  const int offsetin1 = 0;
   const int offsetout0 = 0;
   const int count = n_in;
   memset(results_data,0x0,count*sizeof(double));

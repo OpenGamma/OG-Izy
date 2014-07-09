@@ -6,6 +6,32 @@
 
 #ifndef IZYMAKECHECK_H
 #define IZYMAKECHECK_H
+
+#include<stdint.h>
+
+// print
+#define DEBUG_PRINT(...) fprintf(stderr, __VA_ARGS__)
+
+// Used by VAL64BIT_PRINT
+#define INT64HIGHLOW(val,high,low)\
+    low = (long long unsigned int)val & 0x00000000FFFFFFFFULL;\
+    high = ((long long unsigned int)val & 0xFFFFFFFF00000000ULL) >> 32
+
+// Print a 64-bit value on all supported platforms
+#ifdef _WIN32
+#define VAL64BIT_PRINT(desc, ptr)\
+  {\
+  unsigned int __ptr_print_high, __ptr_print_low;\
+  INT64HIGHLOW(ptr, __ptr_print_high, __ptr_print_low);\
+  DEBUG_PRINT(desc " is 0x%08x%08x\n", __ptr_print_high, __ptr_print_low);\
+  }
+#else
+#define VAL64BIT_PRINT(desc, ptr)\
+  DEBUG_PRINT(desc " is 0x%llx\n", (long long unsigned int)ptr);
+#endif
+
+
+
 #define _IOERROR 0x02
 #define _READERROR 0x03
 #define _MALLOCERROR 0x04
@@ -68,7 +94,7 @@
           if(!isinf(GOT)||(isinf(EXPECTED)!=isinf(GOT))) { \
               printf("Error: results mismatch in infinity\n");\
               printf("Expected: %24.16f . Got: %24.16f .\n", EXPECTED, GOT);\
-              if(signbit(EXPECTED)&!signbit(GOT)) printf("Sign bits differ\n");\
+              if((signbit(EXPECTED))&((!signbit(GOT)))) printf("Sign bits differ\n");\
               __PRINT_ERROR(FAIL_CODE, LOOPC)\
               return FAIL_CODE;\
             }\
@@ -83,14 +109,14 @@
           }\
           if(!SLACK_TESTS)\
           {\
-              if(signbit(EXPECTED)>0&!(signbit(GOT)>0))\
+              if((signbit(EXPECTED)>0)&(!(signbit(GOT))>0))\
               {\
                 printf("Expected: %24.16f . Got: %24.16f. Signbits: %d %d. FP class: %d\n", EXPECTED, GOT, signbit(EXPECTED), signbit(GOT), fpclassify(GOT)==FP_ZERO);\
-                union{double d; long long int i;} _dint;\
-                  _dint.d=EXPECTED;\
-                printf("Bits in EXPECTED 0x%llx\n",_dint.i);\
-                  _dint.d=GOT;\
-                printf("Bits in GOT 0x%llx\n",_dint.i);\
+               union{double d; uint64_t i;} _dint;\
+               _dint.d=EXPECTED;\
+               VAL64BIT_PRINT("Bits in EXPECTED",_dint.i)\
+               _dint.d=GOT;\
+               VAL64BIT_PRINT("Bits in GOT",_dint.i)\
               __PRINT_ERROR(FAIL_CODE, LOOPC)\
               return FAIL_CODE;\
               }\

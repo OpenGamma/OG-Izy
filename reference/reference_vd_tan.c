@@ -11,4 +11,4 @@
 void vd_reference_tan(const int * count, const double * arg0, const int * offsetarg0, double * out0, const int * offsetout0)
 {
         DVFUNC(tan);
-};
+}

@@ -12,4 +12,4 @@ void vd_reference_invsqrt(const int * count, const double * arg0, const int * of
 {
         // bad
         DVFUNC(1/sqrt)
-};
+}

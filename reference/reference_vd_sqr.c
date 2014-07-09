@@ -19,4 +19,4 @@ void vd_reference_sqr(const int * count, const double * arg0, const int * offset
         {
                 out0ref[i]= arg0ref[i] * arg0ref[i];
         }
-};
+}
