@@ -13,10 +13,10 @@ set(REFSRC reference_vd_abs.c reference_vd_acos.c reference_vd_acosh.c reference
 ## unimplemented function stubs
 # set(UNIMPLEMENTED reference_vd_cdfnorminv.c reference_vd_erfcinv.c reference_vd_erfinv.c)
 
-
-# We build the static library with a different name since this is recommended on Windows.
-# We keep this behaviour on Linux/Apple for consistency across platforms,
-add_library(izyreference SHARED ${REFSRC})
-target_link_libraries(izyreference m)
-set_target_properties(izyreference PROPERTIES SOVERSION ${IZY_VERSION_MAJOR} VERSION ${IZY_VERSION})
-install(TARGETS izyreference DESTINATION lib)
+# build multilib
+add_multitarget_library(izyreference
+                        VERSION ${IZY_VERSION}
+                        SOVERSION ${IZY_VERSION_MAJOR}
+                        SOURCES ${REFSRC}
+                        LINK_LIBRARIES m
+                        TARGETS ${TARGET_TYPES})
