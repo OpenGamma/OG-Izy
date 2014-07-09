@@ -19,5 +19,5 @@ void vd_reference_cdfnorm(const int * count, const double * arg0, const int * of
         {
                 out0ref[i]= 0.5e0*(1.e0+erf(arg0ref[i]/M_SQRT2));
         }
-        
-};
+
+}

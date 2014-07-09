@@ -12,4 +12,4 @@ void vd_reference_invcbrt(const int * count, const double * arg0, const int * of
 {
         // bad
         DVFUNC(1/cbrt)
-};
+}

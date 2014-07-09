@@ -20,4 +20,4 @@ void vd_reference_modf(const int * count, const double * arg0, const int * offse
         {
                 out1ref[i]= modf(arg0ref[i], &out0ref[i]);
         }
-};
+}
