@@ -23,11 +23,72 @@ set(IZY_VERSION_PATCH 1)
 set(IZY_VERSION
   ${IZY_VERSION_MAJOR}.${IZY_VERSION_MINOR}.${IZY_VERSION_PATCH})
 
+
+enable_language(C)
+
+# Construct platform code
+if(WIN32)
+  set(PLATFORM_CODE win)
+else()
+  if(APPLE)
+    set(PLATFORM_CODE osx)
+  else()
+    set(PLATFORM_CODE lnx)
+  endif()
+endif()
+
+if(WIN32)
+  set(CMAKE_THREAD_LIBS_INIT -mthreads)
+else()
+  # we force -pthread in preference to -lpthread because it sets -D_REENTRANT
+  set(THREADS_HAVE_PTHREAD_ARG "THREADS_HAVE_PTHREAD_ARG")
+  find_package(Threads)
+endif()
+
 # Our modules are in cmake/modules
 set(CMAKE_MODULE_PATH ${IZY_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
+# Use GNU extended C99, other flags for preventing common errors. Also add thread libs.
+set(CMAKE_C_FLAGS "-std=gnu99 -Wall -Werror -Wextra -pedantic ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_C_FLAGS}")
+
+# On Linux, add -rdynamic for stack traces
+if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -rdynamic")
+endif()
+
+# Use the native assembler on Apple in order to be able to generate AVX instructions.
+if(APPLE)
+  set(CMAKE_C_FLAGS "-Wa,-q ${CMAKE_C_FLAGS}")
+endif()
+
+
 # Enable testing with CTest
 enable_testing()
+
+# Multi-target libraries need to be built
+include(MultiLib)
+set(TARGET_TYPES dbg std sse41 avx1)
+
+
+# Tweak flags. These flags are similar to --ffast-math, except:
+# -funsafe-math-optimizations is missing as it messes with the FPU control word
+# which can cause segfaults when running through the JNI interface.
+# -ffinite-math-only is missing as it messes with NaN and Inf in ways that
+# break comparison behaviours.
+set(FFAST_MATH_SAFE "-fno-math-errno  -fno-rounding-math -fno-signaling-nans -fcx-limited-range")
+
+if (WIN32)
+  # We need a larger than default stack to prevent the entrypt test
+  # failing, and we need to force the export of all symbols since
+  # they were all visible by default in the original implementation.
+  set (PLATFORM_FLAGS "-Wl,--export-all-symbols -Wl,--stack,4194304")
+endif()
+
+set(OPT_FLAGS_dbg "-DDEBUG ${CMAKE_C_FLAGS_DEBUG} ${PLATFORM_FLAGS}")
+set(OPT_FLAGS_std "-g ${FFAST_MATH_SAFE} -O2 -funroll-loops -DNDEBUG ${PLATFORM_FLAGS}")
+set(OPT_FLAGS_sse41 "-g ${OPT_FLAGS_std} -march=core2 -msse4.1")
+set(OPT_FLAGS_avx1 "-g ${OPT_FLAGS_std}  -march=corei7-avx -mavx256-split-unaligned-load -mavx256-split-unaligned-store")
+
 
 # Copy platform-dependent expected test failure files.
 if(WIN32)
@@ -60,7 +121,8 @@ message("
   Prefix.............: " ${CMAKE_INSTALL_PREFIX} "
   C Compiler.........: " ${CMAKE_C_COMPILER} "
   C Flags............: " ${CMAKE_C_FLAGS} "
-  C Flags (debug)....: " ${CMAKE_C_FLAGS_DEBUG} "
-  C Flags (release)..: " ${CMAKE_C_FLAGS_RELEASE} "
-  C Flags (relwdbg)..: " ${CMAKE_C_FLAGS_RELWITHDEBINFO} "
+  C Flags (debug)....: " ${CMAKE_C_FLAGS} ${OPT_FLAGS_dbg} "
+  C Flags (std)......: " ${CMAKE_C_FLAGS} ${OPT_FLAGS_std} "
+  C Flags (sse41)....: " ${CMAKE_C_FLAGS} ${OPT_FLAGS_sse41} "
+  C Flags (avx1).....: " ${CMAKE_C_FLAGS} ${OPT_FLAGS_avx1} "
 ")

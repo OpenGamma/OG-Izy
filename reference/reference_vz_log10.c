@@ -23,4 +23,4 @@ void vz_reference_log10(const int * count, const double complex * arg0, const in
                 out0ref[i]= clog(arg0ref[i])/log10;
         }
 
-};
+}
