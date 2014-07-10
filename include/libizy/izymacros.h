@@ -7,6 +7,29 @@
 #ifndef _IZYMACROS_H
 #define _IZYMACROS_H 1
 
+#ifdef __cplusplus
+#include <complex>
+#include <cstdint>
+#else
+#include <complex.h>
+#include <stdint.h>
+#endif
+
+#ifdef __cplusplus
+typedef std::complex<double> complex16;
+typedef std::complex<float> complex8;
+typedef double real8;
+typedef float real4;
+typedef std::int32_t int4;
+#else
+typedef double complex complex16;
+typedef float complex complex8;
+typedef double real8;
+typedef float real4;
+typedef int32_t int4;
+#endif
+
+
 /* double precision definitions */
 #define _ONEARGONERESULTFUNCTION(_VECTORNAME,_NAME) void _VECTORNAME##_NAME(const int * count, const double * arg0, const int * offsetarg0, double * out0, const int * offsetout0);
 
@@ -23,13 +46,13 @@
 
 
 /* double complex definitions */
-#define _ZONECOMPLEXARGONECOMPLEXRESULTFUNCTION(_VECTORNAME,_NAME) void _VECTORNAME##_NAME(const int * count, const double complex * arg0, const int * offsetarg0, double complex * out0, const int * offsetout0);
+#define _ZONECOMPLEXARGONECOMPLEXRESULTFUNCTION(_VECTORNAME,_NAME) void _VECTORNAME##_NAME(const int * count, const complex16 * arg0, const int * offsetarg0, complex16 * out0, const int * offsetout0);
 
-#define _ZONECOMPLEXARGONEDOUBLERESULTFUNCTION(_VECTORNAME,_NAME) void _VECTORNAME##_NAME(const int * count, const double complex * arg0, const int * offsetarg0, double * out0, const int * offsetout0);
+#define _ZONECOMPLEXARGONEDOUBLERESULTFUNCTION(_VECTORNAME,_NAME) void _VECTORNAME##_NAME(const int * count, const complex16 * arg0, const int * offsetarg0, double * out0, const int * offsetout0);
 
-#define _ZTWOCOMPLEXARGONECOMPLEXRESULTFUNCTION(_VECTORNAME, _NAME) void _VECTORNAME##_NAME(const int * count, const double complex * arg0, const int * offsetarg0, const double complex * arg1, const int * offsetarg1, double complex * out0, const int * offsetout0);
+#define _ZTWOCOMPLEXARGONECOMPLEXRESULTFUNCTION(_VECTORNAME, _NAME) void _VECTORNAME##_NAME(const int * count, const complex16 * arg0, const int * offsetarg0, const complex16 * arg1, const int * offsetarg1, complex16 * out0, const int * offsetout0);
 
-#define _ZTWOCOMPLEXARGONEDOUBLERESULTFUNCTION(_VECTORNAME, _NAME) void _VECTORNAME##_NAME(const int * count, const double complex * arg0, const int * offsetarg0, const double complex * arg1, const int * offsetarg1, double * out0, const int * offsetout0);
+#define _ZTWOCOMPLEXARGONEDOUBLERESULTFUNCTION(_VECTORNAME, _NAME) void _VECTORNAME##_NAME(const int * count, const complex16 * arg0, const int * offsetarg0, const complex16 * arg1, const int * offsetarg1, double * out0, const int * offsetout0);
 
 #define _ZVECTORONECOMPLEXARGONECOMPLEXRESULTFUNCTION(_NAME) _ZONECOMPLEXARGONECOMPLEXRESULTFUNCTION(vz_, _NAME)
 #define _ZVECTORONECOMPLEXARGONEDOUBLERESULTFUNCTION(_NAME) _ZONECOMPLEXARGONEDOUBLERESULTFUNCTION(vz_, _NAME)

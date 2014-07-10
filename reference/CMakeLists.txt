@@ -20,3 +20,8 @@ add_multitarget_library(izyreference
                         SOURCES ${REFSRC}
                         LINK_LIBRARIES m
                         TARGETS ${TARGET_TYPES})
+
+add_multitarget_export(izyreference
+                        EXPORTNAME "IZY_EXPORTS"
+                        TARGETS ${TARGET_TYPES}
+                      )
