@@ -121,3 +121,19 @@ macro(add_multitarget_test TESTNAME)
     endif()
   endforeach()
 endmacro()
+
+
+
+# appendable export file for multitargets
+function(add_multitarget_export _TARGET_NAME)
+  cmake_parse_arguments(MT
+                        ""
+                        "EXPORTNAME"
+                        "TARGETS"
+                        ${ARGN}
+                        )
+  foreach(TARGET ${MT_TARGETS})
+    set(EXPORTABLE_NAME "${_TARGET_NAME}_${TARGET}")
+    export(TARGETS ${EXPORTABLE_NAME} APPEND FILE "${PROJECT_BINARY_DIR}/${MT_EXPORTNAME}.cmake")
+  endforeach()
+endfunction()
