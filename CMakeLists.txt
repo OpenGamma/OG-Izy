@@ -26,6 +26,13 @@ set(IZY_VERSION
 
 enable_language(C)
 
+# Get Python
+find_package(PythonInterp)
+message(STATUS "Looking for Python found - ${PYTHONINTERP_FOUND}")
+if (PYTHONINTERP_FOUND)
+   message(STATUS "Using Python version ${PYTHON_VERSION_STRING}")
+endif()
+
 # Construct platform code
 if(WIN32)
   set(PLATFORM_CODE win)
@@ -114,6 +121,14 @@ add_subdirectory (izy)
 add_subdirectory (test)
 add_subdirectory (include)
 add_subdirectory (man)
+
+# Add version info file
+if(NOT DEFINED BUILDNUMBER)
+  set(BUILDNUMBER local)
+endif()
+add_custom_target(verinfo ALL
+                  ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/cmake/modules/verinfo.py ${CMAKE_BINARY_DIR}/verinfo.yaml ${JAR_VERSION} ${BUILDNUMBER}
+                  COMMENT "Generating version info")
 
 # Show user general info about build
 message("
