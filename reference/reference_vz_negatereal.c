@@ -19,4 +19,4 @@ void vz_reference_negatereal(const int * count, const double complex * arg0, con
         {
                 out0ref[i] = -creal(arg0ref[i]) + I * cimag(arg0ref[i]);
         }
-};
+}

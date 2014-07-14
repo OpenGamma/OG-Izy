@@ -7,10 +7,22 @@
 # Include folder
 include_directories (${IZY_SOURCE_DIR}/include)
 
-# We build the static library with a different name since this is recommended on Windows.
-# We keep this behaviour on Linux/Apple for consistency across platforms,
-add_library (izy SHARED izy.c)
-add_dependencies(izy izyreference)
-target_link_libraries(izy m izyreference)
-set_target_properties(izy PROPERTIES SOVERSION ${IZY_VERSION_MAJOR} VERSION ${IZY_VERSION})
-install(TARGETS izy DESTINATION lib)
+set(IZYSRC izy.c)
+
+# build multilib
+add_multitarget_library(izy
+                        VERSION ${IZY_VERSION}
+                        SOVERSION ${IZY_VERSION_MAJOR}
+                        SOURCES ${IZYSRC}
+                        LINK_MULTILIBRARIES izyreference
+                        TARGETS ${TARGET_TYPES}
+                        )
+
+add_multitarget_export(izy
+                        EXPORTNAME "IZY_EXPORTS"
+                        TARGETS ${TARGET_TYPES}
+                       )
+
+
+FILE(APPEND "${PROJECT_BINARY_DIR}/IZY_EXPORTS.cmake" "# Set IZY_INCLUDE_DIR for future use.\n")
+FILE(APPEND "${PROJECT_BINARY_DIR}/IZY_EXPORTS.cmake" "set(IZY_INCLUDE_DIR \"${IZY_SOURCE_DIR}/include\")\n")

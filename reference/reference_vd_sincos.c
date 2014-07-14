@@ -25,4 +25,4 @@ void vd_reference_sincos(const int * count, const double * arg0, const int * off
                 out1ref[i] = cos(arg0ref[i]);                
 #endif
         }
-};
+}

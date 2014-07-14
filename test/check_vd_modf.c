@@ -38,7 +38,7 @@ int main()
       TEST_DOUBLE_EQUALS_FULL(i, expected_data1[i], results_data1[i], IZY_MAX_ULPS, _STANDARD_LOOP_INCORRECT_RESULT)
     }
 
-  /* /*stage offset call */
+  /* stage offset call */
   const int offsetin_used0 = (int)(0.2*count);
   const int offsetout_used0 = (int)(0.4*count);
   const int offsetout_used1 = (int)(0.4*count);

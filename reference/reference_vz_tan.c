@@ -10,5 +10,5 @@
 #include "libizy/izymathsmacros.h"
 void vz_reference_tan(const int * count, const double complex * arg0, const int * offsetarg0, double complex * out0, const int * offsetout0)
 {
-        ZVFUNC(ctan);
-};
+        ZVFUNC(ctan)
+}

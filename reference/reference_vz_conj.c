@@ -11,4 +11,4 @@
 void vz_reference_conj(const int * count, const double complex * arg0, const int * offsetarg0, double complex * out0, const int * offsetout0)
 {
         ZVFUNC(conj)
-};
+}

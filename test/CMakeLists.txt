@@ -26,13 +26,13 @@ set(DEF_COMPLEX_PWR check_vz_sqrt check_vz_pow check_vz_powx)
 
 set(TESTS ${DEF_DOUBLE_TRIG} ${DEF_DOUBLE_ARITH} ${DEF_DOUBLE_EL} ${DEF_DOUBLE_HYP} ${DEF_DOUBLE_SPECFUN} ${DEF_DOUBLE_PWR} ${DEF_DOUBLE_ROUND} ${DEF_COMPLEX_TRIG} ${DEF_COMPLEX_HYP} ${DEF_COMPLEX_PWR} ${DEF_COMPLEX_ARITH})
 
-# Compile and link each test, and add to the list of tests.
-foreach(TEST ${TESTS})
-  add_executable(${TEST} ${TEST}.c)
-  target_link_libraries(${TEST} izy izyreference)
-  get_target_property(TEST_LOC ${TEST} LOCATION)
-  add_test(${TEST} ${TEST_LOC})
-  if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    add_test(${TEST}_memcheck valgrind --leak-check=full --error-exitcode=1 ${TEST_LOC})
-  endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+
+foreach(TESTGROUP ${TESTS})
+  foreach(TESTNAME ${TESTGROUP})
+    add_multitarget_test(${TESTNAME}
+                        SOURCES ${TESTNAME}.c
+                        LINK_LIBRARIES izy
+                        TARGETS ${TARGET_TYPES}
+                        )
+  endforeach()
 endforeach()
