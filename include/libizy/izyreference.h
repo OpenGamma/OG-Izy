@@ -4,7 +4,6 @@
 // Please see distribution for license.
 //
 
-#include <complex.h>
 #ifndef _IZYREFERENCE_H
 #define _IZYREFERENCE_H 1
 
