@@ -4,8 +4,7 @@
 // Please see distribution for license.
 //
 
-#include <complex.h>
-#ifndef IZY_H 
+#ifndef IZY_H
 #define IZY_H 1
 #include "libizy/izymacros.h"
 

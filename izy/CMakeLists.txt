@@ -16,7 +16,7 @@ add_multitarget_library(izy
                         SOURCES ${IZYSRC}
                         LINK_MULTILIBRARIES izyreference
                         TARGETS ${TARGET_TYPES}
-                        DEPENDS ${INCLUDE_DIRS_TARGET})
+                        )
 
 add_multitarget_export(izy
                         EXPORTNAME "IZY_EXPORTS"
