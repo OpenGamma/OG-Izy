@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# Copyright (C) 2014 - present by OpenGamma Inc. and the OpenGamma group of companies.
+#
+# Please see distribution for license.
+#
 #not pretty, generates man pages
 
 ## Generate the easy binary function man pages
