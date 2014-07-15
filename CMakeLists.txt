@@ -97,6 +97,36 @@ set(OPT_FLAGS_sse41 "-g ${OPT_FLAGS_std} -march=core2 -msse4.1")
 set(OPT_FLAGS_avx1 "-g ${OPT_FLAGS_std}  -march=corei7-avx -mavx256-split-unaligned-load -mavx256-split-unaligned-store")
 
 
+# Coverage - must build underneath the source dir for this to work.
+if (NOT WIN32)
+  set(DEBUG_TESTS_REGEX "\".*dbg$$\"")
+  set(OPT_FLAGS_dbg "--coverage ${OPT_FLAGS_dbg}")
+  add_custom_target(gencovinfo
+                    COMMAND ${CMAKE_CTEST_COMMAND} --force-new-ctest-process -R ${DEBUG_TESTS_REGEX}
+                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+                    COMMENT "Running tests to gather C++ coverage information")
+  add_custom_target(coverageinfo
+                    COMMAND lcov --capture -i -d . --output-file ${CMAKE_BINARY_DIR}/coverage-initial.info --no-external
+                    COMMAND lcov --capture -d . --output-file ${CMAKE_BINARY_DIR}/coverage-run.info --no-external
+                    COMMAND lcov -a ${CMAKE_BINARY_DIR}/coverage-initial.info -a ${CMAKE_BINARY_DIR}/coverage-run.info --output-file ${CMAKE_BINARY_DIR}/coverage.info --no-external
+                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+                    DEPENDS gencovinfo
+                    COMMENT "Capturing coverage info")
+
+  add_custom_target(coverageextract
+                     DEPENDS coverageinfo
+                     COMMAND lcov -o coverage-extract.info --extract coverage.info "\"${CMAKE_SOURCE_DIR}/include/*\"" "\"${CMAKE_SOURCE_DIR}/izy/*\"" "\"${CMAKE_SOURCE_DIR}/reference/*\"" "\"${CMAKE_SOURCE_DIR}/test/*\""
+                     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+                     COMMENT "Removing external from coverage info")
+
+  add_custom_target(coverage
+                    COMMAND genhtml -o lcov.out coverage-extract.info
+                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+                    DEPENDS coverageextract
+                    COMMENT "Generating coverage report")
+endif()
+
+
 # Copy platform-dependent expected test failure files.
 if(WIN32)
   message(STATUS "Copying Windows test suppressions file.")
