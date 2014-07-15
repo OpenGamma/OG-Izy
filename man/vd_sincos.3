@@ -1,0 +1,100 @@
+.\" %%%LICENSE_START(APACHE_V2)
+.\"
+.\" Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+.\"
+.\" Please see distribution for license.
+.\"
+.\" %%%LICENSE_END
+
+.TH vd_sincos 3  "15 Jul 2014" "version 0.1"
+.SH NAME
+vd_sincos - vectorised version of the operation, [out0, out1] := sincos(arg0).
+.SH SYNOPSIS
+.B #include <libizy/izy.h>
+.sp
+.BI "void vd_sincos(const int * "count
+.BI ", const double * "arg0
+.BI ", const int * "offsetarg0
+.BI ", double * "out0
+.BI ", const int * "offsetout0
+.BI ", double * "out1
+.BI ", const int * "offsetout1
+.B ");"
+
+
+Link with e.g. \fI\-lizy_std\fP.
+.SH DESCRIPTION
+The 
+.BR vd_sincos ()
+function provides a vectorised version of the operation 
+.B [out0, out1] := sincos(arg0)
+based on a vectorised call to
+.B sincos(3), sincos(arg0, out0, out1)
+OR
+.B out0=sin(arg0), out1=cos(arg0)
+depending on what's available on the system.
+
+.HP
+.B Input:
+
+.B "const int * count"
+is the number of elements to process
+
+.B "const double * arg0"
+is the first operand
+
+.B "const int * offsetarg0"
+is the offset into arg0 at which values should be taken
+
+.B "const int * offsetout0"
+is the offset into out0 at which values should be placed
+
+.B "const int * offsetout1"
+is the offset into out1 at which values should be taken
+
+.HP
+.BR Output:
+
+.B "double * out0"
+contains part of the result of performing element wise sincos(arg0, out0, out1)
+
+.B "double * out1"
+contains part of the result of performing element wise sincos(arg0, out0, out1)
+
+.PP
+.SH EXAMPLE
+.nf
+/* Link with "-lizy -lm" */
+#include <libizy/izy.h>
+#include <stdio.h>
+#include <complex.h>
+#include <math.h>
+int main()
+{
+  int i;
+  int n = 4;
+  static double in_data0[] = {1.1, 2.2, 3.3, 4.4 };
+  double results_data0[n];
+  double results_data1[n];
+
+  const int offsetin0 = 0;
+  const int offsetout0 = 0;
+  const int offsetout1 = 0;
+  const int count = n;
+
+  /* make izy call */
+  vd_sincos(&count, in_data0, &offsetin0, results_data0, &offsetout0, results_data1, &offsetout1);
+
+  /* check */
+  printf("vd_sincos():\\n");
+  printf(" Input 0 | Output0 | Output1 | Calling out0=sin(arg0), out1=cos(arg0)\\n");
+  for(i=0; i<n; i++)
+    {
+      printf("%6.3f    %6.3f    %6.3f    %6.3f   %6.3f\\n", in_data0[i], results_data0[i], results_data1[i], sin(in_data0[i]), cos(in_data0[i]));
+    }
+}
+.fi
+.SH AUTHOR
+OpenGamma Inc. and the OpenGamma group of companies.
+.SH "SEE ALSO"
+.B sincos(3), vd_sin(3), vd_cos(3), vz_sin(3), vz_cos(3)

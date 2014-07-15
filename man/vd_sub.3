@@ -1,0 +1,95 @@
+.\" %%%LICENSE_START(APACHE_V2)
+.\"
+.\" Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+.\"
+.\" Please see distribution for license.
+.\"
+.\" %%%LICENSE_END
+
+.TH vd_sub 3  "15 Jul 2014" "version 0.1"
+.SH NAME
+vd_sub - vectorised version of the operation, out0 := arg0 - arg1.
+.SH SYNOPSIS
+.B #include <libizy/izy.h>
+.sp
+.BI "void vd_sub(const int * "count
+.BI ", const double * "arg0
+.BI ", const int * "offsetarg0
+.BI ", const double * "arg1
+.BI ", const int * "offsetarg1
+.BI ", double "out0
+.BI ", const int * "offsetout0
+.B ");"
+
+
+Link with e.g. \fI\-lizy_std\fP.
+.SH DESCRIPTION
+The 
+.BR vd_sub ()
+function provides a vectorised version of the operation 
+.B out0 := arg0 - arg1
+
+.HP
+.B Input:
+
+.B "const int * count"
+is the number of elements to process
+
+.B "const double * arg0"
+is the first operand
+
+.B "const int * offsetarg0"
+is the offset into arg0 at which values should be taken
+
+.B "const double * arg1"
+is the second operand
+
+.B "const int * offsetarg1"
+is the offset into arg1 at which values should be taken
+
+.B "const int * offsetout0"
+is the offset into out0 at which values should be placed
+
+.HP
+.BR Output:
+
+.B "double * out0"
+contains the result of performing element wise arg0 - arg1
+
+.PP
+.SH EXAMPLE
+.nf
+/* Link with e.g. "\-lizy_std \-lm" */
+#include <libizy/izy.h>
+#include <stdio.h>
+#include <complex.h>
+#include <math.h>
+int main()
+{
+  int i;
+  int n = 4;
+  static double in_data0[] = {0.1, 0.2, 0.3, 0.4 };
+  static double in_data1[] = {4, 3, 2, 1 };
+  double results_data[n];
+
+  const int offsetin0 = 0;
+  const int offsetin1 = 0;  
+  const int offsetout0 = 0;
+  const int count = n;
+
+  /* make izy call */
+  vd_sub(&count, in_data0, &offsetin0, in_data1, &offsetin1, results_data, &offsetout0);
+
+  /* check */
+  printf("vd_sub():\\n");
+  printf(" Input 0  |Input 1| Output | Calling in_data0[i] - in_data1[i] \\n");
+  for(i=0; i<n; i++)
+    {
+      printf("%6.3f    %6.3f   %6.3f   %6.3f\\n", in_data0[i], in_data1[i], results_data[i], in_data0[i] - in_data1[i]);
+    }    
+}
+.fi
+.SH AUTHOR
+OpenGamma Inc. and the OpenGamma group of companies.
+.SH "SEE ALSO"
+.B vd_add(3), vd_div(3), vd_mul(3), vz_sub(3)

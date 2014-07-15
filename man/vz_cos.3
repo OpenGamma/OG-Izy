@@ -1,0 +1,87 @@
+.\" %%%LICENSE_START(APACHE_V2)
+.\"
+.\" Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+.\"
+.\" Please see distribution for license.
+.\"
+.\" %%%LICENSE_END
+
+.TH vz_cos 3  "15 Jul 2014" "version 0.1"
+.SH NAME
+vz_cos - vectorised version of the operation, out0 := cos(arg0), for complex arg0.
+.
+.SH SYNOPSIS
+.B #include <libizy/izy.h>
+.sp
+.BI "void vz_cos(const int * "count
+.BI ", const complex double * "arg0
+.BI ", const int * "offsetarg0
+.BI ", complex double * "out0
+.BI ", const int * "offsetout0
+.B ");"
+
+
+Link with e.g. \fI\-lizy_std\fP.
+.SH DESCRIPTION
+The 
+.BR vz_cos ()
+function provides a vectorised version of the operation 
+.B out0 := cos(arg0)
+for complex arg0.
+
+.HP
+.B Input:
+
+.B "const int * count"
+is the number of elements to process
+
+.B "const complex double * arg0"
+is the argument to be presented element wise to cos()
+
+.B "const int * offsetarg0"
+is the offset into arg0 at which values should be taken
+
+.B "const int * offsetout0"
+is the offset into out0 at which values should be placed
+
+.HP
+.BR Output:
+
+.B "complex double * out0"
+contains the result of performing element wise cos(arg0)
+
+.PP
+.SH EXAMPLE
+.nf
+/* Link with e.g. "\-lizy_std \-lm" */
+#include <libizy/izy.h>
+#include <stdio.h>
+#include <complex.h>
+#include <math.h>
+int main()
+{
+  int i;
+  int n = 4;
+  static complex double in_data[] = {0.1 + 0.2*I, 0.2+0.3*I, 0.3+0.4*I, 0.4+0.5*I };
+  complex double results_data[n];
+
+  const int offsetin0 = 0;
+  const int offsetout0 = 0;
+  const int count = n;
+
+  /* make izy call */
+  vz_cos(&count, in_data, &offsetin0, results_data, &offsetout0);
+
+  /* check */
+  printf("vz_cos():\\n");
+  printf(" Input  | Output | Calling ccos(in_data[i])\\n");
+  for(i=0; i<n; i++)
+    {
+      printf("%6.3f+%6.3fi   %6.3f+%6.3fi     %6.3f+%6.3fi\\n", creal(in_data[i]), cimag(in_data[i]), creal(results_data[i]), cimag(results_data[i]), creal(ccos(in_data[i])), cimag(ccos(in_data[i])));
+    }
+}
+.fi
+.SH AUTHOR
+OpenGamma Inc. and the OpenGamma group of companies.
+.SH "SEE ALSO"
+.B cos(3), vd_cos(3)
