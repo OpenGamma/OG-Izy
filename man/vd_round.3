@@ -1,0 +1,85 @@
+.\" %%%LICENSE_START(APACHE_V2)
+.\"
+.\" Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+.\"
+.\" Please see distribution for license.
+.\"
+.\" %%%LICENSE_END
+
+.TH vd_round 3  "15 Jul 2014" "version 0.1"
+.SH NAME
+vd_round - vectorised version of the operation, out0 := round(arg0).
+.SH SYNOPSIS
+.B #include <libizy/izy.h>
+.sp
+.BI "void vd_round(const int * "count
+.BI ", const double * "arg0
+.BI ", const int * "offsetarg0
+.BI ", double * "out0
+.BI ", const int * "offsetout0
+.B ");"
+
+
+Link with e.g. \fI\-lizy_std\fP.
+.SH DESCRIPTION
+The 
+.BR vd_round ()
+function provides a vectorised version of the operation 
+.B out0 := round(arg0)
+
+.HP
+.B Input:
+
+.B "const int * count"
+is the number of elements to process
+
+.B "const double * arg0"
+is the argument to be presented element wise to round()
+
+.B "const int * offsetarg0"
+is the offset into arg0 at which values should be taken
+
+.B "const int * offsetout0"
+is the offset into out0 at which values should be placed
+
+.HP
+.BR Output:
+
+.B "double * out0"
+contains the result of performing element wise round(arg0)
+
+.PP
+.SH EXAMPLE
+.nf
+/* Link with e.g. "\-lizy_std \-lm" */
+#include <libizy/izy.h>
+#include <stdio.h>
+#include <complex.h>
+#include <math.h>
+int main()
+{
+  int i;
+  int n = 4;
+  static double in_data[] = {0.1, 0.2, 0.3, 0.4 };
+  double results_data[n];
+
+  const int offsetin0 = 0;
+  const int offsetout0 = 0;
+  const int count = n;
+
+  /* make izy call */
+  vd_round(&count, in_data, &offsetin0, results_data, &offsetout0);
+
+  /* check */
+  printf("vd_round():\\n");
+  printf(" Input  | Output | Calling round(in_data[i])\\n");
+  for(i=0; i<n; i++)
+    {
+      printf("%6.3f   %6.3f   %6.3f\\n", in_data[i], results_data[i], round(in_data[i]));
+    }
+}
+.fi
+.SH AUTHOR
+OpenGamma Inc. and the OpenGamma group of companies.
+.SH "SEE ALSO"
+.B round(3), vd_nearbyint(3), vd_floor(3), vd_rint(3)

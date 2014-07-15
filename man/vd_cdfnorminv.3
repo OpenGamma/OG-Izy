@@ -1,0 +1,86 @@
+.\" %%%LICENSE_START(APACHE_V2)
+.\"
+.\" Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+.\"
+.\" Please see distribution for license.
+.\"
+.\" %%%LICENSE_END
+
+.TH vd_cdfnorminv 3  "15 Jul 2014" "version 0.1"
+.SH NAME
+vd_cdfnorminv - vectorised version of the operation, out0 := cdfnorminv(arg0). Where cdfnorminv computes the value of the inverse cumulative distribution function of the normal function at arg0, computed with a mean of 0 and a standard deviation of 1..
+.SH SYNOPSIS
+.B #include <libizy/izy.h>
+.sp
+.BI "void vd_cdfnorminv(const int * "count
+.BI ", const double * "arg0
+.BI ", const int * "offsetarg0
+.BI ", double "out0
+.BI ", const int * "offsetout0
+.B ");"
+
+
+Link with e.g. \fI\-lizy_std\fP.
+.SH DESCRIPTION
+The 
+.BR vd_cdfnorminv ()
+function provides a vectorised version of the operation 
+.B out0 := cdfnorminv(arg0) 
+Where cdfnorminv computes the value of the inverse cumulative distribution function of the normal function at arg0, computed with a mean of 0 and a standard deviation of 1..
+
+.HP
+.B Input:
+
+.B "const int * count"
+is the number of elements to process
+
+.B "const double * arg0"
+is the argument to be presented element wise to cdfnorminv()
+
+.B "const int * offsetarg0"
+is the offset into arg0 at which values should be taken
+
+.B "const int * offsetout0"
+is the offset into out0 at which values should be placed
+
+.HP
+.BR Output:
+
+.B "double * out0"
+contains the result of performing element wise cdfnorminv(arg0)
+
+.PP
+.SH EXAMPLE
+.nf
+/* Link with e.g. "\-lizy_std \-lm" */
+#include <libizy/izy.h>
+#include <stdio.h>
+#include <complex.h>
+#include <math.h>
+int main()
+{
+  int i;
+  int n = 4;
+  static double in_data[] = {0.1, 0.2, 0.3, 0.4 };
+  double results_data[n];
+
+  const int offsetin0 = 0;
+  const int offsetout0 = 0;
+  const int count = n;
+
+  /* make izy call */
+  vd_cdfnorminv(&count, in_data, &offsetin0, results_data, &offsetout0);
+
+  /* check */
+  printf("vd_cdfnorminv():\\n");
+  printf(" Input  | Output\\n");
+  for(i=0; i<n; i++)
+    {
+      printf("%6.3f   %6.3f\\n", in_data[i], results_data[i]);
+    }
+}
+.fi
+.SH AUTHOR
+OpenGamma Inc. and the OpenGamma group of companies.
+.SH "SEE ALSO"
+.B erf(3), erfc(3), vd_erf(3), vd_cdfnorm(3)
