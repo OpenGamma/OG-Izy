@@ -1,0 +1,7 @@
+Copyright (C) 2014 - present by OpenGamma Inc. and the OpenGamma group of
+companies.
+
+OpenGamma Izy Licensing.
+
+All code within this project is released under the APLv2 license, see
+'licenses/APLv2.0.txt' for license text.
