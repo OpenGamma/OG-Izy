@@ -1,0 +1,36 @@
+#
+# Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+#
+# Please see distribution for license.
+#
+
+set(CTEST_CUSTOM_TESTS_IGNORE
+check_vd_acosh_dbg
+check_vd_asinh_dbg
+check_vd_atan2_dbg
+check_vd_atan2_std
+check_vd_hypot_dbg
+check_vd_hypot_std
+check_vd_tgamma_dbg
+check_vd_invsqrt_dbg
+check_vd_sqrt_dbg
+check_vz_atan_dbg
+check_vz_acosh_dbg
+check_vz_atanh_dbg
+check_vz_pow_dbg
+check_vz_powx_dbg
+check_vd_acosh_std
+check_vd_asinh_std
+check_vd_tgamma_std
+check_vd_invsqrt_std
+check_vd_sqrt_std
+check_vz_atan_std
+check_vz_acosh_std
+check_vz_asin_dbg
+check_vz_asin_std
+check_vz_asinh_dbg
+check_vz_asinh_std
+check_vz_atanh_std
+check_vz_pow_std
+check_vz_powx_std
+)
