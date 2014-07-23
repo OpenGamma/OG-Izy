@@ -83,7 +83,12 @@ else()
   message(STATUS "CPU does not support AVX2")
 endif()
 
-
+set(BITS32 TRUE)
+set(BITS64 FALSE)
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+  set(BITS32 FALSE)
+  set(BITS64 TRUE)
+endif()
 
 # Executes the target as a test once, and then once again with valgrind
 # Appropriate flags are added so that GTest outputs JUnit XML for later

@@ -74,7 +74,10 @@ enable_testing()
 
 # Multi-target libraries need to be built
 include(MultiLib)
-set(TARGET_TYPES dbg std sse41 avx1)
+set(TARGET_TYPES dbg std)
+if(BITS64)
+  set(TARGET_TYPES ${TARGET_TYPES} sse41 avx1)
+endif()
 
 
 # Tweak flags. These flags are similar to --ffast-math, except:
@@ -89,6 +92,9 @@ if (WIN32)
   # failing, and we need to force the export of all symbols since
   # they were all visible by default in the original implementation.
   set (PLATFORM_FLAGS "-Wl,--export-all-symbols -Wl,--stack,4194304")
+  if(BITS32)
+    set(PLATFORM_FLAGS "${PLATFORM_FLAGS} -ffloat-store")
+  endif()
 endif()
 
 set(OPT_FLAGS_dbg "-DDEBUG ${CMAKE_C_FLAGS_DEBUG} ${PLATFORM_FLAGS}")
@@ -130,7 +136,11 @@ endif()
 # Copy platform-dependent expected test failure files.
 if(WIN32)
   message(STATUS "Copying Windows test suppressions file.")
-  configure_file(test/CTestCustom.windows CTestCustom.ctest)
+  if(BITS32)
+    configure_file(test/CTestCustom.windows-32 CTestCustom.ctest)
+  else()
+    configure_file(test/CTestCustom.windows CTestCustom.ctest)
+  endif()
 endif(WIN32)
 
 if(APPLE)
