@@ -26,3 +26,6 @@ add_multitarget_export(izy
 
 FILE(APPEND "${PROJECT_BINARY_DIR}/IZY_EXPORTS.cmake" "# Set IZY_INCLUDE_DIR for future use.\n")
 FILE(APPEND "${PROJECT_BINARY_DIR}/IZY_EXPORTS.cmake" "set(IZY_INCLUDE_DIR \"${IZY_SOURCE_DIR}/include\")\n")
+
+FILE(APPEND "${PROJECT_BINARY_DIR}/IZY_EXPORTS.cmake" "# Set IZY_SRC_DIR for future use.\n")
+FILE(APPEND "${PROJECT_BINARY_DIR}/IZY_EXPORTS.cmake" "set(IZY_SRC_DIR \"${IZY_SOURCE_DIR}\")\n")
