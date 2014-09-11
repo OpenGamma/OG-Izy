@@ -19,7 +19,7 @@ OG-Izy is intended for use as part of the [OG-Maths](https://github.com/OpenGamm
 
 The OG-Izy library is open source software using the Apache License v2, and includes components provided under other licences. For a full list of licences and the source files to which they pertain, see [LICENSE.txt](LICENSE.txt). The company behind OG-Izy (OpenGamma) also offers support and some additional commercial components. (The commercial components typically have dependencies with restrictive licensing incompatible with open source.) This README only refers to the open source components.
 
-**NOTE: All commits prior to SHA [XXX](https://github.com/OpenGamma/OG-Izy/commit/XXX) are missing one or more license notations, details of the licenses which apply to these prior versions can be found in the most current version of [LICENSE.txt](LICENSE.txt).**
+**NOTE: All commits prior to SHA [0541cfe14b9e84b64003c9dec5f5ccb7c09518cb](https://github.com/OpenGamma/OG-Izy/commit/0541cfe14b9e84b64003c9dec5f5ccb7c09518cb) are missing one or more license notations, details of the licenses which apply to these prior versions can be found in the most current version of [LICENSE.txt](LICENSE.txt).**
 
 
 Copyright (C) 2014 - present by OpenGamma Inc. and the OpenGamma group of companies.
